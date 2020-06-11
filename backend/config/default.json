@@ -1,0 +1,12 @@
+{
+    "authentication": {
+        "privatekey": "privatekey"
+    },
+    "server": {
+        "port": 8000
+    },
+    "db" : {
+        "url": "localhost:27017",
+        "name": "messenger"
+    }
+}
