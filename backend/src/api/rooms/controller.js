@@ -1,45 +1,46 @@
 const Rooms = require('./model');
 
-exports.createRoom = function (req, res, next) {
-    var room = {
-        username: req.body.username,
-        description: req.body.description,
-    };
-
-    Rooms.create(room, function (err, room) {
-        if (err) res.json({ error: err }).status(406);
-        res.json(room).status(201);
-    });
+exports.createRoom = async (req, res) => {
+    try {
+        const room = await Rooms.create({ _id: req.params.id }, req.body);
+        return res.json(room).status(200);
+    } catch (err) {
+        return res.json({ error: err }).status(400);
+    }
 };
 
-exports.getRooms = function (req, res, next) {
-    Rooms.get({}, function (err, rooms) {
-        if (err) res.json({ error: err }).status(406);
-        res.json(rooms).status(200);
-    });
+exports.getRooms = async (req, res) => {
+    try {
+        const rooms = await Rooms.get({});
+        return res.json(rooms).status(200);
+    } catch (err) {
+        return res.json({ error: err }).status(400);
+    }
 };
 
-exports.getRoom = function (req, res, next) {
-    Rooms.get({ _id: req.params.id }, function (err, room) {
-        if (err) res.json({ error: err }).status(406);
-        res.json(room).status(200);
-    });
+exports.getRoom = async (req, res) => {
+    try {
+        const room = await Rooms.get({ _id: req.params.id });
+        return res.json(room).status(200);
+    } catch (err) {
+        return res.json({ error: err }).status(400);
+    }
 };
 
-exports.updateRoom = function (req, res, next) {
-    var room = {
-        username: req.body.username,
-        description: req.body.description,
-    };
-    Rooms.update({ _id: req.params.id }, room, function (err, room) {
-        if (err) res.json({ error: err }).status(406);
-        res.json(room).status(200);
-    });
+exports.updateRoom = async (req, res) => {
+    try {
+        const room = await Rooms.update({ _id: req.params.id }, req.body);
+        return res.json(room).status(200);
+    } catch (err) {
+        return res.json({ error: err }).status(400);
+    }
 };
 
-exports.removeRoom = function (req, res, next) {
-    Rooms.delete({ _id: req.params.id }, function (err, room) {
-        if (err) res.json({ error: err }).status(406);
-        res.json({}).status(200);
-    });
+exports.removeRoom = async (req, res) => {
+    try {
+        await Rooms.delete({ _id: req.params.id }, req.body);
+        return res.json({}).status(200);
+    } catch (err) {
+        return res.json({ error: err }).status(400);
+    }
 };
