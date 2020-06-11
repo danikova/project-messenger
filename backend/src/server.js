@@ -28,6 +28,6 @@ const authRouter = setAuthRoutes();
 app.use('/api', apiRouter);
 app.use('/auth', authRouter);
 
-server.listen(config.get('server.port'), () => {
-    console.log(`Server is running on ${config.get('server.port')} port`);
+server.listen(config.get('server.port'), config.get('server.host'), () => {
+    console.log(`Server is running on ${config.get('server.host')}:${config.get('server.port')}`);
 });
