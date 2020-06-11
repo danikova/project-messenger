@@ -29,7 +29,7 @@ UserSchema.statics = {
     },
     delete: async function (query) {
         return await this.findOneAndDelete(query);
-    },
+    }
 };
 
 UserSchema.methods.generateAuthToken = function () {
