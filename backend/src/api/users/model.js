@@ -1,28 +1,40 @@
+const config = require('config');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 var mongoose = require('mongoose');
 var UserSchema = require('./schema');
 
 UserSchema.statics = {
-    create : function(data, cb) {
+    create: async function (data) {
         const user = new this(data);
-        user.save(cb);
+        user.password = await bcrypt.hashSync(user.password, 10);
+        await user.save();
+        return user;
     },
-
-    get: function(query, cb) {
-        this.find(query, cb);
+    get: async function (query) {
+        return await this.findOne(query);
     },
-
-    getByName: function(query, cb) {
-        this.find(query, cb);
+    getByName: async function (username) {
+        return await this.findOne({ username: username });
     },
-
-    update: function(query, updateData, cb) {
-        this.findOneAndUpdate(query, {$set: updateData},{new: true}, cb);
+    getById: async function (id) {
+        return await this.findOne({ _id: id });
     },
+    update: function (query, updateData, cb) {
+        this.findOneAndUpdate(query, { $set: updateData }, { new: true }, cb);
+    },
+    delete: function (query, cb) {
+        this.findOneAndDelete(query, cb);
+    },
+};
 
-    delete: function(query, cb) {
-        this.findOneAndDelete(query,cb);
-    }
-}
+UserSchema.methods.generateAuthToken = function () {
+    const token = jwt.sign(
+        { _id: this._id },
+        config.get('authentication.privatekey'),
+    );
+    return token;
+};
 
 var UsersModel = mongoose.model('Users', UserSchema);
 module.exports = UsersModel;

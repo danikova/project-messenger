@@ -27,7 +27,7 @@ exports.getUser = function (req, res, next) {
 
 exports.updateUser = function (req, res, next) {
     var user = {
-        name: req.body.name,
+        username: req.body.username,
         description: req.body.description,
     };
     Users.update({ _id: req.params.id }, user, function (err, user) {

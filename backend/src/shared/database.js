@@ -1,21 +1,28 @@
-var mongoose = require('mongoose');
-var chalk = require('chalk');
-var dbURL = require('./setup').DB;
+const mongoose = require('mongoose');
+const chalk = require('chalk');
+const config = require('config');
 
-var connected = chalk.bold.cyan;
-var error = chalk.bold.yellow;
-var disconnected = chalk.bold.red;
-var termination = chalk.bold.magenta;
+const connected = chalk.bold.cyan;
+const error = chalk.bold.yellow;
+const disconnected = chalk.bold.red;
+const termination = chalk.bold.magenta;
 
 module.exports = function () {
-    mongoose.connect(dbURL, {
-        useCreateIndex: true,
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    });
+    mongoose.connect(
+        `mongodb://${config.get('db.url')}/${config.get('db.name')}`,
+        {
+            useCreateIndex: true,
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        },
+    );
 
     mongoose.connection.on('connected', function () {
-        console.log(connected('Mongoose default connection is open to', dbURL));
+        console.log(
+            connected(
+                `Mongoose is connected on ${config.get('db.url')}`
+            ),
+        );
     });
 
     mongoose.connection.on('error', function (err) {

@@ -5,6 +5,15 @@ var UserSchema = new Schema(
         username: {
             type: String,
             unique: true,
+            required: true,
+            minlength: 3,
+            maxlength: 50,
+        },
+        password: {
+            type: String,
+            required: true,
+            minlength: 8,
+            maxlength: 255,
         },
         online: {
             type: Boolean,

@@ -2,7 +2,7 @@ const Rooms = require('./model');
 
 exports.createRoom = function (req, res, next) {
     var room = {
-        name: req.body.name,
+        username: req.body.username,
         description: req.body.description,
     };
 
@@ -28,7 +28,7 @@ exports.getRoom = function (req, res, next) {
 
 exports.updateRoom = function (req, res, next) {
     var room = {
-        name: req.body.name,
+        username: req.body.username,
         description: req.body.description,
     };
     Rooms.update({ _id: req.params.id }, room, function (err, room) {
