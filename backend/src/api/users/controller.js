@@ -1,44 +1,54 @@
 const Users = require('./model');
 
-exports.createUser = function (req, res, next) {
-    var user = {
-        username: req.body.username
+exports.createUser = async (req, res) => {
+    var userData = {
+        username: req.body.username,
+        password: req.body.password
     };
-
-    Users.create(user, function (err, user) {
-        if (err) res.json({ error: err }).status(406);
-        res.json(user).status(201);
-    });
+    try {
+        const user = await Users.create(userData);
+        return res.json(user).status(200);
+    } catch (err) {
+        return res.json({ error: err }).status(400);
+    }
 };
 
-exports.getUsers = function (req, res, next) {
-    Users.get({}, function (err, users) {
-        if (err) res.json({ error: err }).status(406);
-        res.json(users).status(200);
-    });
+exports.getUsers = async (req, res) => {
+    try {
+        const users = await Users.get({});
+        return res.json(users).status(200);
+    } catch (err) {
+        return res.json({ error: err }).status(400);
+    }
 };
 
-exports.getUser = function (req, res, next) {
-    Users.get({ _id: req.params.id }, function (err, user) {
-        if (err) res.json({ error: err }).status(406);
-        res.json(user).status(200);
-    });
+exports.getUser = async (req, res) => {
+    try {
+        const user = await Users.get({ _id: req.params.id });
+        return res.json(user).status(200);
+    } catch (err) {
+        return res.json({ error: err }).status(400);
+    }
 };
 
-exports.updateUser = function (req, res, next) {
-    var user = {
+exports.updateUser = async (req, res) => {
+    const userData = {
         username: req.body.username,
         description: req.body.description,
     };
-    Users.update({ _id: req.params.id }, user, function (err, user) {
-        if (err) res.json({ error: err }).status(406);
-        res.json(user).status(200);
-    });
+    try {
+        const user = await Users.update({ _id: req.params.id }, userData);
+        return res.json(user).status(200);
+    } catch (err) {
+        return res.json({ error: err }).status(400);
+    }
 };
 
-exports.removeUser = function (req, res, next) {
-    Users.delete({ _id: req.params.id }, function (err, user) {
-        if (err) res.json({ error: err }).status(406);
-        res.json({}).status(200);
-    });
+exports.removeUser = async (req, res) => {
+    try {
+        await Users.delete({ _id: req.params.id });
+        return res.json({}).status(200);
+    } catch (err) {
+        return res.json({ error: err }).status(400);
+    }
 };

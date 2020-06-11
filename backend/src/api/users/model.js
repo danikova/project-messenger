@@ -20,11 +20,15 @@ UserSchema.statics = {
     getById: async function (id) {
         return await this.findOne({ _id: id });
     },
-    update: function (query, updateData, cb) {
-        this.findOneAndUpdate(query, { $set: updateData }, { new: true }, cb);
+    update: async function (query, updateData) {
+        return await this.findOneAndUpdate(
+            query,
+            { $set: updateData },
+            { new: true },
+        );
     },
-    delete: function (query, cb) {
-        this.findOneAndDelete(query, cb);
+    delete: async function (query) {
+        return await this.findOneAndDelete(query);
     },
 };
 
@@ -35,6 +39,10 @@ UserSchema.methods.generateAuthToken = function () {
     );
     return token;
 };
+
+UserSchema.query.wOPass = function(){
+    return this.select("-password");
+}
 
 var UsersModel = mongoose.model('Users', UserSchema);
 module.exports = UsersModel;
