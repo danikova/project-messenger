@@ -1,13 +1,68 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    background-color: #008080;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+        'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+        'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+html,
+#root,
+body,
+.MainView {
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+body,
+html,
+#root {
+    overflow: hidden;
+}
+
+.MainView {
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+.MainView .window {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.MainView .max-height {
+    height: 100%;
+}
+
+.MainView .send-button {
+    height: 100%;
+}
+
+.MainView .window .windowHeader {
+    flex: 0 0;
+}
+
+.MainView .window .windowContent {
+    flex: 1 0;
+}
+
+.focused-chat-room .content-wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.focused-chat-room .content-wrapper .text-field {
+    flex: 1 0;
+    margin-bottom: 20px;
+}
+
+.focused-chat-room .content-wrapper .response-field {
+    flex: 0 0;
 }
