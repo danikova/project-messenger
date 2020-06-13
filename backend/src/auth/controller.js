@@ -12,8 +12,11 @@ async function validateUser(user) {
 }
 
 exports.signUp = async (req, res) => {
-    const { error } = await validateUser(req.body);
-    if (error) return res.status(400).json({ error: error.details[0].message });
+    try {
+        await validateUser(req.body);
+    } catch (error) {
+        return res.status(400).json({ error: error.details[0].message });
+    }
     let user = await User.getByName(req.body.username);
     if (user)
         return res.status(400).send({
@@ -32,15 +35,14 @@ exports.signUp = async (req, res) => {
     }
 
     const token = user.generateAuthToken();
-    res.header('x-access-token', token).send({
-        _id: user._id,
-        username: user.username,
-        token: token
-    });
+    const userJson = user.toJSON();
+    userJson.token = token;
+    delete userJson.password;
+    res.status(201).send(userJson);
 };
 
 exports.signIn = async (req, res) => {
-    let user = await User.getByName(req.body.username);
+    let user = await User.findOne({ username: req.body.username });
     const passwordMatch = bcrypt.compareSync(
         req.body.password,
         (user && user.password) || '',
@@ -51,9 +53,8 @@ exports.signIn = async (req, res) => {
         });
 
     const token = user.generateAuthToken();
-    res.header('x-access-token', token).send({
-        _id: user._id,
-        username: user.username,
-        token: token
-    });
+    const userJson = user.toJSON();
+    userJson.token = token;
+    delete userJson.password;
+    res.send(userJson);
 };

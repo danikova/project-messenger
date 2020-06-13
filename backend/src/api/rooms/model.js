@@ -31,5 +31,9 @@ RoomSchema.statics = {
     }
 }
 
+// RoomSchema.methods = {
+//     addUser: async function
+// }
+
 const RoomsModel = mongoose.model('Rooms', RoomSchema);
 module.exports = RoomsModel;

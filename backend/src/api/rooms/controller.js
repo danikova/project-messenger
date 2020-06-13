@@ -3,7 +3,7 @@ const Rooms = require('./model');
 exports.createRoom = async (req, res) => {
     try {
         const room = await Rooms.create({ _id: req.params.id }, req.body);
-        return res.json(room || []).status(200);
+        return res.json(room || {}).status(200);
     } catch (err) {
         return res.json({ error: err }).status(400);
     }
@@ -12,7 +12,7 @@ exports.createRoom = async (req, res) => {
 exports.getRooms = async (req, res) => {
     try {
         const rooms = await Rooms.get({});
-        return res.json(rooms || {}).status(200);
+        return res.json(rooms || []).status(200);
     } catch (err) {
         return res.json({ error: err }).status(400);
     }
