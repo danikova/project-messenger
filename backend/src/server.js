@@ -31,3 +31,5 @@ app.use('/auth', authRouter);
 server.listen(config.get('server.port'), config.get('server.host'), () => {
     console.log(`Server is running on ${config.get('server.host')}:${config.get('server.port')}`);
 });
+
+module.exports = app;
