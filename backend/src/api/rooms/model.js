@@ -1,8 +1,14 @@
-var mongoose = require('mongoose');
-var RoomSchema = require('./schema');
+const mongoose = require('mongoose');
+const RoomSchema = require('./schema');
+const generateColors = require('../../shared/random.color');
 
 RoomSchema.statics = {
     create: async function (data) {
+        const randomColor = generateColors();
+        data.color = {
+            primary: randomColor.primary,
+            secondary: randomColor.secondary,
+        };
         const room = new this(data);
         await room.save();
         return room;
@@ -25,5 +31,5 @@ RoomSchema.statics = {
     }
 }
 
-var RoomsModel = mongoose.model('Rooms', RoomSchema);
+const RoomsModel = mongoose.model('Rooms', RoomSchema);
 module.exports = RoomsModel;
