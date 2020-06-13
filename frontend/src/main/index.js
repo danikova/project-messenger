@@ -4,7 +4,7 @@ import { reset, themes } from 'react95';
 
 import { Grid } from '@material-ui/core';
 import { ChatRoomsWindow } from './ChatRooms/ChatRoomsWindow';
-import { FocusedChatRoomWindow } from './FocusedChatRoomWindow';
+import { FocusedChatRoomWindow } from './FocusedChatRoom/FocusedChatRoomWindow';
 import { MaxHeightGrid } from '../shared/components';
 
 const MainViewWrapper = styled.div`

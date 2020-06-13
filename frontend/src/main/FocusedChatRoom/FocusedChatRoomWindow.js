@@ -1,12 +1,14 @@
 import React from 'react';
-import {
-    Cutout,
-    TextArea,
-    Button,
-} from 'react95';
+import { Cutout, TextArea, Button } from 'react95';
 import styled from 'styled-components';
 import { Grid } from '@material-ui/core';
-import { MaxHeightGrid, MaxSizeFlexWindow, FlexWindowHeader, FlexWindowContent } from "../shared/components";
+import {
+    MaxHeightGrid,
+    MaxSizeFlexWindow,
+    FlexWindowHeader,
+    FlexWindowContent,
+} from '../../shared/components';
+import { ChatRoomMessages } from './ChatRoomMessages';
 
 const ContentWrapper = styled.div`
     height: 100%;
@@ -14,9 +16,10 @@ const ContentWrapper = styled.div`
     flex-direction: column;
 `;
 
-const MessageCutout = styled(Cutout)`
+export const MessageCutout = styled(Cutout)`
     flex: 1 0;
     margin-bottom: 20px;
+    padding-top: 10px;
 `;
 
 const InputField = styled.div`
@@ -37,16 +40,14 @@ export class FocusedChatRoomWindow extends React.Component {
                 </FlexWindowHeader>
                 <FlexWindowContent>
                     <ContentWrapper>
-                        <MessageCutout></MessageCutout>
+                        <ChatRoomMessages></ChatRoomMessages>
                         <InputField>
                             <MaxHeightGrid container>
                                 <Grid item xs={10} md={11}>
                                     <TextArea placeholder='Type in here..' />
                                 </Grid>
                                 <Grid item xs={2} md={1}>
-                                    <SendButton>
-                                        send
-                                    </SendButton>
+                                    <SendButton>send</SendButton>
                                 </Grid>
                             </MaxHeightGrid>
                         </InputField>
