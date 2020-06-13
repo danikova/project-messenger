@@ -1,8 +1,13 @@
 import React from 'react';
-import { Window, WindowHeader, WindowContent, List } from 'react95';
+import { List } from 'react95';
 import { ChatRoom } from './ChatRoom';
 
 import styled from 'styled-components';
+import {
+    MaxSizeFlexWindow,
+    FlexWindowHeader,
+    FlexWindowContent,
+} from '../../shared/components';
 
 const FullHeightList = styled(List)`
     height: 100%;
@@ -22,19 +27,19 @@ export class ChatRoomsWindow extends React.Component {
         };
 
         return (
-            <Window className={'chat-rooms window'}>
-                <WindowHeader className={'windowHeader'}>
+            <MaxSizeFlexWindow>
+                <FlexWindowHeader>
                     <span>chatRooms.exe</span>
-                </WindowHeader>
-                <WindowContent className={'windowContent'}>
+                </FlexWindowHeader>
+                <FlexWindowContent>
                     <FullHeightList fullWidth>
                         <ChatRoom active {...chatRoomProps}></ChatRoom>
                         <ChatRoom {...chatRoomProps}></ChatRoom>
                         <ChatRoom {...chatRoomProps}></ChatRoom>
                         <ChatRoom {...chatRoomProps}></ChatRoom>
                     </FullHeightList>
-                </WindowContent>
-            </Window>
+                </FlexWindowContent>
+            </MaxSizeFlexWindow>
         );
     }
 }
