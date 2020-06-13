@@ -1,0 +1,14 @@
+{
+    "authentication": {
+        "enabled": true,
+        "privatekey": "privatekey"
+    },
+    "server": {
+        "host": "localhost",
+        "port": 8888
+    },
+    "db" : {
+        "url": "localhost:27017",
+        "name": "test"
+    }
+}
