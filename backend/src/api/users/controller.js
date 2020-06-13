@@ -9,22 +9,12 @@ exports.getUsers = async (req, res) => {
     }
 };
 
-exports.getUser = async (req, res) => {
-    try {
-        const user = await Users.get({ _id: req.params.id });
-        return res.json(user || {}).status(200);
-    } catch (err) {
-        return res.json({ error: err }).status(400);
-    }
-};
-
-exports.updateUser = async (req, res) => {
+exports.updateSelf = async (req, res) => {
     const userData = {
-        username: req.body.username,
-        description: req.body.description,
+        openChatRoom: req.body.openChatRoom,
     };
     try {
-        const user = await Users.update({ _id: req.params.id }, userData);
+        const user = await Users.update({ _id: req.user._id }, userData);
         return res.json(user || {}).status(200);
     } catch (err) {
         return res.json({ error: err }).status(400);

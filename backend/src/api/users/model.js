@@ -18,23 +18,23 @@ UserSchema.statics = {
         return user;
     },
     get: async function (query) {
-        return await this.findOne(query).wOPass();
+        return await this.find(query).publicData();
     },
     getByName: async function (username) {
-        return await this.findOne({ username: username }).wOPass();
+        return await this.findOne({ username: username }).publicData();
     },
     getById: async function (id) {
-        return await this.findOne({ _id: id }).wOPass();
+        return await this.findOne({ _id: id }).publicData();
     },
     update: async function (query, updateData) {
         return await this.findOneAndUpdate(
             query,
             { $set: updateData },
             { new: true },
-        ).wOPass();
+        ).publicData();
     },
     delete: async function (query) {
-        return await this.findOneAndDelete(query).wOPass();
+        return await this.findOneAndDelete(query);
     }
 };
 
@@ -46,8 +46,8 @@ UserSchema.methods.generateAuthToken = function () {
     return token;
 };
 
-UserSchema.query.wOPass = function(){
-    return this.select("-password");
+UserSchema.query.publicData = function(){
+    return this.select('username color');
 }
 
 const UsersModel = mongoose.model('Users', UserSchema);

@@ -6,6 +6,5 @@ module.exports = function (router) {
     router.use('/users', userRouter);
 
     userRouter.get('/', User.getUsers);
-    userRouter.get('/:id', User.getUser);
-    // userRouter.put('/:id', User.updateUser);
+    userRouter.put('/', User.updateSelf);
 };
