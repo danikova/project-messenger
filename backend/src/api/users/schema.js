@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var UserSchema = new Schema(
+const Schema = mongoose.Schema;
+const UserSchema = new Schema(
     {
+        color: {
+            primary: { type: String },
+            secondary: { type: String },
+        },
         username: {
             type: String,
             unique: true,
@@ -15,10 +19,10 @@ var UserSchema = new Schema(
             minlength: 8,
             maxlength: 255,
         },
-        online: {
-            type: Boolean,
-            default: false,
-        },
+        openChatRoom: {
+            type: Schema.Types.ObjectId,
+            ref: 'Rooms'
+        }
     },
     {
         timestamps: true,

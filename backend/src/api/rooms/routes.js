@@ -1,5 +1,5 @@
 const express = require('express');
-var Room = require('./controller');
+const Room = require('./controller');
 
 module.exports = function (router) {
     const roomRouter = express.Router();
