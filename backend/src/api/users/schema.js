@@ -18,6 +18,7 @@ const UserSchema = new Schema(
             required: true,
             minlength: 8,
             maxlength: 255,
+            select: false
         },
         openChatRoom: {
             type: Schema.Types.ObjectId,

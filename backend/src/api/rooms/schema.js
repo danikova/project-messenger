@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+
 const RoomSchema = new Schema(
     {
         color: {
@@ -8,21 +9,21 @@ const RoomSchema = new Schema(
         },
         name: {
             type: String,
-            required: true
+            required: true,
         },
-        users: {
-            type: [Schema.Types.ObjectId],
-            ref: 'Users',
-            default: []
-        },
-        messages: [
+        users: [
             {
-                user: { type: Schema.Types.ObjectId, ref: 'Users' },
-                message: { type: String },
-                sent: { type: Date, default: Date.now },
+                type: Schema.Types.ObjectId,
+                ref: 'Users',
             },
         ],
-                    
+        activeUsers: [Schema.Types.ObjectId],
+        messages: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Messages',
+            },
+        ],
     },
     {
         timestamps: true,

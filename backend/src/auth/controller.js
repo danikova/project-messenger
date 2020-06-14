@@ -19,7 +19,7 @@ exports.signUp = async (req, res) => {
     }
     let user = await User.getByName(req.body.username);
     if (user)
-        return res.status(400).send({
+        return res.status(400).json({
             error: 'User already registered.',
         });
 
@@ -29,7 +29,7 @@ exports.signUp = async (req, res) => {
             password: req.body.password,
         });
     } catch (e) {
-        return res.status(400).send({
+        return res.status(400).json({
             error: String(e),
         });
     }
@@ -38,17 +38,17 @@ exports.signUp = async (req, res) => {
     const userJson = user.toJSON();
     userJson.token = token;
     delete userJson.password;
-    res.status(201).send(userJson);
+    res.status(201).json(userJson);
 };
 
 exports.signIn = async (req, res) => {
-    let user = await User.findOne({ username: req.body.username });
+    let user = await User.findOne({ username: req.body.username }).select('+password');
     const passwordMatch = bcrypt.compareSync(
         req.body.password,
         (user && user.password) || '',
     );
     if (!passwordMatch)
-        return res.status(400).send({
+        return res.status(400).json({
             error: 'User not exists with these provided credentials.',
         });
 
@@ -56,5 +56,5 @@ exports.signIn = async (req, res) => {
     const userJson = user.toJSON();
     userJson.token = token;
     delete userJson.password;
-    res.send(userJson);
+    res.status(200).json(userJson);
 };

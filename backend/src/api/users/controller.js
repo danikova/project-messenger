@@ -3,9 +3,9 @@ const Users = require('./model');
 exports.getUsers = async (req, res) => {
     try {
         const users = await Users.get({});
-        return res.json(users || []).status(200);
+        return res.status(200).json(users || []);
     } catch (err) {
-        return res.json({ error: err }).status(400);
+        return res.status(400).json({ error: err });
     }
 };
 
@@ -15,8 +15,8 @@ exports.updateSelf = async (req, res) => {
     };
     try {
         const user = await Users.update({ _id: req.user._id }, userData);
-        return res.json(user || {}).status(200);
+        return res.status(200).json(user || {});
     } catch (err) {
-        return res.json({ error: err }).status(400);
+        return res.status(400).json({ error: err });
     }
 };

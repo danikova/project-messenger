@@ -19,7 +19,7 @@ databaseSetup();
 middlewares(app);
 
 app.get('/', function (req, res, next) {
-    res.json(listEndpoints(app)).status(200);
+    res.status(200).json(listEndpoints(app));
 });
 
 setSocket(server);

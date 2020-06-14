@@ -15,10 +15,12 @@ module.exports = async (req, res, next) => {
             config.get('authentication.privatekey'),
         );
         const { _id } = decoded;
-        req.user = await User.getById(_id);
+        const user = await User.getById(_id);
+        if (!user) throw Error();
+        req.user = user;
         next();
     } catch (ex) {
-        res.status(400).send({
+        res.status(400).json({
             error: 'Invalid token.',
         });
     }

@@ -1,6 +1,5 @@
 {
     "authentication": {
-        "enabled": false,
         "privatekey": "privatekey"
     },
     "server": {
