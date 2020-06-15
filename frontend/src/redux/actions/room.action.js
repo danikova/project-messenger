@@ -98,7 +98,7 @@ export function pushMessage(id, message) {
             type: PUSH_NEW_MESSAGE,
             roomId: id,
             message: {
-                user: { ...user },
+                user: user._id,
                 message: message,
             },
         });
@@ -110,7 +110,7 @@ export function pushActiveMessage(message) {
         const { user, rooms } = getState();
         const { activeRoom } = rooms;
         message = {
-            user: { ...user },
+            user: user._id,
             message: message,
         };
         if (activeRoom) {
