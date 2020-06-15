@@ -2,6 +2,8 @@ import React from 'react';
 import { Fieldset, Avatar, Cutout } from 'react95';
 import styled from 'styled-components';
 
+import ScrollToBottom from 'react-scroll-to-bottom';
+
 const ChatLineWrapper = styled.div`
     display: flex;
     padding: 5px 0 0 5px;
@@ -31,18 +33,12 @@ const MessageCutout = styled(Cutout)`
     margin-bottom: 20px;
 `;
 
-const OuterLinesWrapper = styled.div`
-    height: 100%;
-    overflow: auto;
-    box-sizing: border-box;
-`;
-
-const InnerLinesWrapper = styled.div`
-    height: 0;
-`;
-
 const LastLinePadding = styled.div`
     height: 10px;
+`;
+
+const FullHeightScrollToBottom = styled(ScrollToBottom)`
+    height: calc(100vh - 220px);
 `;
 
 export class ChatRoomMessages extends React.Component {
@@ -96,12 +92,10 @@ export class ChatRoomMessages extends React.Component {
     render() {
         return (
             <MessageCutout>
-                <OuterLinesWrapper>
-                    <InnerLinesWrapper>
-                        {this.renderChatLines()}
-                        <LastLinePadding />
-                    </InnerLinesWrapper>
-                </OuterLinesWrapper>
+                <FullHeightScrollToBottom>
+                    {this.renderChatLines()}
+                    <LastLinePadding />
+                </FullHeightScrollToBottom>
             </MessageCutout>
         );
     }

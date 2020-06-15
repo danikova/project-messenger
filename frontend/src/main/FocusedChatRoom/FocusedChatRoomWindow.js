@@ -46,7 +46,6 @@ export class FocusedChatRoomWindow extends React.Component {
     };
 
     onTextAreaEnterPress = (e) => {
-        console.log(e.keyCode);
         if (e.key === 'Enter') {
             this.onSendButtonClick();
         }
@@ -66,7 +65,6 @@ export class FocusedChatRoomWindow extends React.Component {
         const name = activeRoom ? activeRoom.name : null;
         const messages = activeRoom ? activeRoom.messages : [];
         const users = activeRoom ? activeRoom.users : [];
-        console.log(users);
         return (
             <MaxSizeFlexWindow>
                 <FlexWindowHeader>
