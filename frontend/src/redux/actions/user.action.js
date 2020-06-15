@@ -1,7 +1,13 @@
 import Axios from 'axios';
 import { store } from '../store';
 import { setCookie, eraseCookie } from '../../shared/cookie.service';
-import { LOGIN_REQUEST, TOKEN_COOKIE, LOGIN_SUCCESS, LOGIN_FAILURE } from '../constants/user.constant';
+import { openSocket } from './socket.action';
+import {
+    LOGIN_REQUEST,
+    TOKEN_COOKIE,
+    LOGIN_SUCCESS,
+    LOGIN_FAILURE,
+} from '../constants/user.constant';
 
 export function loginWithCredentials(username, password, cb, errCb) {
     store.dispatch((dispatch) => {
@@ -23,6 +29,7 @@ export function loginWithCredentials(username, password, cb, errCb) {
                     data: { ...response.data },
                 });
                 setCookie(TOKEN_COOKIE, response.data.token);
+                openSocket();
                 cb && cb(response);
             },
             (error) => {

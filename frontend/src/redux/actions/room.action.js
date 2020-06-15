@@ -7,6 +7,8 @@ import {
     ROOM_DETAILS_REQUEST,
     ROOM_DETAILS_SUCCESS,
     ROOM_DETAILS_FAILURE,
+    PUSH_NEW_MESSAGE,
+    PUSH_NEW_ACTIVE_MESSAGE,
 } from '../constants/room.constant';
 import { TOKEN_COOKIE, UPDATE_SUCCESS } from '../constants/user.constant';
 import { getCookie } from '../../shared/cookie.service';
@@ -86,5 +88,36 @@ export function openRoom(id, cb, errCb) {
                 errCb && errCb(errors);
             },
         );
+    });
+}
+
+export function pushMessage(id, message) {
+    store.dispatch((dispatch, getState) => {
+        const { user } = getState();
+        dispatch({
+            type: PUSH_NEW_MESSAGE,
+            roomId: id,
+            message: {
+                user: { ...user },
+                message: message,
+            },
+        });
+    });
+}
+
+export function pushActiveMessage(message) {
+    store.dispatch((dispatch, getState) => {
+        const { user, rooms } = getState();
+        const { activeRoom } = rooms;
+        message = {
+            user: { ...user },
+            message: message,
+        };
+        if (activeRoom) {
+            dispatch({
+                type: PUSH_NEW_ACTIVE_MESSAGE,
+                message
+            });
+        }
     });
 }

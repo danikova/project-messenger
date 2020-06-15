@@ -4,10 +4,11 @@ import { reset, themes } from 'react95';
 
 import { Grid } from '@material-ui/core';
 import ChatRoomsWindow from './ChatRooms/ChatRoomsWindow';
-import { FocusedChatRoomWindow } from './FocusedChatRoom/FocusedChatRoomWindow';
+import FocusedChatRoomWindow from './FocusedChatRoom/FocusedChatRoomWindow';
 import { MaxHeightGrid } from '../shared/components';
 import { loginWithCredentials } from '../redux/actions/user.action';
 import { readRoomList, openRoom } from '../redux/actions/room.action';
+import { openSocket } from '../redux/actions/socket.action';
 
 const MainViewWrapper = styled.div`
     padding: 20px;
@@ -23,10 +24,11 @@ const ResetStyles = createGlobalStyle`
 
 export default class MainView extends React.Component {
     componentDidMount() {
-        loginWithCredentials('danikova1', 'password123', (response) => {
+        loginWithCredentials('danikova', 'password123', (response) => {
             readRoomList();
             if (response.data.openChatRoom)
                 openRoom(response.data.openChatRoom);
+            openSocket();
         });
     }
     render() {

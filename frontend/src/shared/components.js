@@ -15,9 +15,9 @@ export const MaxSizeFlexWindow = styled(Window)`
 `;
 
 export const FlexWindowHeader = styled(WindowHeader)`
-    flex: 0 0;
+    flex: 0 1;
 `;
 
 export const FlexWindowContent = styled(WindowContent)`
-    flex: 1 0;
+    flex: 1 1;
 `;
