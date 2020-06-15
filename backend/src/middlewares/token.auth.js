@@ -15,7 +15,7 @@ module.exports = async (req, res, next) => {
             config.get('authentication.privatekey'),
         );
         const { _id } = decoded;
-        const user = await User.getById(_id);
+        const user = await User.findOne({ _id: _id });
         if (!user) throw Error();
         req.user = user;
         next();
