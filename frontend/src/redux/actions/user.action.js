@@ -1,26 +1,38 @@
 import Axios from 'axios';
+import { store } from '../store';
+import { setCookie, eraseCookie } from '../../shared/cookie.service';
+import { LOGIN_REQUEST, TOKEN_COOKIE, LOGIN_SUCCESS, LOGIN_FAILURE } from '../constants/user.constant';
 
-export const LOGIN_SUCCESS = 'api/user.login.success';
-export const LOGIN_FAILURE = 'api/user.login.failure';
-
-export async function loginWithCredentials(username, password) {
-    return (dispatch) => {
-        try {
-            debugger;
-            const resp = Axios({
-                data: {
-                    username,
-                    password,
-                },
-            });
-            dispatch({
-                type: LOGIN_SUCCESS,
-                data: { ...resp },
-            });
-        } catch (e) {
-            dispatch({
-                type: LOGIN_FAILURE,
-            });
-        }
-    };
+export function loginWithCredentials(username, password, cb, errCb) {
+    store.dispatch((dispatch) => {
+        dispatch({
+            type: LOGIN_REQUEST,
+        });
+        const request = Axios({
+            method: 'post',
+            url: '/auth/sign-in',
+            data: {
+                username,
+                password,
+            },
+        });
+        request.then(
+            (response) => {
+                dispatch({
+                    type: LOGIN_SUCCESS,
+                    data: { ...response.data },
+                });
+                setCookie(TOKEN_COOKIE, response.data.token);
+                cb && cb(response);
+            },
+            (error) => {
+                dispatch({
+                    type: LOGIN_FAILURE,
+                    error: { ...error },
+                });
+                eraseCookie(TOKEN_COOKIE);
+                errCb && errCb(error);
+            },
+        );
+    });
 }

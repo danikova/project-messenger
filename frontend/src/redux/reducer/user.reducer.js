@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGIN_FAILURE } from '../actions/user.action';
+import { LOGIN_SUCCESS, LOGIN_FAILURE } from '../constants/user.constant';
 
 export function user(state = {}, action) {
     switch (action.type) {

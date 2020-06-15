@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Avatar } from 'react95';
 
 import styled from 'styled-components';
+import { openRoom } from '../../redux/actions/room.action';
 
 const ChatRoomButton = styled(Button)`
     justify-content: start !important;
@@ -74,17 +75,27 @@ export class ChatRoom extends React.Component {
     }
 
     lastMessageString() {
-        return `${this.props.lastMessage.user}: ${this.props.lastMessage.message}`;
+        const m = this.props.messages;
+        if (m.length !== 0) return `${m[0].user}: ${m[0].message}`;
+        return '';
     }
 
     render() {
         return (
-            <ChatRoomButton fullWidth size='lg' active={this.props.active}>
+            <ChatRoomButton
+                fullWidth
+                size='lg'
+                active={this.props.active}
+                onClick={() => {
+                    openRoom(this.props._id);
+                }}
+            >
                 <ButtonContent>
                     <AvatarWrapper>
                         <Avatar
                             style={{
-                                background: this.props.color,
+                                background: `#${this.props.color.primary}`,
+                                // color: `#${this.props.color.secondary}`,
                             }}
                         >
                             {this.state.avatarLetters}

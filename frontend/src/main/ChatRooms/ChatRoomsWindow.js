@@ -1,6 +1,7 @@
 import React from 'react';
 import { List } from 'react95';
 import { ChatRoom } from './ChatRoom';
+import { connect } from 'react-redux';
 
 import styled from 'styled-components';
 import {
@@ -15,17 +16,17 @@ const FullHeightList = styled(List)`
 `;
 
 export class ChatRoomsWindow extends React.Component {
-    render() {
-        const chatRoomProps = {
-            name: 'danikova and lofasz',
-            color: '#249',
-            lastMessage: {
-                user: 'danikova',
-                message:
-                    'asd asd asd a sd  asegfas df as d f asd f as df as d f',
-            },
-        };
+    renderChatRooms() {
+        const { rooms, activeRoom } = this.props.rooms;
+        return (rooms || []).map((room) => {
+            const active = activeRoom ? activeRoom._id === room._id : false;
+            return (
+                <ChatRoom key={room._id} {...room} active={active}></ChatRoom>
+            );
+        });
+    }
 
+    render() {
         return (
             <MaxSizeFlexWindow>
                 <FlexWindowHeader>
@@ -33,13 +34,19 @@ export class ChatRoomsWindow extends React.Component {
                 </FlexWindowHeader>
                 <FlexWindowContent>
                     <FullHeightList fullWidth>
-                        <ChatRoom active {...chatRoomProps}></ChatRoom>
-                        <ChatRoom {...chatRoomProps}></ChatRoom>
-                        <ChatRoom {...chatRoomProps}></ChatRoom>
-                        <ChatRoom {...chatRoomProps}></ChatRoom>
+                        {this.renderChatRooms()}
                     </FullHeightList>
                 </FlexWindowContent>
             </MaxSizeFlexWindow>
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    const { rooms } = state;
+    return {
+        rooms,
+    };
+};
+
+export default connect(mapStateToProps)(ChatRoomsWindow);
