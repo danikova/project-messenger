@@ -18,8 +18,12 @@ exports.getRooms = async (req, res) => {
             .where('users')
             .in(req.user)
             .select('-users -activeUsers')
-            .populate('messages')
             .slice('messages', -1)
+            .populate({
+                path: 'messages',
+                populate: { path: 'user', select: 'username' },
+            })
+            .sort('-updatedAt')
             .exec();
         return res.status(200).json(rooms || []);
     } catch (err) {

@@ -48,7 +48,7 @@ test('get room list without user lists and with only just the last messages', as
         password: 'password123',
     });
     for (let i = 0; i < 20; i++) {
-        const room = await Room.create({ name: 'test' });
+        const room = await Room.create({ name: i });
         await room.addUser(user);
         for (let j = 0; j < 20; j++)
             await room.pushMessage({ user: user, message: j });
@@ -59,12 +59,33 @@ test('get room list without user lists and with only just the last messages', as
         .set('x-access-token', user.generateAuthToken())
         .send();
     expect(res.statusCode).toEqual(200);
+    let lastRoomName = 20;
     for (const room of res.body) {
         expect(room.messages.length).toEqual(1);
         expect(room.messages[0].message).toEqual('19');
         expect(room.users).toEqual(undefined);
         expect(room.activeUsers).toEqual(undefined);
+        const currentRoomName = parseInt(room.name);
+        expect(currentRoomName < lastRoomName).toEqual(true);
+        lastRoomName = currentRoomName;
     }
+});
+
+test('get room list with populated message.user', async () => {
+    const user = await User.create({
+        username: 'testuser',
+        password: 'password123',
+    });
+    const room = await Room.create({ name: 'test' });
+    await room.addUser(user);
+    await room.pushMessage({ user: user, message: 'first' });
+    room.save();
+    const res = await request(app)
+        .get('/api/rooms')
+        .set('x-access-token', user.generateAuthToken())
+        .send();
+    expect(res.statusCode).toEqual(200);
+    expect(typeof res.body[0].messages[0].user).toEqual('object');
 });
 
 test('get room list but response contains only rooms where user is in it', async () => {
