@@ -11,6 +11,7 @@ import {
 import { ChatRoomMessages } from './ChatRoomMessages';
 import { connect } from 'react-redux';
 import { pushActiveMessage } from '../../redux/actions/room.action';
+import { socket } from '../../redux/actions/socket.action';
 
 const ContentWrapper = styled.div`
     height: 100%;
@@ -28,15 +29,27 @@ const SendButton = styled(Button)`
 `;
 
 export class FocusedChatRoomWindow extends React.Component {
-    state = { value: '' };
+    constructor(props) {
+        super(props);
+        this.textArea = null;
+    }
 
-    componentDidUpdate(oldProps) {
-        if (oldProps.socket !== this.props.socket) {
-            this.props.socket.on('pushMessageSuccess', () => {
-                pushActiveMessage(this.state.value);
-                this.setState({ value: '' });
-            });
-        }
+    state = { value: '', processing: false };
+
+    onPushMessageSuccess = () => {
+        pushActiveMessage(this.state.value);
+        this.setState({ value: '', processing: false });
+    };
+
+    componentDidMount() {
+        socket.on('pushMessageSuccess', this.onPushMessageSuccess);
+        this.textArea = document.getElementById(
+            'text-area-for-focused-chatroom',
+        );
+    }
+
+    componentWillUnmount() {
+        socket.off('pushMessageSuccess', this.onPushMessageSuccess);
     }
 
     onTextAreaChange = (e) => {
@@ -48,16 +61,21 @@ export class FocusedChatRoomWindow extends React.Component {
     onTextAreaEnterPress = (e) => {
         if (e.key === 'Enter') {
             this.onSendButtonClick();
+            setTimeout(() => {
+                this.textArea.focus();
+            }, 0);
         }
     };
 
     onSendButtonClick = () => {
         const { activeRoom } = this.props.rooms || {};
-        if (activeRoom)
-            this.props.socket.emit('pushMessage', {
+        if (activeRoom && !this.state.processing && this.state.value.trim()) {
+            socket.emit('pushMessage', {
                 roomId: activeRoom._id,
                 message: this.state.value,
             });
+            this.setState({ processing: true });
+        }
     };
 
     render() {
@@ -65,6 +83,8 @@ export class FocusedChatRoomWindow extends React.Component {
         const name = activeRoom ? activeRoom.name : null;
         const messages = activeRoom ? activeRoom.messages : [];
         const users = activeRoom ? activeRoom.users : [];
+        const disabled = (activeRoom ? false : true) || this.state.processing;
+        const disabledSend = disabled || (this.state.value ? false : true);
         return (
             <MaxSizeFlexWindow>
                 <FlexWindowHeader>
@@ -85,6 +105,8 @@ export class FocusedChatRoomWindow extends React.Component {
                             <MaxHeightGrid container>
                                 <Grid item xs={10} md={11}>
                                     <TextArea
+                                        id={'text-area-for-focused-chatroom'}
+                                        disabled={disabled}
                                         value={this.state.value}
                                         onChange={this.onTextAreaChange}
                                         onKeyPress={this.onTextAreaEnterPress}
@@ -93,7 +115,7 @@ export class FocusedChatRoomWindow extends React.Component {
                                 </Grid>
                                 <Grid item xs={2} md={1}>
                                     <SendButton
-                                        disabled={activeRoom ? false : true}
+                                        disabled={disabledSend}
                                         onClick={this.onSendButtonClick}
                                     >
                                         send
@@ -109,11 +131,10 @@ export class FocusedChatRoomWindow extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    const { user, rooms, socket } = state;
+    const { user, rooms } = state;
     return {
         user: user.data,
         rooms,
-        socket,
     };
 };
 

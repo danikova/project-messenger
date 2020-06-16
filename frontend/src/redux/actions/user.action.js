@@ -1,7 +1,6 @@
 import Axios from 'axios';
 import { store } from '../store';
 import { setCookie, eraseCookie } from '../../shared/cookie.service';
-import { openSocket } from './socket.action';
 import {
     LOGIN_REQUEST,
     TOKEN_COOKIE,
@@ -29,7 +28,6 @@ export function loginWithCredentials(username, password, cb, errCb) {
                     data: { ...response.data },
                 });
                 setCookie(TOKEN_COOKIE, response.data.token);
-                openSocket();
                 cb && cb(response);
             },
             (error) => {

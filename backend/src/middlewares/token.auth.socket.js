@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../api/users/model');
 
 module.exports = async (socket, next) => {
-    if (socket.handshake.query && socket.handshake.query.token) {
+    try {
         const token = socket.handshake.query.token;
         const decoded = jwt.verify(
             token,
@@ -14,7 +14,7 @@ module.exports = async (socket, next) => {
         if (!user) next(new Error('Authentication error'));
         socket.user = user;
         next();
-    } else {
-        next(new Error('Authentication error'));
+    } catch(e){
+        
     }
 };

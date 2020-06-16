@@ -8,7 +8,7 @@ import FocusedChatRoomWindow from './FocusedChatRoom/FocusedChatRoomWindow';
 import { MaxHeightGrid } from '../shared/components';
 import { loginWithCredentials } from '../redux/actions/user.action';
 import { readRoomList, openRoom } from '../redux/actions/room.action';
-import { openSocket } from '../redux/actions/socket.action';
+import { socket } from '../redux/actions/socket.action';
 
 const MainViewWrapper = styled.div`
     padding: 20px;
@@ -23,14 +23,24 @@ const ResetStyles = createGlobalStyle`
 `;
 
 export default class MainView extends React.Component {
+    onNewMessage = (data)=>{
+        console.log(data);
+    }
+
     componentDidMount() {
         loginWithCredentials('danikova', 'password123', (response) => {
             readRoomList();
             if (response.data.openChatRoom)
                 openRoom(response.data.openChatRoom);
-            openSocket();
         });
+
+        socket.on('newMessage', this.onNewMessage);
     }
+
+    componentWillUnmount(){
+        socket.off('newMessage', this.onNewMessage);
+    }
+
     render() {
         return (
             <MainViewWrapper>

@@ -7,4 +7,3 @@ export const ROOM_DETAILS_SUCCESS = 'api/room.details.success';
 export const ROOM_DETAILS_FAILURE = 'api/room.details.failure';
 
 export const PUSH_NEW_MESSAGE = 'api/room.push.new.message';
-export const PUSH_NEW_ACTIVE_MESSAGE = 'api/room.push.new.active.message';

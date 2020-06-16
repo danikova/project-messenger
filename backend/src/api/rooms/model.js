@@ -48,6 +48,7 @@ RoomSchema.methods = {
     pushMessage: async function (messageData) {
         const message = await Message.create(messageData);
         this.messages.push(message);
+        return message;
     },
 };
 

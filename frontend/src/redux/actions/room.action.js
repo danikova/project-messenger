@@ -8,10 +8,10 @@ import {
     ROOM_DETAILS_SUCCESS,
     ROOM_DETAILS_FAILURE,
     PUSH_NEW_MESSAGE,
-    PUSH_NEW_ACTIVE_MESSAGE,
 } from '../constants/room.constant';
 import { TOKEN_COOKIE, UPDATE_SUCCESS } from '../constants/user.constant';
 import { getCookie } from '../../shared/cookie.service';
+import { uuid } from 'uuidv4';
 
 export function readRoomList(cb, errCb) {
     store.dispatch((dispatch) => {
@@ -101,18 +101,20 @@ export function pushMessage(id, message) {
     });
 }
 
-export function pushActiveMessage(message) {
+export function pushActiveMessage(messageString) {
     store.dispatch((dispatch, getState) => {
         const { user, rooms } = getState();
         const { activeRoom } = rooms;
-        message = {
-            user: user.data,
-            message: message,
-            sent: new Date().toISOString(),
-        };
         if (activeRoom) {
+            const message = {
+                user: user.data,
+                message: messageString,
+                sent: new Date().toISOString(),
+                _id: uuid(),
+            };
             dispatch({
-                type: PUSH_NEW_ACTIVE_MESSAGE,
+                type: PUSH_NEW_MESSAGE,
+                roomId: activeRoom._id,
                 message,
             });
         }
