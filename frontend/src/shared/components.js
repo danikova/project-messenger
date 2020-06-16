@@ -40,38 +40,54 @@ const CenteredWindow = styled(Window)`
     margin-top: 100px;
 `;
 
-export const Dialog = (props) => {
-    return (
-        <DialogBackground>
-            <CenteredWindow style={{ width: 500 }}>
-                <WindowHeader
-                    style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                    }}
-                >
-                    <span>{props.title}</span>
-                    <Button
-                        style={{ marginRight: '-6px', marginTop: '1px' }}
-                        size={'sm'}
-                        square
-                        onClick={() =>
-                            props.onCloseClick && props.onCloseClick()
-                        }
+export class Dialog extends React.Component {
+    onKeyDown = (e) => {
+        if (e.key === 'Escape' && this.props.onCloseClick)
+            this.props.onCloseClick();
+    };
+
+    componentDidMount() {
+        document.addEventListener('keydown', this.onKeyDown);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('keydown', this.onKeyDown);
+    }
+
+    render() {
+        return (
+            <DialogBackground>
+                <CenteredWindow style={{ width: 500 }}>
+                    <WindowHeader
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                        }}
                     >
-                        <span
-                            style={{
-                                fontWeight: 'bold',
-                                transform: 'translateY(-1px)',
-                            }}
+                        <span>{this.props.title}</span>
+                        <Button
+                            style={{ marginRight: '-6px', marginTop: '1px' }}
+                            size={'sm'}
+                            square
+                            onClick={() =>
+                                this.props.onCloseClick &&
+                                this.props.onCloseClick()
+                            }
                         >
-                            x
-                        </span>
-                    </Button>
-                </WindowHeader>
-                <WindowContent>{props.children}</WindowContent>
-            </CenteredWindow>
-        </DialogBackground>
-    );
-};
+                            <span
+                                style={{
+                                    fontWeight: 'bold',
+                                    transform: 'translateY(-1px)',
+                                }}
+                            >
+                                x
+                            </span>
+                        </Button>
+                    </WindowHeader>
+                    <WindowContent>{this.props.children}</WindowContent>
+                </CenteredWindow>
+            </DialogBackground>
+        );
+    }
+}
