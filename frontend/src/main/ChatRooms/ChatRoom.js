@@ -76,7 +76,7 @@ export class ChatRoom extends React.Component {
 
     lastMessageString() {
         const { messages: m } = this.props;
-        if (m.length !== 0) return m[0].message;
+        if (m.length !== 0) return `${m[0].user.username}: ${m[0].message}`;
         return '';
     }
 
