@@ -33,7 +33,7 @@ class SocketConnection {
     }
 
     async getUserRelatedRooms() {
-        return await Rooms.find({}).where('users').in(this.user).select('_id');
+        return await Rooms.find({}).where('activeUsers').in(this.user).select('_id');
     }
 
     joinRoom(room) {

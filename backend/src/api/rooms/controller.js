@@ -15,7 +15,7 @@ exports.createRoom = async (req, res) => {
 exports.getRooms = async (req, res) => {
     try {
         const rooms = await Rooms.find({})
-            .where('users')
+            .where('activeUsers')
             .in(req.user)
             .select('-users -activeUsers')
             .slice('messages', -1)
@@ -34,8 +34,9 @@ exports.getRooms = async (req, res) => {
 exports.getRoom = async (req, res) => {
     try {
         const room = await Rooms.findOne({ _id: req.params.id })
-            .where('users')
+            .where('activeUsers')
             .in(req.user)
+            .slice('messages', -50)
             .populate('messages users')
             .exec();
         return res.status(200).json((room && room.toJSON()) || {});
@@ -47,10 +48,10 @@ exports.getRoom = async (req, res) => {
 exports.addUserToRoom = async (req, res) => {
     try {
         const room = await Rooms.findOne({ _id: req.params.id })
-            .where('users')
+            .where('activeUsers')
             .in(req.user);
         if (room) {
-            const user = await User.getById(req.body.userId);
+            const user = await User.getByName(req.body.username);
             if (user) {
                 await room.addUser(user);
                 room.save();
@@ -65,10 +66,10 @@ exports.addUserToRoom = async (req, res) => {
     });
 };
 
-exports.removeUserFromRoom = async (req, res) => {
+const removeUserFromRoom = async (req, res) => {
     try {
         const room = await Rooms.findOne({ _id: req.params.id })
-            .where('users')
+            .where('activeUsers')
             .in(req.user);
         if (room) {
             const user = await User.getById(req.body.userId);
@@ -84,4 +85,10 @@ exports.removeUserFromRoom = async (req, res) => {
     return res.status(400).json({
         error: `remove user(${req.body.userId}) from room(${req.params.id}) was not success`,
     });
+};
+
+exports.removeUserFromRoom = removeUserFromRoom;
+exports.removeSelfFromRoom = async (req, res) => {
+    req.body.userId = req.user.id;
+    return await removeUserFromRoom(req, res);
 };
