@@ -10,8 +10,11 @@ import {
 } from '../../shared/components';
 import { ChatRoomMessages } from './ChatRoomMessages';
 import { connect } from 'react-redux';
-import { pushActiveMessage } from '../../redux/actions/room.action';
+import {
+    pushActiveMessage,
+} from '../../redux/actions/room.action';
 import { socket } from '../../redux/actions/socket.action';
+import { FocusedToolbar } from './FocusedToolbar';
 
 const ContentWrapper = styled.div`
     height: 100%;
@@ -26,6 +29,10 @@ const InputField = styled.div`
 const SendButton = styled(Button)`
     height: 100%;
     width: 100%;
+`;
+
+const FlexWindowContentWithoutTopPadding = styled(FlexWindowContent)`
+    padding-top: 3px;
 `;
 
 export class FocusedChatRoomWindow extends React.Component {
@@ -81,12 +88,13 @@ export class FocusedChatRoomWindow extends React.Component {
     render() {
         const { activeRoom } = this.props.rooms || {};
         const name = activeRoom ? activeRoom.name : null;
+        const _id = activeRoom ? activeRoom._id : null;
         const messages = activeRoom ? activeRoom.messages : [];
         const users = activeRoom ? activeRoom.users : [];
         const disabled = (activeRoom ? false : true) || this.state.processing;
         const disabledSend = disabled || (this.state.value ? false : true);
         return (
-            <MaxSizeFlexWindow>
+            <MaxSizeFlexWindow key={_id}>
                 <FlexWindowHeader>
                     <span>
                         {name
@@ -94,7 +102,8 @@ export class FocusedChatRoomWindow extends React.Component {
                             : 'focusedChatRoom.exe'}
                     </span>
                 </FlexWindowHeader>
-                <FlexWindowContent>
+                <FocusedToolbar roomId={_id} />
+                <FlexWindowContentWithoutTopPadding>
                     <ContentWrapper>
                         <ChatRoomMessages
                             currentUser={this.props.user}
@@ -124,7 +133,7 @@ export class FocusedChatRoomWindow extends React.Component {
                             </MaxHeightGrid>
                         </InputField>
                     </ContentWrapper>
-                </FlexWindowContent>
+                </FlexWindowContentWithoutTopPadding>
             </MaxSizeFlexWindow>
         );
     }

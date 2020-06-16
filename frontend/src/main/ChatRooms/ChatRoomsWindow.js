@@ -1,21 +1,65 @@
-import React from 'react';
-import { List } from 'react95';
+import React, { useState } from 'react';
+import { List, Button, Toolbar, TextField } from 'react95';
 import { ChatRoom } from './ChatRoom';
 import { connect } from 'react-redux';
-
 import styled from 'styled-components';
 import {
     MaxSizeFlexWindow,
     FlexWindowHeader,
     FlexWindowContent,
+    Dialog,
 } from '../../shared/components';
+import { createNewRow } from '../../redux/actions/room.action';
 
 const FullHeightList = styled(List)`
     height: 100%;
     overflow-y: auto;
 `;
 
+const CreateNewRoomButton = styled(Button)`
+    border: dotted;
+    margin-bottom: 10px;
+`;
+
+const ListWindowContent = styled(FlexWindowContent)`
+    max-height: calc(100vh - 132px);
+`;
+
+const CreateNewRoomDialog = (props) => {
+    const [value, setValue] = useState('');
+
+    return (
+        <Dialog title={'createNewRoom.exe'} onCloseClick={props.closeDialog}>
+            <Toolbar>
+                <TextField
+                    onKeyPress={(e) => {
+                        if (e.key === 'Enter')
+                            createNewRow(value, () => {
+                                props.closeDialog && props.closeDialog();
+                            });
+                    }}
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                    width={400}
+                />
+                <Button
+                    onClick={() => {
+                        createNewRow(value, () => {
+                            props.closeDialog && props.closeDialog();
+                        });
+                    }}
+                    style={{ marginLeft: '2px' }}
+                >
+                    Create
+                </Button>
+            </Toolbar>
+        </Dialog>
+    );
+};
+
 export class ChatRoomsWindow extends React.Component {
+    state = { createNewRoomDialog: false };
+
     renderChatRooms() {
         const { rooms, activeRoom } = this.props.rooms;
         return (rooms || []).map((room) => {
@@ -32,11 +76,29 @@ export class ChatRoomsWindow extends React.Component {
                 <FlexWindowHeader>
                     <span>chatRooms.exe</span>
                 </FlexWindowHeader>
-                <FlexWindowContent>
+                <ListWindowContent>
+                    {this.state.createNewRoomDialog ? (
+                        <CreateNewRoomDialog
+                            closeDialog={() => {
+                                this.setState({
+                                    createNewRoomDialog: false,
+                                });
+                            }}
+                        ></CreateNewRoomDialog>
+                    ) : null}
                     <FullHeightList fullWidth>
+                        <CreateNewRoomButton
+                            fullWidth
+                            size='lg'
+                            onClick={() => {
+                                this.setState({ createNewRoomDialog: true });
+                            }}
+                        >
+                            Create new room
+                        </CreateNewRoomButton>
                         {this.renderChatRooms()}
                     </FullHeightList>
-                </FlexWindowContent>
+                </ListWindowContent>
             </MaxSizeFlexWindow>
         );
     }

@@ -8,6 +8,9 @@ import {
     ROOM_DETAILS_SUCCESS,
     ROOM_DETAILS_FAILURE,
     PUSH_NEW_MESSAGE,
+    CREATE_NEW_ROOM_REQUEST,
+    LEAVE_ROOM_REQUEST,
+    ADD_USER_TO_ROOM_REQUEST,
 } from '../constants/room.constant';
 import { TOKEN_COOKIE, UPDATE_SUCCESS } from '../constants/user.constant';
 import { getCookie } from '../../shared/cookie.service';
@@ -118,5 +121,86 @@ export function pushActiveMessage(messageString) {
                 message,
             });
         }
+    });
+}
+
+export function createNewRow(roomName, cb, errCb) {
+    store.dispatch((dispatch) => {
+        dispatch({
+            type: CREATE_NEW_ROOM_REQUEST,
+        });
+        const request = Axios({
+            method: 'post',
+            url: '/api/rooms',
+            headers: {
+                'x-access-token': getCookie(TOKEN_COOKIE),
+            },
+            data: {
+                name: roomName,
+            },
+        });
+        request.then(
+            (response) => {
+                readRoomList();
+                cb && cb(response);
+            },
+            (error) => {
+                errCb && errCb(error);
+            },
+        );
+    });
+}
+
+export function addUserToRoom(roomId, username, cb, errCb) {
+    store.dispatch((dispatch) => {
+        dispatch({
+            type: ADD_USER_TO_ROOM_REQUEST,
+        });
+        const request = Axios({
+            method: 'post',
+            url: `/api/rooms/${roomId}/add-user/`,
+            headers: {
+                'x-access-token': getCookie(TOKEN_COOKIE),
+            },
+            data: {
+                username,
+            },
+        });
+        request.then(
+            (response) => {
+                cb && cb(response);
+            },
+            (error) => {
+                errCb && errCb(error);
+            },
+        );
+    });
+}
+
+export function leaveRoom(roomId, cb, errCb) {
+    store.dispatch((dispatch) => {
+        dispatch({
+            type: LEAVE_ROOM_REQUEST,
+        });
+        const request = Axios({
+            method: 'post',
+            url: `/api/rooms/${roomId}/remove-self/`,
+            headers: {
+                'x-access-token': getCookie(TOKEN_COOKIE),
+            },
+        });
+        request.then(
+            (response) => {
+                readRoomList();
+                dispatch({
+                    type: ROOM_DETAILS_SUCCESS,
+                    data: {},
+                });
+                cb && cb(response);
+            },
+            (error) => {
+                errCb && errCb(error);
+            },
+        );
     });
 }

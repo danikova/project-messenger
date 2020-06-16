@@ -38,7 +38,7 @@ const LastLinePadding = styled.div`
 `;
 
 const FullHeightScrollToBottom = styled(ScrollToBottom)`
-    height: calc(100vh - 220px);
+    height: calc(100vh - 241px);
 `;
 
 export class ChatRoomMessages extends React.Component {
@@ -63,7 +63,10 @@ export class ChatRoomMessages extends React.Component {
             const userChange = user && currentUser !== user._id;
             currentUser = (user && user._id) || '';
             return (
-                <ChatLineWrapper key={message._id} currentUser={cu._id === user._id}>
+                <ChatLineWrapper
+                    key={message._id}
+                    currentUser={cu._id === user._id}
+                >
                     <ChatAvatarWrapper>
                         {userChange ? (
                             <ChatAvatar
@@ -92,7 +95,7 @@ export class ChatRoomMessages extends React.Component {
     render() {
         return (
             <MessageCutout>
-                <FullHeightScrollToBottom followButtonClassName="scroll-to-bottom">
+                <FullHeightScrollToBottom followButtonClassName='scroll-to-bottom'>
                     {this.renderChatLines()}
                     <LastLinePadding />
                 </FullHeightScrollToBottom>

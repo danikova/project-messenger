@@ -25,9 +25,10 @@ export function rooms(
                 rooms: [],
             };
         case ROOM_DETAILS_SUCCESS:
+            const keysLength = Object.keys(action.data).length;
             return {
                 ...state,
-                activeRoom: action.data,
+                activeRoom: keysLength !== 0 ? action.data : null,
             };
         case PUSH_NEW_MESSAGE:
             state = { ...state };
@@ -42,9 +43,11 @@ export function rooms(
                 return it;
             });
             state.rooms.sort(function (a, b) {
-                return (
-                    new Date(b.messages[0].sent) - new Date(a.messages[0].sent)
-                );
+                const aDate =
+                    (a.messages[0] && a.messages[0].sent) || a.updatedAt;
+                const bDate =
+                    (b.messages[0] && b.messages[0].sent) || b.updatedAt;
+                return new Date(bDate) - new Date(aDate);
             });
             return { ...state };
         default:

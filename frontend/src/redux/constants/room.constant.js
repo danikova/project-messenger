@@ -7,3 +7,7 @@ export const ROOM_DETAILS_SUCCESS = 'api/room.details.success';
 export const ROOM_DETAILS_FAILURE = 'api/room.details.failure';
 
 export const PUSH_NEW_MESSAGE = 'api/room.push.new.message';
+
+export const CREATE_NEW_ROOM_REQUEST = 'api/create.new.room.request';
+export const LEAVE_ROOM_REQUEST = 'api/leave.room.request';
+export const ADD_USER_TO_ROOM_REQUEST = 'api/add.user.to.room.request';
