@@ -36,14 +36,22 @@ export function rooms(
             if (!state.activeRoom) return state;
             action.roomId = state.activeRoom._id;
             action.message._id = uuid();
-            state.activeRoom.messages.push(action.message);
-            /* falls through */
+            state.activeRoom.messages.push({
+                ...action.message,
+                user: action.message.user._id,
+            });
+        /* falls through */
         case PUSH_NEW_MESSAGE:
             state = { ...state };
             state.rooms = state.rooms.map((it) => {
                 if (it._id === action.roomId)
                     return { ...it, messages: [{ ...action.message }] };
                 return it;
+            });
+            state.rooms.sort(function (a, b) {
+                return (
+                    new Date(b.messages[0].sent) - new Date(a.messages[0].sent)
+                );
             });
             return { ...state };
         default:

@@ -111,7 +111,7 @@ export class FocusedChatRoomWindow extends React.Component {
 const mapStateToProps = (state) => {
     const { user, rooms, socket } = state;
     return {
-        user,
+        user: user.data,
         rooms,
         socket,
     };
