@@ -45,7 +45,11 @@ export class ChatRoomMessages extends React.Component {
     state = { users: {}, users_init: false };
 
     getUsers() {
-        if (!this.state.users_init && this.props.users.length) {
+        const users_keys = Object.keys(this.state.users);
+        if (
+            (!this.state.users_init && this.props.users.length) ||
+            this.props.users.length !== users_keys.length
+        ) {
             const users = {};
             for (const user of this.props.users) users[user._id] = user;
             this.setState({ users, users_init: true });
