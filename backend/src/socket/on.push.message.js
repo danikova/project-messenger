@@ -7,8 +7,13 @@ module.exports = function (sc) {
             message: data.message,
         });
         sc.forEachRoomSockets(room, (socket) => {
-            if (socket !== sc.socket)
-                socket.emit('newMessage', newMessage.toJSON());
+            if (socket !== sc.socket){
+                const message = newMessage.toJSON();
+                socket.emit('newMessage', {
+                    roomId: room.id,
+                    message
+                });
+            }
         });
         room.save();
         sc.emit('pushMessageSuccess');

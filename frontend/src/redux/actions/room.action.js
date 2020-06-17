@@ -152,7 +152,9 @@ export function createNewRow(roomName, cb, errCb) {
 }
 
 export function addUserToRoom(roomId, username, cb, errCb) {
-    store.dispatch((dispatch) => {
+    store.dispatch((dispatch, getState) => {
+        const { rooms } = getState();
+        const { activeRoom } = rooms;
         dispatch({
             type: ADD_USER_TO_ROOM_REQUEST,
         });
@@ -168,6 +170,7 @@ export function addUserToRoom(roomId, username, cb, errCb) {
         });
         request.then(
             (response) => {
+                if (roomId === activeRoom._id) openRoom(roomId);
                 cb && cb(response);
             },
             (error) => {

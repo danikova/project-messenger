@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextArea, Button } from 'react95';
+import { TextArea, Button, Avatar } from 'react95';
 import styled from 'styled-components';
 import { Grid } from '@material-ui/core';
 import {
@@ -10,9 +10,7 @@ import {
 } from '../../shared/components';
 import { ChatRoomMessages } from './ChatRoomMessages';
 import { connect } from 'react-redux';
-import {
-    pushActiveMessage,
-} from '../../redux/actions/room.action';
+import { pushActiveMessage } from '../../redux/actions/room.action';
 import { socket } from '../../redux/actions/socket.action';
 import { FocusedToolbar } from './FocusedToolbar';
 
@@ -33,6 +31,16 @@ const SendButton = styled(Button)`
 
 const FlexWindowContentWithoutTopPadding = styled(FlexWindowContent)`
     padding-top: 3px;
+`;
+
+const NameWrapper = styled.p`
+    display: inline;
+    margin-right: 10px;
+`;
+
+const CurrentUserAvatar = styled(Avatar)`
+    color: black;
+    display: inline-flex;
 `;
 
 export class FocusedChatRoomWindow extends React.Component {
@@ -95,12 +103,34 @@ export class FocusedChatRoomWindow extends React.Component {
         const disabledSend = disabled || (this.state.value ? false : true);
         return (
             <MaxSizeFlexWindow key={_id}>
-                <FlexWindowHeader>
+                <FlexWindowHeader
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                    }}
+                >
                     <span>
                         {name
                             ? `${name} (focusedChatRoom.exe)`
                             : 'focusedChatRoom.exe'}
                     </span>
+                    {this.props.user && this.props.user.username ? (
+                        <span>
+                            <NameWrapper>
+                                {this.props.user.username}
+                            </NameWrapper>
+                            <CurrentUserAvatar
+                                style={{
+                                    background: `#${this.props.user.color.primary}`,
+                                }}
+                            >
+                                {this.props.user.username
+                                    .charAt(0)
+                                    .toUpperCase()}
+                            </CurrentUserAvatar>
+                        </span>
+                    ) : null}
                 </FlexWindowHeader>
                 <FocusedToolbar roomId={_id} />
                 <FlexWindowContentWithoutTopPadding>
