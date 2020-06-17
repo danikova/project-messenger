@@ -10,6 +10,7 @@ import {
     Dialog,
 } from '../../shared/components';
 import { createNewRow } from '../../redux/actions/room.action';
+import { forgetUser } from '../../redux/actions/user.action';
 
 const FullHeightList = styled(List)`
     height: 100%;
@@ -73,8 +74,29 @@ export class ChatRoomsWindow extends React.Component {
     render() {
         return (
             <MaxSizeFlexWindow>
-                <FlexWindowHeader>
+                <FlexWindowHeader
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                    }}
+                >
                     <span>chatRooms.exe</span>
+                    <Button
+                        style={{ marginRight: '-6px', marginTop: '1px' }}
+                        size={'sm'}
+                        square
+                        onClick={() => forgetUser()}
+                    >
+                        <span
+                            style={{
+                                fontWeight: 'bold',
+                                transform: 'translateY(-1px)',
+                            }}
+                        >
+                            x
+                        </span>
+                    </Button>
                 </FlexWindowHeader>
                 <ListWindowContent>
                     {this.state.createNewRoomDialog ? (

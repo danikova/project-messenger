@@ -48,7 +48,7 @@ exports.signIn = async (req, res) => {
         (user && user.password) || '',
     );
     if (!passwordMatch)
-        return res.status(400).json({
+        return res.status(401).json({
             error: 'User not exists with these provided credentials.',
         });
 

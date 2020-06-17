@@ -85,6 +85,7 @@ export class Dialog extends React.Component {
                             </span>
                         </Button>
                     </WindowHeader>
+                    {this.props.toolbar}
                     <WindowContent>{this.props.children}</WindowContent>
                 </CenteredWindow>
             </DialogBackground>

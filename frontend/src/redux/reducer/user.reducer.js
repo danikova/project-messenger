@@ -1,22 +1,36 @@
-import { LOGIN_SUCCESS, LOGIN_FAILURE } from '../constants/user.constant';
+import {
+    LOGIN_SUCCESS,
+    LOGIN_FAILURE,
+    FORGET_USER,
+    GET_SELF_SUCCESS,
+    TOKEN_COOKIE
+} from '../constants/user.constant';
+import { getCookie } from "../../shared/cookie.service";
 
 export function user(
     state = {
         data: {},
-        token: null,
+        token: getCookie(TOKEN_COOKIE),
     },
     action,
 ) {
     switch (action.type) {
-        case LOGIN_SUCCESS:
-            const token = action.data.token;
-            delete action.data.token;
+        case GET_SELF_SUCCESS:
             return {
-                token,
+                ...state,
                 data: { ...action.data },
             };
+        case LOGIN_SUCCESS:
+            return {
+                ...state,
+                token: action.token,
+            };
         case LOGIN_FAILURE:
-            return {};
+        case FORGET_USER:
+            return {
+                data: {},
+                token: null,
+            };
         default:
             return state;
     }

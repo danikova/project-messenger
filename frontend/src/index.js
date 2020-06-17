@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import MainView from './main';
 import * as serviceWorker from './serviceWorker';
 import { store } from './redux/store';
 import { Provider } from 'react-redux';
+import './shared/Axios.config';
+import AppRouter from './Router';
 
 ReactDOM.render(
     <Provider store={store}>
-        <MainView />
+        <AppRouter/>
     </Provider>,
     document.getElementById('root'),
 );

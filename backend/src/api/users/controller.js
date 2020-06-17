@@ -1,5 +1,14 @@
 const Users = require('./model');
 
+exports.getSelf = async (req, res) => {
+    try {
+        const user = req.user;
+        return res.status(200).json(user.toJSON());
+    } catch (err) {
+        return res.status(400).json({ error: err });
+    }
+};
+
 exports.getUsers = async (req, res) => {
     try {
         const users = await Users.get({});
