@@ -11,6 +11,7 @@ import {
 } from '../../shared/components';
 import { createNewRow } from '../../redux/actions/room.action';
 import { forgetUser } from '../../redux/actions/user.action';
+import { withSnackbar } from 'notistack';
 
 const FullHeightList = styled(List)`
     height: 100%;
@@ -86,7 +87,10 @@ export class ChatRoomsWindow extends React.Component {
                         style={{ marginRight: '-6px', marginTop: '1px' }}
                         size={'sm'}
                         square
-                        onClick={() => forgetUser()}
+                        onClick={() => {
+                            forgetUser();
+                            this.props.enqueueSnackbar(`Successful sign out`);
+                        }}
                     >
                         <span
                             style={{
@@ -133,4 +137,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(ChatRoomsWindow);
+export default withSnackbar(connect(mapStateToProps)(ChatRoomsWindow));

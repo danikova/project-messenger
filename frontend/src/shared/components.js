@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Button, Window, WindowHeader, WindowContent } from 'react95';
 import { Grid } from '@material-ui/core';
+import { useSnackbar } from 'notistack';
 
 export const MaxHeightGrid = styled(Grid)`
     height: 100%;
@@ -74,6 +75,7 @@ export class Dialog extends React.Component {
                                 this.props.onCloseClick &&
                                 this.props.onCloseClick()
                             }
+                            disabled={this.props.closeDisabled}
                         >
                             <span
                                 style={{
@@ -91,4 +93,42 @@ export class Dialog extends React.Component {
             </DialogBackground>
         );
     }
+}
+
+const MarginRightSpan = styled.span`
+    margin-right: 20px;
+`;
+
+export function CustomSnackbar(props) {
+    const { closeSnackbar } = useSnackbar();
+    return (
+        <Window>
+            <WindowHeader
+                style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                }}
+            >
+                <MarginRightSpan>{props.message}</MarginRightSpan>
+                <Button
+                    style={{ marginRight: '-6px', marginTop: '1px' }}
+                    size={'sm'}
+                    square
+                    onClick={() => {
+                        closeSnackbar(props.id);
+                    }}
+                >
+                    <span
+                        style={{
+                            fontWeight: 'bold',
+                            transform: 'translateY(-1px)',
+                        }}
+                    >
+                        x
+                    </span>
+                </Button>
+            </WindowHeader>
+        </Window>
+    );
 }

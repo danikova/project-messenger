@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { TextField, Button, Anchor } from 'react95';
 import styled from 'styled-components';
 import { loginWithCredentials } from '../redux/actions/user.action';
+import { withSnackbar } from 'notistack';
 
 const FullWidthTextField = styled(TextField)`
     width: 100%;
@@ -25,12 +26,10 @@ export class SignIn extends React.Component {
     render() {
         if (this.state.loginSuccess) return <Redirect to='/'></Redirect>;
         return (
-            <Dialog title='signIn.exe'>
+            <Dialog title='signIn.exe' closeDisabled>
                 <AnchorWrapper>
                     {"If you don't have any valid account "}
-                    <Anchor href='/sign-up'>
-                        -> Sign Up (click)
-                    </Anchor>
+                    <Anchor href='/sign-up'>-> Sign Up (click)</Anchor>
                 </AnchorWrapper>
                 <FullWidthTextField
                     placeholder='username'
@@ -55,6 +54,14 @@ export class SignIn extends React.Component {
                             this.state.password,
                             () => {
                                 this.setState({ loginSuccess: true });
+                                this.props.enqueueSnackbar(
+                                    `Successful sign in`,
+                                );
+                            },
+                            () => {
+                                this.props.enqueueSnackbar(
+                                    `Username or password is invalid. Please sign up if you dont have a valid account.`,
+                                );
                             },
                         );
                     }}
@@ -67,3 +74,5 @@ export class SignIn extends React.Component {
         );
     }
 }
+
+export default withSnackbar(SignIn);

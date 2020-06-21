@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { TextField, Button, Anchor } from 'react95';
 import styled from 'styled-components';
 import Axios from 'axios';
+import { withSnackbar } from 'notistack';
 
 const FullWidthTextField = styled(TextField)`
     width: 100%;
@@ -23,14 +24,13 @@ export class SignUp extends React.Component {
     };
 
     render() {
-        if (this.state.registerSuccess) return <Redirect to='/sign-in'></Redirect>;
+        if (this.state.registerSuccess)
+            return <Redirect to='/sign-in'></Redirect>;
         return (
-            <Dialog title='signUp.exe'>
+            <Dialog title='signUp.exe' closeDisabled>
                 <AnchorWrapper>
-                    {"If you have a valid account "}
-                    <Anchor href='/sign-in'>
-                        -> Sign In (click)
-                    </Anchor>
+                    {'If you have a valid account '}
+                    <Anchor href='/sign-in'>-> Sign In (click)</Anchor>
                 </AnchorWrapper>
                 <FullWidthTextField
                     placeholder='username'
@@ -45,7 +45,7 @@ export class SignUp extends React.Component {
                     onChange={(e) =>
                         this.setState({ password: e.target.value })
                     }
-                    type="password"
+                    type='password'
                 />
                 <Button
                     fullWidth
@@ -59,8 +59,17 @@ export class SignUp extends React.Component {
                             },
                         });
                         request.then(
-                            ()=>{this.setState({registerSuccess: true})},
-                            ()=>{},
+                            () => {
+                                this.setState({ registerSuccess: true });
+                                this.props.enqueueSnackbar(
+                                    `Successful sign up. Please sign in with your credentials.`,
+                                );
+                            },
+                            () => {
+                                this.props.enqueueSnackbar(
+                                    `This username was already taken`,
+                                );
+                            },
                         );
                     }}
                     style={{ marginLeft: '2px' }}
@@ -72,3 +81,5 @@ export class SignUp extends React.Component {
         );
     }
 }
+
+export default withSnackbar(SignUp);
