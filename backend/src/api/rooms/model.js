@@ -41,13 +41,8 @@ RoomSchema.methods = {
             await this.pushMessage({
                 message: `'${user.username}' is joined the room.`,
             });
-            this.save();
             if (user.id in SocketGlobals.activeUsers)
                 SocketGlobals.activeUsers[user.id].joinRoom(this);
-            if (this.id in SocketGlobals.activeRooms)
-                SocketGlobals.activeRooms[this.id].forEach((s) => {
-                    s.emit('refreshRoom', { roomId: this.id });
-                });
         }
     },
     removeUser: async function (user) {
@@ -55,14 +50,14 @@ RoomSchema.methods = {
             this.activeUsers.pull(user.id);
             if (this.activeUsers.length === 0) {
                 await RoomsModel.deleteOne({ _id: this.id });
+                return false;
             } else {
                 await this.pushMessage({
                     message: `'${user.username}' is leaved the room.`,
                 });
             }
-            if (user.id in SocketGlobals.activeUsers)
-                SocketGlobals.activeUsers[user.id].leaveRoom(this);
         }
+        return true;
     },
     pushMessage: async function (messageData, socket = null) {
         const message = await Message.create(messageData);

@@ -1,5 +1,6 @@
 const Rooms = require('./model');
 const User = require('../users/model');
+const SocketGlobals = require('../../socket/SocketGlobals');
 
 exports.createRoom = async (req, res) => {
     try {
@@ -55,6 +56,10 @@ exports.addUserToRoom = async (req, res) => {
             if (user) {
                 await room.addUser(user);
                 room.save();
+                if (room.id in SocketGlobals.activeRooms)
+                    SocketGlobals.activeRooms[room.id].forEach((s) => {
+                        s.emit('refreshRoom', { roomId: room.id });
+                    });
                 return res.status(200).json({});
             }
         }
@@ -74,8 +79,9 @@ const removeUserFromRoom = async (req, res) => {
         if (room) {
             const user = await User.getById(req.body.userId);
             if (user) {
-                await room.removeUser(user);
-                room.save();
+                if (await room.removeUser(user)) room.save();
+                if (user.id in SocketGlobals.activeUsers)
+                    SocketGlobals.activeUsers[user.id].leaveRoom(this);
                 return res.status(200).json({});
             }
         }
