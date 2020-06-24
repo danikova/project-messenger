@@ -1,10 +1,16 @@
 const Rooms = require('../api/rooms/model');
+const SocketGlobals = require('./SocketGlobals');
 
 class SocketConnection {
     constructor(socket) {
         this.socket = socket;
         this.user = this.socket.user;
         this.activeRoom = null;
+        SocketGlobals.activeUsers[this.user.id] = this;
+    }
+
+    inActivateUser() {
+        delete SocketGlobals.activeUsers[this.user.id];
     }
 
     async getActiveRoom(id) {
@@ -14,8 +20,8 @@ class SocketConnection {
     }
 
     forEachRoomSockets(room, fn) {
-        if (room.id in SocketConnection.activeRooms)
-            SocketConnection.activeRooms[room.id].forEach(fn);
+        if (room.id in SocketGlobals.activeRooms)
+            SocketGlobals.activeRooms[room.id].forEach(fn);
     }
 
     emit() {
@@ -33,24 +39,25 @@ class SocketConnection {
     }
 
     async getUserRelatedRooms() {
-        return await Rooms.find({}).where('activeUsers').in(this.user).select('_id');
+        return await Rooms.find({})
+            .where('activeUsers')
+            .in(this.user)
+            .select('_id');
     }
 
     joinRoom(room) {
-        if (!(room.id in SocketConnection.activeRooms))
-            SocketConnection.activeRooms[room.id] = new Set();
-        SocketConnection.activeRooms[room.id].add(this.socket);
+        if (!(room.id in SocketGlobals.activeRooms))
+            SocketGlobals.activeRooms[room.id] = new Set();
+        SocketGlobals.activeRooms[room.id].add(this.socket);
     }
 
     leaveRoom(room) {
-        if (room.id in SocketConnection.activeRooms) {
-            SocketConnection.activeRooms[room.id].delete(this.socket);
-            if (SocketConnection.activeRooms[room.id].size == 0)
-                delete SocketConnection.activeRooms[room.id];
+        if (room.id in SocketGlobals.activeRooms) {
+            SocketGlobals.activeRooms[room.id].delete(this.socket);
+            if (SocketGlobals.activeRooms[room.id].size == 0)
+                delete SocketGlobals.activeRooms[room.id];
         }
     }
 }
-
-SocketConnection.activeRooms = {};
 
 module.exports = SocketConnection;
