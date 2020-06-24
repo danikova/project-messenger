@@ -75,9 +75,10 @@ export class ChatRoom extends React.Component {
     }
 
     lastMessageString() {
-        const { messages: m } = this.props;
+        const { messages: m, currentUser: cu } = this.props;
         if (m.length !== 0) {
             if (!m[0].user) return m[0].message;
+            if (cu && cu._id === m[0].user._id) return `You: ${m[0].message}`;
             return `${m[0].user.username}: ${m[0].message}`;
         }
         return '';

@@ -63,11 +63,17 @@ export class ChatRoomsWindow extends React.Component {
     state = { createNewRoomDialog: false };
 
     renderChatRooms() {
+        const { user } = this.props;
         const { rooms, activeRoom } = this.props.rooms;
         return (rooms || []).map((room) => {
             const active = activeRoom ? activeRoom._id === room._id : false;
             return (
-                <ChatRoom key={room._id} {...room} active={active}></ChatRoom>
+                <ChatRoom
+                    key={room._id}
+                    {...room}
+                    active={active}
+                    currentUser={user && user.data}
+                ></ChatRoom>
             );
         });
     }
@@ -131,8 +137,9 @@ export class ChatRoomsWindow extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    const { rooms } = state;
+    const { rooms, user } = state;
     return {
+        user,
         rooms,
     };
 };
