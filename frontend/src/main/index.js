@@ -5,9 +5,14 @@ import { Grid } from '@material-ui/core';
 import ChatRoomsWindow from './ChatRooms/ChatRoomsWindow';
 import FocusedChatRoomWindow from './FocusedChatRoom/FocusedChatRoomWindow';
 import { MaxHeightGrid } from '../shared/components';
-import { readRoomList, pushMessage } from '../redux/actions/room.action';
+import {
+    readRoomList,
+    pushMessage,
+    openRoom,
+} from '../redux/actions/room.action';
 import { socket } from '../redux/actions/socket.action';
 import { getSelfInfo } from '../redux/actions/user.action';
+import { store } from '../redux/store';
 
 const MainViewWrapper = styled.div`
     padding: 20px;
@@ -23,15 +28,26 @@ export default class MainView extends React.Component {
         pushMessage(roomId, message);
     };
 
+    onRefreshRoom = (data) => {
+        const { roomId } = data;
+        const { rooms } = store.getState();
+        readRoomList();
+        if (rooms.activeRoom && rooms.activeRoom._id === roomId) {
+            openRoom(roomId);
+        }
+    };
+
     componentDidMount() {
         getSelfInfo(() => {
             readRoomList();
         });
         socket.on('newMessage', this.onNewMessage);
+        socket.on('refreshRoom', this.onRefreshRoom);
     }
 
     componentWillUnmount() {
         socket.off('newMessage', this.onNewMessage);
+        socket.off('refreshRoom', this.onRefreshRoom);
     }
 
     render() {

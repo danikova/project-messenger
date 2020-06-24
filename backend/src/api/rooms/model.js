@@ -36,11 +36,18 @@ RoomSchema.statics = {
 RoomSchema.methods = {
     addUser: async function (user) {
         if (this.users.indexOf(user.id) < 0) this.users.push(user);
-        if (this.activeUsers.indexOf(user.id) < 0){
+        if (this.activeUsers.indexOf(user.id) < 0) {
             this.activeUsers.push(user);
             await this.pushMessage({
-                message: `'${user.username}' is joined the room.`
+                message: `'${user.username}' is joined the room.`,
             });
+            this.save();
+            if (user.id in SocketGlobals.activeUsers)
+                SocketGlobals.activeUsers[user.id].joinRoom(this);
+            if (this.id in SocketGlobals.activeRooms)
+                SocketGlobals.activeRooms[this.id].forEach((s) => {
+                    s.emit('refreshRoom', { roomId: this.id });
+                });
         }
     },
     removeUser: async function (user) {
@@ -50,16 +57,18 @@ RoomSchema.methods = {
                 await RoomsModel.deleteOne({ _id: this.id });
             } else {
                 await this.pushMessage({
-                    message: `'${user.username}' is leaved the room.`
+                    message: `'${user.username}' is leaved the room.`,
                 });
             }
+            if (user.id in SocketGlobals.activeUsers)
+                SocketGlobals.activeUsers[user.id].leaveRoom(this);
         }
     },
     pushMessage: async function (messageData, socket = null) {
         const message = await Message.create(messageData);
         this.messages.push(message);
+        const messageJson = message.toJSON();
         if (this.id in SocketGlobals.activeRooms) {
-            const messageJson = message.toJSON();
             SocketGlobals.activeRooms[this.id].forEach((s) => {
                 if (s !== socket) {
                     s.emit('newMessage', {
