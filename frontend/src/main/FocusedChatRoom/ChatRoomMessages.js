@@ -4,6 +4,13 @@ import styled from 'styled-components';
 
 import ScrollToBottom from 'react-scroll-to-bottom';
 
+const ServerLineWrapper = styled.div`
+    padding: 10px 0 0 5px;
+    font-size: 12px;
+    color: gray;
+    text-align: center;
+`;
+
 const ChatLineWrapper = styled.div`
     display: flex;
     padding: 5px 0 0 5px;
@@ -66,6 +73,8 @@ export class ChatRoomMessages extends React.Component {
             const user = users[message.user];
             const userChange = user && currentUser !== user._id;
             currentUser = (user && user._id) || '';
+            if (!message.user)
+                return <ServerLineWrapper>{message.message}</ServerLineWrapper>;
             return (
                 <ChatLineWrapper
                     key={message._id}

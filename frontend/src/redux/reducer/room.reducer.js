@@ -35,7 +35,9 @@ export function rooms(
             if (state.activeRoom && state.activeRoom._id === action.roomId)
                 state.activeRoom.messages.push({
                     ...action.message,
-                    user: action.message.user._id || action.message.user,
+                    user:
+                        action.message.user &&
+                        (action.message.user._id || action.message.user),
                 });
             state.rooms = state.rooms.map((it) => {
                 if (it._id === action.roomId)
