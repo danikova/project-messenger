@@ -98,7 +98,9 @@ export class ChatRoom extends React.Component {
                         <Avatar
                             style={{
                                 background: `#${this.props.color.primary}`,
-                                // color: `#${this.props.color.secondary}`,
+                                color: `#${this.props.color.secondary}`,
+                                textShadow:
+                                    '-1px -1px 0 #595959, 1px -1px 0 #595959, -1px 1px 0 #595959, 1px 1px 0 #595959',
                             }}
                         >
                             {this.state.avatarLetters}

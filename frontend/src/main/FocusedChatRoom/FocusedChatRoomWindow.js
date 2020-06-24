@@ -123,6 +123,9 @@ export class FocusedChatRoomWindow extends React.Component {
                             <CurrentUserAvatar
                                 style={{
                                     background: `#${this.props.user.color.primary}`,
+                                    color: `#${this.props.user.color.secondary}`,
+                                    textShadow:
+                                        '-1px -1px 0 #595959, 1px -1px 0 #595959, -1px 1px 0 #595959, 1px 1px 0 #595959',
                                 }}
                             >
                                 {this.props.user.username

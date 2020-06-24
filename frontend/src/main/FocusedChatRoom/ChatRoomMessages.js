@@ -87,6 +87,11 @@ export class ChatRoomMessages extends React.Component {
                                     background: user
                                         ? `#${user.color.primary}`
                                         : '#fff',
+                                    color: user
+                                        ? `#${user.color.secondary}`
+                                        : '#000',
+                                    textShadow:
+                                        '-1px -1px 0 #595959, 1px -1px 0 #595959, -1px 1px 0 #595959, 1px 1px 0 #595959',
                                 }}
                             >
                                 {user
