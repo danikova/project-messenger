@@ -15,7 +15,6 @@ import {
 import { TOKEN_COOKIE, UPDATE_SUCCESS } from '../constants/user.constant';
 import { getCookie } from '../../shared/cookie.service';
 import { uuid } from 'uuidv4';
-import { socket } from "./socket.action";
 
 export function readRoomList(cb, errCb) {
     store.dispatch((dispatch) => {
@@ -143,7 +142,6 @@ export function createNewRow(roomName, cb, errCb) {
         request.then(
             (response) => {
                 readRoomList();
-                socket.emit('joinRoom', { roomId: response.data._id });
                 cb && cb(response);
             },
             (error) => {
@@ -201,7 +199,6 @@ export function leaveRoom(roomId, cb, errCb) {
                     type: ROOM_DETAILS_SUCCESS,
                     data: {},
                 });
-                socket.emit('leaveRoom', { roomId });
                 cb && cb(response);
             },
             (error) => {

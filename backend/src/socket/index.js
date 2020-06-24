@@ -4,8 +4,6 @@ const SocketConnection = require('./SocketConnection');
 
 const onPushMessage = require('./on.push.message');
 const onDisconnect = require('./on.disconnect');
-const onJoinRoom = require('./on.join.room');
-const onLeaveRoom = require('./on.leave.room');
 
 module.exports = function (server) {
     const io = socketIO(server);
@@ -19,8 +17,6 @@ module.exports = function (server) {
         socket.on('connect', () => {
             console.log('connect');
         });
-        socket.on('joinRoom', onJoinRoom(sc));
-        socket.on('leaveRoom', onLeaveRoom(sc));
         socket.on('pushMessage', onPushMessage(sc));
         socket.on('disconnect', onDisconnect(sc));
     });
