@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const RoomSchema = require('./schema');
 const generateColors = require('../../shared/random.color');
 const Message = require('../messages/model');
+const SocketGlobals = require('../../socket/SocketGlobals');
 
 RoomSchema.statics = {
     create: async function (data) {
@@ -35,19 +36,39 @@ RoomSchema.statics = {
 RoomSchema.methods = {
     addUser: async function (user) {
         if (this.users.indexOf(user.id) < 0) this.users.push(user);
-        if (this.activeUsers.indexOf(user.id) < 0) this.activeUsers.push(user);
+        if (this.activeUsers.indexOf(user.id) < 0){
+            this.activeUsers.push(user);
+            await this.pushMessage({
+                message: `'${user.username}' is joined the room.`
+            });
+        }
     },
     removeUser: async function (user) {
         if (0 <= this.activeUsers.indexOf(user.id)) {
             this.activeUsers.pull(user.id);
             if (this.activeUsers.length === 0) {
                 await RoomsModel.deleteOne({ _id: this.id });
+            } else {
+                await this.pushMessage({
+                    message: `'${user.username}' is leaved the room.`
+                });
             }
         }
     },
-    pushMessage: async function (messageData) {
+    pushMessage: async function (messageData, socket = null) {
         const message = await Message.create(messageData);
         this.messages.push(message);
+        if (this.id in SocketGlobals.activeRooms) {
+            const messageJson = message.toJSON();
+            SocketGlobals.activeRooms[this.id].forEach((s) => {
+                if (s !== socket) {
+                    s.emit('newMessage', {
+                        roomId: this.id,
+                        message: messageJson,
+                    });
+                }
+            });
+        }
         return message;
     },
 };
