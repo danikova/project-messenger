@@ -7,22 +7,22 @@ beforeAll(async () => await dbHandler.connect());
 afterEach(async () => await dbHandler.clearDatabase());
 afterAll(async () => await dbHandler.closeDatabase());
 
-test('sign-up reject without username', async () => {
-    const res = await request(app).post('/auth/sign-up').send({});
+test('register reject without username', async () => {
+    const res = await request(app).post('/auth/register').send({});
     expect(res.statusCode).toEqual(400);
     expect(res.body.password).toBe(undefined);
 });
 
-test('sign-up reject without password', async () => {
-    const res = await request(app).post('/auth/sign-up').send({
+test('register reject without password', async () => {
+    const res = await request(app).post('/auth/register').send({
         username: 'testuser',
     });
     expect(res.statusCode).toEqual(400);
     expect(res.body.password).toBe(undefined);
 });
 
-test('sign-up accept with username and password', async () => {
-    const res = await request(app).post('/auth/sign-up').send({
+test('register accept with username and password', async () => {
+    const res = await request(app).post('/auth/register').send({
         username: 'testuser',
         password: 'password123',
     });
@@ -30,13 +30,13 @@ test('sign-up accept with username and password', async () => {
     expect(res.body.password).toBe(undefined);
 });
 
-test('sign-up reject user register with equal authentication data', async () => {
-    const res1 = await request(app).post('/auth/sign-up').send({
+test('register reject user register with equal authentication data', async () => {
+    const res1 = await request(app).post('/auth/register').send({
         username: 'testuser',
         password: 'password123',
     });
     expect(res1.statusCode).toEqual(201);
-    const res2 = await request(app).post('/auth/sign-up').send({
+    const res2 = await request(app).post('/auth/register').send({
         username: 'testuser',
         password: 'password123',
     });
@@ -45,12 +45,12 @@ test('sign-up reject user register with equal authentication data', async () => 
     expect(res2.body.password).toBe(undefined);
 });
 
-test('sign-in with invalid data', async () => {
+test('login with invalid data', async () => {
     await User.create({
         username: 'testuser',
         password: 'password123',
     });
-    const res = await request(app).post('/auth/sign-in').send({
+    const res = await request(app).post('/auth/login').send({
         username: 'asdasd',
         password: 'asdasd',
     });
@@ -58,12 +58,12 @@ test('sign-in with invalid data', async () => {
     expect(res.body.password).toBe(undefined);
 });
 
-test('sign-in with valid data', async () => {
+test('login with valid data', async () => {
     await User.create({
         username: 'testuser',
         password: 'password123',
     });
-    const res = await request(app).post('/auth/sign-in').send({
+    const res = await request(app).post('/auth/login').send({
         username: 'testuser',
         password: 'password123',
     });

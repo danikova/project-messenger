@@ -23,14 +23,14 @@ export class DefaultLogin extends React.Component {
                 username: this.state.username,
                 password: this.state.password,
             },
-            '/auth/sign-in',
+            '/auth/login',
             () => {
-                this.props.enqueueSnackbar(`Successful sign in`);
+                this.props.enqueueSnackbar(`Successful login`);
                 this.props.onLoginSuccess();
             },
             () => {
                 this.props.enqueueSnackbar(
-                    `Username or password is invalid. Please sign up if you dont have a valid account.`
+                    `Username or password is invalid. Please register if you dont have a valid account.`
                 );
             }
         );
@@ -54,7 +54,7 @@ export class DefaultLogin extends React.Component {
                     style={{ marginLeft: '2px' }}
                     disabled={!this.state.username || !this.state.password}
                 >
-                    Sign In
+                    Login
                 </Button>
             </div>
         );

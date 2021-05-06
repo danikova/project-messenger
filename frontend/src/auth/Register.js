@@ -16,7 +16,7 @@ const AnchorWrapper = styled.h1`
     margin-top: -5px;
 `;
 
-export class SignUp extends React.Component {
+export class Register extends React.Component {
     state = {
         registerSuccess: false,
         username: '',
@@ -25,12 +25,12 @@ export class SignUp extends React.Component {
 
     render() {
         if (this.state.registerSuccess)
-            return <Redirect to='/sign-in'></Redirect>;
+            return <Redirect to='/login'></Redirect>;
         return (
-            <Dialog title='signUp.exe' closeDisabled>
+            <Dialog title='register.exe' closeDisabled>
                 <AnchorWrapper>
                     {'If you have a valid account '}
-                    <Anchor href='/sign-in'>-> Sign In (click)</Anchor>
+                    <Anchor href='/login'>-> Login (click)</Anchor>
                 </AnchorWrapper>
                 <FullWidthTextField
                     placeholder='username'
@@ -52,7 +52,7 @@ export class SignUp extends React.Component {
                     onClick={() => {
                         const request = Axios({
                             method: 'post',
-                            url: '/auth/sign-up',
+                            url: '/auth/register',
                             data: {
                                 username: this.state.username,
                                 password: this.state.password,
@@ -62,7 +62,7 @@ export class SignUp extends React.Component {
                             () => {
                                 this.setState({ registerSuccess: true });
                                 this.props.enqueueSnackbar(
-                                    `Successful sign up. Please sign in with your credentials.`,
+                                    `Successful register. Please login with your credentials.`,
                                 );
                             },
                             (error) => {
@@ -79,11 +79,11 @@ export class SignUp extends React.Component {
                     style={{ marginLeft: '2px' }}
                     disabled={!this.state.username || !this.state.password}
                 >
-                    Sign Up
+                    Register
                 </Button>
             </Dialog>
         );
     }
 }
 
-export default withSnackbar(SignUp);
+export default withSnackbar(Register);

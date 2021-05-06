@@ -17,9 +17,9 @@ export class GoogleLogin extends React.Component {
     onGoogleLoginSuccess = (res) => {
         loginWithCredentials(
             { idToken: res.tokenId },
-            '/auth/google-sign-in',
+            '/auth/google-login',
             () => {
-                this.props.enqueueSnackbar(`Successful sign in`);
+                this.props.enqueueSnackbar(`Successful login`);
                 this.props.onLoginSuccess();
             },
             (error) => {

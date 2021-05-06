@@ -6,11 +6,11 @@ import {
     Redirect,
 } from 'react-router-dom';
 import MainView from './main';
-import SignIn from './auth/SignIn';
-import SignUp from './auth/SignUp';
+import Login from './auth/Login';
+import Register from './auth/Register';
 import { connect } from 'react-redux';
 
-import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { reset, themes } from 'react95';
 import { SnackbarProvider } from 'notistack';
 import { CustomSnackbar } from './shared/components';
@@ -19,9 +19,14 @@ const ResetStyles = createGlobalStyle`
   ${reset}
 `;
 
+const GlobalWrapper = styled.div`
+    height: 100%;
+    width: 100%;
+`;
+
 function AppRouter(props) {
     return (
-        <div>
+        <GlobalWrapper>
             <ResetStyles />
             <ThemeProvider theme={themes.default}>
                 <SnackbarProvider
@@ -41,11 +46,11 @@ function AppRouter(props) {
                 >
                     <Router>
                         <Switch>
-                            <Route path='/sign-in'>
-                                <SignIn />
+                            <Route path='/login'>
+                                <Login />
                             </Route>
-                            <Route path='/sign-up'>
-                                <SignUp />
+                            <Route path='/register'>
+                                <Register />
                             </Route>
                             <Route
                                 path='/'
@@ -53,7 +58,7 @@ function AppRouter(props) {
                                     props.user.token ? (
                                         <MainView {...routeProps} />
                                     ) : (
-                                        <Redirect to='/sign-in' />
+                                        <Redirect to='/login' />
                                     )
                                 }
                             />
@@ -61,7 +66,7 @@ function AppRouter(props) {
                     </Router>
                 </SnackbarProvider>
             </ThemeProvider>
-        </div>
+        </GlobalWrapper>
     );
 }
 

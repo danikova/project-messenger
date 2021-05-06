@@ -3,7 +3,7 @@ const User = require('../api/users/model');
 const { OAuth2Client } = require('google-auth-library');
 const { validateUser, makeRandomString } = require('./utils');
 
-exports.signUp = async (req, res) => {
+exports.register = async (req, res) => {
     try {
         await validateUser(req.body);
     } catch (error) {
@@ -33,7 +33,7 @@ exports.signUp = async (req, res) => {
     res.status(201).json(userJson);
 };
 
-exports.signIn = async (req, res) => {
+exports.login = async (req, res) => {
     let user = await User.findOne({ username: req.body.username }).select(
         '+password',
     );
@@ -53,7 +53,7 @@ exports.signIn = async (req, res) => {
     res.status(200).json(userJson);
 };
 
-exports.googleSignIn = async (req, res) => {
+exports.googleLogin = async (req, res) => {
     let payload = {};
     try {
         const client = new OAuth2Client(process.env.CLIENT_ID);

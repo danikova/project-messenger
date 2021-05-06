@@ -15,7 +15,7 @@ const DividerWrapper = styled(Divider)`
     margin-top: 16px;
 `;
 
-export default class SignIn extends React.Component {
+export default class Login extends React.Component {
     state = {
         loginSuccess: false,
         to: '/'
@@ -28,10 +28,10 @@ export default class SignIn extends React.Component {
     render() {
         if (this.state.loginSuccess) return <Redirect to={this.state.to}></Redirect>;
         return (
-            <Dialog title='signIn.exe' closeDisabled>
+            <Dialog title='login.exe' closeDisabled>
                 <AnchorWrapper>
                     {"If you don't have any valid account "}
-                    <Anchor href='/sign-up'>-> Sign Up (click)</Anchor>
+                    <Anchor href='/register'>-> Register (click)</Anchor>
                 </AnchorWrapper>
                 <DefaultLogin onLoginSuccess={this.onLoginSuccess} />
                 <DividerWrapper />
