@@ -127,6 +127,7 @@ export class FocusedChatRoomWindow extends React.Component {
                                     textShadow:
                                         '-1px -1px 0 #595959, 1px -1px 0 #595959, -1px 1px 0 #595959, 1px 1px 0 #595959',
                                 }}
+                                src={this.props.user.imageUrl}
                             >
                                 {this.props.user.username
                                     .charAt(0)

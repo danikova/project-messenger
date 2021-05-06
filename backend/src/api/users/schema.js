@@ -6,6 +6,14 @@ const UserSchema = new Schema(
             primary: { type: String },
             secondary: { type: String },
         },
+        imageUrl: {
+            type: String,
+        },
+        email: {
+            type: String,
+            unique: true,
+            maxlength: 254,
+        },
         username: {
             type: String,
             unique: true,

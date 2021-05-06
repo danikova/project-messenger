@@ -11,18 +11,15 @@ import {
 } from '../constants/user.constant';
 import { openRoom } from './room.action';
 
-export function loginWithCredentials(username, password, cb, errCb) {
+export function loginWithCredentials(data, url, cb, errCb) {
     store.dispatch((dispatch) => {
         dispatch({
             type: LOGIN_REQUEST,
         });
         const request = Axios({
             method: 'post',
-            url: '/auth/sign-in',
-            data: {
-                username,
-                password,
-            },
+            url: url,
+            data: data,
         });
         request.then(
             (response) => {

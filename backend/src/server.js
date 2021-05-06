@@ -1,3 +1,7 @@
+require('dotenv').config();
+if(!process.env.CLIENT_ID)
+    throw Error('Google OAuth 2.0 CLIENT_ID not found')
+
 const config = require('config');
 const express = require('express');
 const app = express();
@@ -18,15 +22,15 @@ const setSocket = require('./socket');
 databaseSetup();
 middlewares(app);
 
-app.get('/', function (req, res, next) {
+app.get('/api/', function (req, res, next) {
     res.status(200).json(listEndpoints(app));
 });
 
 setSocket(server);
 const apiRouter = setApiRoutes();
 const authRouter = setAuthRoutes();
-app.use('/api', apiRouter);
-app.use('/auth', authRouter);
+app.use('/api/', apiRouter);
+app.use('/auth/', authRouter);
 
 server.listen(config.get('server.port'), config.get('server.host'), () => {
     console.log(`Server is running on ${config.get('server.host')}:${config.get('server.port')}`);

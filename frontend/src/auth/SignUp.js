@@ -65,9 +65,13 @@ export class SignUp extends React.Component {
                                     `Successful sign up. Please sign in with your credentials.`,
                                 );
                             },
-                            () => {
+                            (error) => {
                                 this.props.enqueueSnackbar(
-                                    `This username was already taken`,
+                                    error.response.data.error ||
+                                        error.response.data.message ||
+                                        JSON.stringify(
+                                            error.response.data.error,
+                                        ),
                                 );
                             },
                         );
