@@ -24,7 +24,7 @@ const CreateNewRoomButton = styled(Button)`
 `;
 
 const ListWindowContent = styled(FlexWindowContent)`
-    max-height: calc(100vh - 132px);
+    max-height: 100%;
 `;
 
 const CreateNewRoomDialog = (props) => {
@@ -95,7 +95,7 @@ export class ChatRoomsWindow extends React.Component {
                         square
                         onClick={() => {
                             forgetUser();
-                            this.props.enqueueSnackbar(`Successful sign out`);
+                            this.props.enqueueSnackbar(`Successful logout`);
                         }}
                     >
                         <span

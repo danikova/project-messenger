@@ -4,6 +4,11 @@ import { Button, Window, WindowHeader, WindowContent } from 'react95';
 import { Grid } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
 
+export const AppWrapperGrid = styled(Grid)`
+    height: calc(100% - 28px);
+    margin-top: 37px !important;
+`;
+
 export const MaxHeightGrid = styled(Grid)`
     height: 100%;
 `;

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Grid } from '@material-ui/core';
 import ChatRoomsWindow from './ChatRooms/ChatRoomsWindow';
 import FocusedChatRoomWindow from './FocusedChatRoom/FocusedChatRoomWindow';
-import { MaxHeightGrid } from '../shared/components';
+import { AppWrapperGrid } from '../shared/components';
 import {
     readRoomList,
     pushMessage,
@@ -13,6 +13,7 @@ import {
 import { socket } from '../redux/actions/socket.action';
 import { getSelfInfo } from '../redux/actions/user.action';
 import { store } from '../redux/store';
+import AppBar from './AppBar';
 
 const MainViewWrapper = styled.div`
     padding: 20px;
@@ -53,14 +54,15 @@ export default class MainView extends React.Component {
     render() {
         return (
             <MainViewWrapper>
-                <MaxHeightGrid container spacing={2}>
+                <AppBar />
+                <AppWrapperGrid container spacing={2}>
                     <Grid item xs={5} sm={4} md={3}>
                         <ChatRoomsWindow></ChatRoomsWindow>
                     </Grid>
                     <Grid item xs={7} sm={8} md={9}>
                         <FocusedChatRoomWindow></FocusedChatRoomWindow>
                     </Grid>
-                </MaxHeightGrid>
+                </AppWrapperGrid>
             </MainViewWrapper>
         );
     }

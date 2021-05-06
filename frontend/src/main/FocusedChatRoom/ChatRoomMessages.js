@@ -45,7 +45,7 @@ const LastLinePadding = styled.div`
 `;
 
 const FullHeightScrollToBottom = styled(ScrollToBottom)`
-    height: calc(100vh - 241px);
+    height: 100%;
 `;
 
 export class ChatRoomMessages extends React.Component {
