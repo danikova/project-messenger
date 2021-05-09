@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { List, Button, Toolbar, TextField } from 'react95';
-import { ChatRoom } from './ChatRoom';
+import { Chatroom } from './Chatroom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import {
@@ -58,22 +58,22 @@ const CreateNewRoomDialog = (props) => {
     );
 };
 
-export class ChatRoomsWindow extends React.Component {
+export class ChatroomsWindow extends React.Component {
     state = { createNewRoomDialog: false };
 
-    renderChatRooms() {
+    renderChatrooms() {
         if (!this.props.rooms) return null;
         const { user } = this.props;
         const { rooms, activeRoom } = this.props.rooms;
         return (rooms || []).map((room) => {
             const active = activeRoom ? activeRoom._id === room._id : false;
             return (
-                <ChatRoom
+                <Chatroom
                     key={room._id}
                     {...room}
                     active={active}
                     currentUser={user && user.data}
-                ></ChatRoom>
+                ></Chatroom>
             );
         });
     }
@@ -88,7 +88,7 @@ export class ChatRoomsWindow extends React.Component {
                         justifyContent: 'space-between',
                     }}
                 >
-                    <span>chatRooms.exe</span>
+                    <span>chatrooms.exe</span>
                 </FlexWindowHeader>
                 <ListWindowContent>
                     {this.state.createNewRoomDialog ? (
@@ -110,7 +110,7 @@ export class ChatRoomsWindow extends React.Component {
                         >
                             Create new room
                         </CreateNewRoomButton>
-                        {this.renderChatRooms()}
+                        {this.renderChatrooms()}
                     </FullHeightList>
                 </ListWindowContent>
             </MaxSizeFlexWindow>
@@ -126,4 +126,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default withSnackbar(connect(mapStateToProps)(ChatRoomsWindow));
+export default withSnackbar(connect(mapStateToProps)(ChatroomsWindow));

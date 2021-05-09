@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import page404 from '../assets/404.png';
 import AppBar from './AppBar';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import ChatRooms from './ChatRooms';
+import Chatrooms from './Chatrooms';
 
 const MainViewWrapper = styled.div`
     padding: 20px;
@@ -37,7 +37,7 @@ export default class MainView extends React.Component {
                         <div>hi</div>
                     </Route>
                     <Route path='/chatrooms'>
-                        <ChatRooms />
+                        <Chatrooms />
                     </Route>
                     <Redirect exact from='/' to='/chatrooms' />
                     <Route

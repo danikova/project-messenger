@@ -28,7 +28,7 @@ export function AppbarList(props) {
                 <span role='img' aria-label='📁'>
                     📁
                 </span>
-                ChatRooms
+                Chatrooms
             </ListItem>
             <Divider />
             <ListItem

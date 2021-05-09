@@ -63,7 +63,7 @@ export function openRoom(id, cb, errCb) {
             method: 'put',
             url: '/api/users',
             data: {
-                openChatRoom: id,
+                openChatroom: id,
             },
             headers: {
                 'x-access-token': getCookie(TOKEN_COOKIE),
@@ -78,7 +78,7 @@ export function openRoom(id, cb, errCb) {
                 });
                 dispatch({
                     type: UPDATE_SUCCESS,
-                    data: { openChatRoom: id },
+                    data: { openChatroom: id },
                 });
                 cb && cb(responses);
             },

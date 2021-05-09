@@ -55,11 +55,11 @@ test('test update self controller', async () => {
         .put('/api/users')
         .set('x-access-token', user.generateAuthToken())
         .send({
-            openChatRoom: room._id,
+            openChatroom: room._id,
         });
     expect(res.statusCode).toEqual(200);
     user = await User.findOne({
         username: 'testuser',
     });
-    expect(user.openChatRoom).toEqual(room._id);
+    expect(user.openChatroom).toEqual(room._id);
 });

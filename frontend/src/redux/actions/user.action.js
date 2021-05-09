@@ -57,8 +57,8 @@ export function getSelfInfo(cb, errCb) {
                     type: GET_SELF_SUCCESS,
                     data: { ...response.data },
                 });
-                if (response.data.openChatRoom)
-                    openRoom(response.data.openChatRoom);
+                if (response.data.openChatroom)
+                    openRoom(response.data.openChatroom);
                 cb && cb(response);
             },
             (error) => {

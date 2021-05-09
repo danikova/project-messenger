@@ -8,7 +8,7 @@ import {
     FlexWindowHeader,
     FlexWindowContent,
 } from '../../../shared/components';
-import { ChatRoomMessages } from './ChatRoomMessages';
+import { ChatroomMessages } from './ChatroomMessages';
 import { connect } from 'react-redux';
 import { socket } from '../../../redux/actions/socket.action';
 import { FocusedToolbar } from './FocusedToolbar';
@@ -43,7 +43,7 @@ const CurrentUserAvatar = styled(Avatar)`
     display: inline-flex;
 `;
 
-export class FocusedChatRoomWindow extends React.Component {
+export class FocusedChatroomWindow extends React.Component {
     constructor(props) {
         super(props);
         this.textArea = null;
@@ -112,8 +112,8 @@ export class FocusedChatRoomWindow extends React.Component {
                 >
                     <span>
                         {name
-                            ? `${name} (focusedChatRoom.exe)`
-                            : 'focusedChatRoom.exe'}
+                            ? `${name} (focusedChatroom.exe)`
+                            : 'focusedChatroom.exe'}
                     </span>
                     {this.props.user && this.props.user.username ? (
                         <span>
@@ -139,11 +139,11 @@ export class FocusedChatRoomWindow extends React.Component {
                 <FocusedToolbar roomId={_id} />
                 <FlexWindowContentWithoutTopPadding>
                     <ContentWrapper>
-                        <ChatRoomMessages
+                        <ChatroomMessages
                             currentUser={this.props.user}
                             users={users}
                             messages={messages}
-                        ></ChatRoomMessages>
+                        ></ChatroomMessages>
                         <InputField>
                             <MaxHeightGrid container>
                                 <Grid item xs={10} md={11}>
@@ -181,4 +181,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(FocusedChatRoomWindow);
+export default connect(mapStateToProps)(FocusedChatroomWindow);

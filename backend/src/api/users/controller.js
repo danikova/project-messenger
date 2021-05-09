@@ -20,7 +20,7 @@ exports.getUsers = async (req, res) => {
 
 exports.updateSelf = async (req, res) => {
     const userData = {
-        openChatRoom: req.body.openChatRoom,
+        openChatroom: req.body.openChatroom,
     };
     try {
         const user = await Users.update({ _id: req.user._id }, userData);

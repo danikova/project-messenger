@@ -28,7 +28,7 @@ const UserSchema = new Schema(
             maxlength: 255,
             select: false
         },
-        openChatRoom: {
+        openChatroom: {
             type: Schema.Types.ObjectId,
             ref: 'Rooms'
         }

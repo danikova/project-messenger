@@ -11,7 +11,7 @@ module.exports = function (server) {
     io.on('connection', async (socket) => {
         const sc = new SocketConnection(socket);
         await sc.getActiveRoom(
-            socket.user.openChatRoom && socket.user.openChatRoom._id,
+            socket.user.openChatroom && socket.user.openChatroom._id,
         );
         await sc.joinAllRoom();
         socket.on('connect', () => {

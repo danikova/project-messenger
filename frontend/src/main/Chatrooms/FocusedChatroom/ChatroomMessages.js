@@ -48,7 +48,7 @@ const FullHeightScrollToBottom = styled(ScrollToBottom)`
     height: 100%;
 `;
 
-export class ChatRoomMessages extends React.Component {
+export class ChatroomMessages extends React.Component {
     state = { users: {}, users_init: false };
 
     getUsers() {

@@ -4,7 +4,7 @@ import { Button, Avatar } from 'react95';
 import styled from 'styled-components';
 import { openRoom } from '../../redux/actions/room.action';
 
-const ChatRoomButton = styled(Button)`
+const ChatroomButton = styled(Button)`
     justify-content: start !important;
     padding: 0;
 `;
@@ -31,7 +31,7 @@ const DetailsWrapper = styled.div`
     text-overflow: ellipsis;
 `;
 
-const ChatRoomName = styled.div`
+const ChatroomName = styled.div`
     font-weight: 600;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -43,7 +43,7 @@ const LastMessage = styled.div`
     text-overflow: ellipsis;
 `;
 
-export class ChatRoom extends React.Component {
+export class Chatroom extends React.Component {
     state = {
         capitalName: '',
         avatarLetters: '',
@@ -86,7 +86,7 @@ export class ChatRoom extends React.Component {
 
     render() {
         return (
-            <ChatRoomButton
+            <ChatroomButton
                 fullWidth
                 size='lg'
                 active={this.props.active}
@@ -108,11 +108,11 @@ export class ChatRoom extends React.Component {
                         </Avatar>
                     </AvatarWrapper>
                     <DetailsWrapper>
-                        <ChatRoomName>{this.state.capitalName}</ChatRoomName>
+                        <ChatroomName>{this.state.capitalName}</ChatroomName>
                         <LastMessage>{this.lastMessageString()}</LastMessage>
                     </DetailsWrapper>
                 </ButtonContent>
-            </ChatRoomButton>
+            </ChatroomButton>
         );
     }
 }
