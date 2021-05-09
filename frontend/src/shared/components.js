@@ -6,7 +6,11 @@ import { useSnackbar } from 'notistack';
 
 export const AppWrapperGrid = styled(Grid)`
     height: calc(100% - 28px);
+    max-height: calc(100% - 28px) !important;
     margin-top: 37px !important;
+    > div {
+        max-height: 100% !important;
+    }
 `;
 
 export const MaxHeightGrid = styled(Grid)`

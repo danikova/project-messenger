@@ -16,6 +16,7 @@ import { pushActiveMessage } from '../../../redux/actions/room.action';
 
 const ContentWrapper = styled.div`
     height: 100%;
+    max-height: 100% !important;
     display: flex;
     flex-direction: column;
 `;
@@ -31,16 +32,7 @@ const SendButton = styled(Button)`
 
 const FlexWindowContentWithoutTopPadding = styled(FlexWindowContent)`
     padding-top: 3px;
-`;
-
-const NameWrapper = styled.p`
-    display: inline;
-    margin-right: 10px;
-`;
-
-const CurrentUserAvatar = styled(Avatar)`
-    color: black;
-    display: inline-flex;
+    max-height: calc(100% - 93px);
 `;
 
 export class FocusedChatroomWindow extends React.Component {
