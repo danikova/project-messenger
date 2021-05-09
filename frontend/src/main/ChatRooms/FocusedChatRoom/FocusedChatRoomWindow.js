@@ -7,12 +7,12 @@ import {
     MaxSizeFlexWindow,
     FlexWindowHeader,
     FlexWindowContent,
-} from '../../shared/components';
+} from '../../../shared/components';
 import { ChatRoomMessages } from './ChatRoomMessages';
 import { connect } from 'react-redux';
-import { pushActiveMessage } from '../../redux/actions/room.action';
-import { socket } from '../../redux/actions/socket.action';
+import { socket } from '../../../redux/actions/socket.action';
 import { FocusedToolbar } from './FocusedToolbar';
+import { pushActiveMessage } from '../../../redux/actions/room.action';
 
 const ContentWrapper = styled.div`
     height: 100%;

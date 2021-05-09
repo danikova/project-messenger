@@ -10,7 +10,6 @@ import {
     Dialog,
 } from '../../shared/components';
 import { createNewRow } from '../../redux/actions/room.action';
-import { forgetUser } from '../../redux/actions/user.action';
 import { withSnackbar } from 'notistack';
 
 const FullHeightList = styled(List)`
@@ -63,6 +62,7 @@ export class ChatRoomsWindow extends React.Component {
     state = { createNewRoomDialog: false };
 
     renderChatRooms() {
+        if (!this.props.rooms) return null;
         const { user } = this.props;
         const { rooms, activeRoom } = this.props.rooms;
         return (rooms || []).map((room) => {
@@ -89,24 +89,6 @@ export class ChatRoomsWindow extends React.Component {
                     }}
                 >
                     <span>chatRooms.exe</span>
-                    <Button
-                        style={{ marginRight: '-6px', marginTop: '1px' }}
-                        size={'sm'}
-                        square
-                        onClick={() => {
-                            forgetUser();
-                            this.props.enqueueSnackbar(`Successful logout`);
-                        }}
-                    >
-                        <span
-                            style={{
-                                fontWeight: 'bold',
-                                transform: 'translateY(-1px)',
-                            }}
-                        >
-                            x
-                        </span>
-                    </Button>
                 </FlexWindowHeader>
                 <ListWindowContent>
                     {this.state.createNewRoomDialog ? (

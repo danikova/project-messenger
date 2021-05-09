@@ -1,19 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-
-import { Grid } from '@material-ui/core';
-import ChatRoomsWindow from './ChatRooms/ChatRoomsWindow';
-import FocusedChatRoomWindow from './FocusedChatRoom/FocusedChatRoomWindow';
-import { AppWrapperGrid } from '../shared/components';
-import {
-    readRoomList,
-    pushMessage,
-    openRoom,
-} from '../redux/actions/room.action';
-import { socket } from '../redux/actions/socket.action';
-import { getSelfInfo } from '../redux/actions/user.action';
-import { store } from '../redux/store';
+import page404 from '../assets/404.png';
 import AppBar from './AppBar';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import ChatRooms from './ChatRooms';
 
 const MainViewWrapper = styled.div`
     padding: 20px;
@@ -23,46 +13,41 @@ const MainViewWrapper = styled.div`
     margin: 0;
 `;
 
+const Page404Wrapper = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: 100px;
+    width: 100vw;
+`;
+
+const Page404Img = styled.img`
+    display: block;
+    width: 400px;
+    margin: auto;
+`;
+
 export default class MainView extends React.Component {
-    onNewMessage = (data) => {
-        const { roomId, message } = data;
-        pushMessage(roomId, message);
-    };
-
-    onRefreshRoom = (data) => {
-        const { roomId } = data;
-        const { rooms } = store.getState();
-        readRoomList();
-        if (rooms.activeRoom && rooms.activeRoom._id === roomId) {
-            openRoom(roomId);
-        }
-    };
-
-    componentDidMount() {
-        getSelfInfo(() => {
-            readRoomList();
-        });
-        socket.on('newMessage', this.onNewMessage);
-        socket.on('refreshRoom', this.onRefreshRoom);
-    }
-
-    componentWillUnmount() {
-        socket.off('newMessage', this.onNewMessage);
-        socket.off('refreshRoom', this.onRefreshRoom);
-    }
-
     render() {
         return (
             <MainViewWrapper>
                 <AppBar />
-                <AppWrapperGrid container spacing={2}>
-                    <Grid item xs={5} sm={4} md={3}>
-                        <ChatRoomsWindow></ChatRoomsWindow>
-                    </Grid>
-                    <Grid item xs={7} sm={8} md={9}>
-                        <FocusedChatRoomWindow></FocusedChatRoomWindow>
-                    </Grid>
-                </AppWrapperGrid>
+                <Switch>
+                    <Route path='/profile'>
+                        <div>hi</div>
+                    </Route>
+                    <Route path='/chatrooms'>
+                        <ChatRooms />
+                    </Route>
+                    <Redirect exact from='/' to='/chatrooms' />
+                    <Route
+                        render={(routeProps) => (
+                            <Page404Wrapper>
+                                <Page404Img src={page404} />
+                            </Page404Wrapper>
+                        )}
+                    />
+                </Switch>
             </MainViewWrapper>
         );
     }

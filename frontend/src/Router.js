@@ -1,9 +1,9 @@
 import React from 'react';
 import {
-    BrowserRouter as Router,
     Switch,
     Route,
     Redirect,
+    Router,
 } from 'react-router-dom';
 import MainView from './main';
 import Login from './auth/Login';
@@ -14,6 +14,7 @@ import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { reset, themes } from 'react95';
 import { SnackbarProvider } from 'notistack';
 import { CustomSnackbar } from './shared/components';
+import { createBrowserHistory } from 'history';
 
 const ResetStyles = createGlobalStyle`
   ${reset}
@@ -23,6 +24,8 @@ const GlobalWrapper = styled.div`
     height: 100%;
     width: 100%;
 `;
+
+export const history = createBrowserHistory();
 
 function AppRouter(props) {
     return (
@@ -44,7 +47,7 @@ function AppRouter(props) {
                         );
                     }}
                 >
-                    <Router>
+                    <Router history={history}>
                         <Switch>
                             <Route path='/login'>
                                 <Login />

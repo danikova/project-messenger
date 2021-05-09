@@ -6,10 +6,9 @@ import {
     Toolbar,
     TextField,
     Button,
-    List,
-    ListItem,
-    Divider,
 } from 'react95';
+import { withSnackbar } from 'notistack';
+import { AppbarList } from './AppbarList';
 
 const CustomAppBar = styled(OriginalAppBar)`
     z-index: 50;
@@ -47,36 +46,12 @@ export class AppBar extends React.Component {
                             Start
                         </Button>
                         {this.state.toolbarOpen && (
-                            <List
-                                style={{
-                                    position: 'absolute',
-                                    left: '0',
-                                    top: '100%',
-                                }}
-                                onClick={() =>
+                            <AppbarList
+                                toolbarClose={() =>
                                     this.setState({ toolbarOpen: false })
                                 }
-                            >
-                                <ListItem>
-                                    <span role='img' aria-label='👨‍💻'>
-                                        👨‍💻
-                                    </span>
-                                    Profile
-                                </ListItem>
-                                <ListItem>
-                                    <span role='img' aria-label='📁'>
-                                        📁
-                                    </span>
-                                    My account
-                                </ListItem>
-                                <Divider />
-                                <ListItem disabled>
-                                    <span role='img' aria-label='🔙'>
-                                        🔙
-                                    </span>
-                                    Logout
-                                </ListItem>
-                            </List>
+                                enqueueSnackbar={this.props.enqueueSnackbar}
+                            />
                         )}
                     </div>
 
@@ -87,4 +62,6 @@ export class AppBar extends React.Component {
     }
 }
 
-export default AppBar;
+export default withSnackbar(AppBar);
+
+
