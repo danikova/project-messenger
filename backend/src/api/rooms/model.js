@@ -35,7 +35,6 @@ RoomSchema.statics = {
 
 RoomSchema.methods = {
     addUser: async function (user) {
-        if (this.users.indexOf(user.id) < 0) this.users.push(user);
         if (this.activeUsers.indexOf(user.id) < 0) {
             this.activeUsers.push(user);
             await this.pushMessage({

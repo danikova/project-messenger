@@ -20,7 +20,6 @@ test('create new room', async () => {
             name: 'testroom',
         });
     expect(res.statusCode).toEqual(201);
-    expect(res.body.users.length).toEqual(1);
     expect(res.body.activeUsers.length).toEqual(1);
 });
 
@@ -37,7 +36,6 @@ test('create new rooms with same name', async () => {
                 name: 'testroom',
             });
         expect(res.statusCode).toEqual(201);
-        expect(res.body.users.length).toEqual(1);
         expect(res.body.activeUsers.length).toEqual(1);
     }
 });
@@ -63,7 +61,6 @@ test('get room list without user lists and with only just the last messages', as
     for (const room of res.body) {
         expect(room.messages.length).toEqual(1);
         expect(room.messages[0].message).toEqual('19');
-        expect(room.users).toEqual(undefined);
         expect(room.activeUsers).toEqual(undefined);
         const currentRoomName = parseInt(room.name);
         expect(currentRoomName < lastRoomName).toEqual(true);
@@ -140,10 +137,6 @@ test('get room by id', async () => {
         .set('x-access-token', user.generateAuthToken())
         .send();
     expect(res.statusCode).toEqual(200);
-    expect(res.body.users.length).toEqual(1);
-    for (const user of res.body.users) {
-        expect(typeof user).toEqual('object');
-    }
     expect(res.body.activeUsers.length).toEqual(1);
     for (const user of res.body.activeUsers) {
         expect(typeof user).toEqual('string');
@@ -220,7 +213,6 @@ test('test add-user route with valid parameters', async () => {
         .set('x-access-token', user1.generateAuthToken())
         .send();
     expect(res2.statusCode).toEqual(200);
-    expect(res2.body.users.length).toEqual(2);
     expect(res2.body.activeUsers.length).toEqual(2);
 });
 
@@ -249,7 +241,6 @@ test('test add-user route with valid parameters', async () => {
 //         .set('x-access-token', user1.generateAuthToken())
 //         .send();
 //     expect(res2.statusCode).toEqual(200);
-//     expect(res2.body.users.length).toEqual(2);
 //     expect(res2.body.activeUsers.length).toEqual(1);
 // });
 
