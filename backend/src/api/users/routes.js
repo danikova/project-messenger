@@ -6,6 +6,7 @@ module.exports = function (router) {
     router.use('/users', userRouter);
 
     userRouter.get('/get-self', User.getSelf);
+    userRouter.get('/:id', User.getUser);
     // userRouter.get('/', User.getUsers);
     userRouter.put('/', User.updateSelf);
 };
