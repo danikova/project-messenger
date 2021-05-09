@@ -23,7 +23,7 @@ const CreateNewRoomButton = styled(Button)`
 `;
 
 const ListWindowContent = styled(FlexWindowContent)`
-    max-height: 100%;
+    max-height: calc(100% - 70px);
 `;
 
 const CreateNewRoomDialog = (props) => {

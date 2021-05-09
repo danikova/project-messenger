@@ -1,17 +1,19 @@
 import styled from 'styled-components';
 import React from 'react';
 
-import {
-    AppBar as OriginalAppBar,
-    Toolbar,
-    TextField,
-    Button,
-} from 'react95';
+import { AppBar as OriginalAppBar, Toolbar, TextField, Button } from 'react95';
 import { withSnackbar } from 'notistack';
 import { AppbarList } from './AppbarList';
+import { AvatarHolder } from '../../shared/components';
+import { connect } from 'react-redux';
 
 const CustomAppBar = styled(OriginalAppBar)`
     z-index: 50;
+`;
+
+const AvatarMargin = styled.div`
+    padding: 5px;
+    display: inline;
 `;
 
 export class AppBar extends React.Component {
@@ -26,7 +28,7 @@ export class AppBar extends React.Component {
                     <div
                         style={{
                             position: 'relative',
-                            display: 'inline-block',
+                            display: 'flex',
                         }}
                     >
                         <Button
@@ -53,15 +55,25 @@ export class AppBar extends React.Component {
                                 enqueueSnackbar={this.props.enqueueSnackbar}
                             />
                         )}
+                        <AvatarMargin />
+                        <AvatarHolder
+                            userId={
+                                this.props.user.data && this.props.user.data._id
+                            }
+                        />
                     </div>
-
-                    <TextField placeholder='Search...' width={150} />
+                    <TextField placeholder='Search...' width={300} />
                 </Toolbar>
             </CustomAppBar>
         );
     }
 }
 
-export default withSnackbar(AppBar);
+const mapStateToProps = (state) => {
+    const { user } = state;
+    return {
+        user,
+    };
+};
 
-
+export default withSnackbar(connect(mapStateToProps)(AppBar));

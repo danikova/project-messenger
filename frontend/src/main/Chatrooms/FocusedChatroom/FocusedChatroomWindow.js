@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextArea, Button, Avatar } from 'react95';
+import { TextArea, Button } from 'react95';
 import styled from 'styled-components';
 import { Grid } from '@material-ui/core';
 import {
@@ -90,7 +90,6 @@ export class FocusedChatroomWindow extends React.Component {
         const name = activeRoom ? activeRoom.name : null;
         const _id = activeRoom ? activeRoom._id : null;
         const messages = activeRoom ? activeRoom.messages : [];
-        const users = activeRoom ? activeRoom.users : [];
         const disabled = (activeRoom ? false : true) || this.state.processing;
         const disabledSend = disabled || (this.state.value ? false : true);
         return (
@@ -107,33 +106,12 @@ export class FocusedChatroomWindow extends React.Component {
                             ? `${name} (focusedChatroom.exe)`
                             : 'focusedChatroom.exe'}
                     </span>
-                    {this.props.user && this.props.user.username ? (
-                        <span>
-                            <NameWrapper>
-                                {this.props.user.username}
-                            </NameWrapper>
-                            <CurrentUserAvatar
-                                style={{
-                                    background: `#${this.props.user.color.primary}`,
-                                    color: `#${this.props.user.color.secondary}`,
-                                    textShadow:
-                                        '-1px -1px 0 #595959, 1px -1px 0 #595959, -1px 1px 0 #595959, 1px 1px 0 #595959',
-                                }}
-                                src={this.props.user.imageUrl}
-                            >
-                                {this.props.user.username
-                                    .charAt(0)
-                                    .toUpperCase()}
-                            </CurrentUserAvatar>
-                        </span>
-                    ) : null}
                 </FlexWindowHeader>
                 <FocusedToolbar roomId={_id} />
                 <FlexWindowContentWithoutTopPadding>
                     <ContentWrapper>
                         <ChatroomMessages
                             currentUser={this.props.user}
-                            users={users}
                             messages={messages}
                         ></ChatroomMessages>
                         <InputField>
