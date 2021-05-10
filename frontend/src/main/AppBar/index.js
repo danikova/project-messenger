@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import React from 'react';
 
 import { AppBar as OriginalAppBar, Toolbar, TextField, Button } from 'react95';
-import { withSnackbar } from 'notistack';
 import { AppbarList } from './AppbarList';
 import { AvatarHolder } from '../../shared/components';
 import { connect } from 'react-redux';
@@ -52,7 +51,6 @@ export class AppBar extends React.Component {
                                 toolbarClose={() =>
                                     this.setState({ toolbarOpen: false })
                                 }
-                                enqueueSnackbar={this.props.enqueueSnackbar}
                             />
                         )}
                         <AvatarMargin />
@@ -76,4 +74,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default withSnackbar(connect(mapStateToProps)(AppBar));
+export default connect(mapStateToProps)(AppBar);

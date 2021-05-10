@@ -1,3 +1,4 @@
+import { useSnackbar } from 'notistack';
 import React from 'react';
 import {
     List,
@@ -9,6 +10,8 @@ import { history } from '../../Router';
 
 
 export function AppbarList(props) {
+    const { enqueueSnackbar } = useSnackbar();
+
     return (
         <List
             style={{
@@ -34,7 +37,7 @@ export function AppbarList(props) {
             <ListItem
                 onClick={() => {
                     forgetUser();
-                    props.enqueueSnackbar(`Successful logout`);
+                    enqueueSnackbar(`Successful logout`, true);
                 }}
             >
                 <span role='img' aria-label='🔙'>

@@ -1,6 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Button, Window, WindowHeader, WindowContent, Avatar } from 'react95';
+import {
+    Button,
+    Window,
+    WindowHeader,
+    WindowContent,
+    Toolbar,
+    Avatar,
+    Panel,
+    Progress
+} from 'react95';
 import { Grid } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
 import { useSelector } from 'react-redux';
@@ -44,12 +53,35 @@ const DialogBackground = styled.div`
     z-index: 100;
 `;
 
-const CenteredWindow = styled(Window)`
+const DialogWindow = styled(Window)`
     z-index: 110;
     width: 500px;
     margin: auto;
     display: block;
     margin-top: 100px;
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+`;
+
+const DialogWindowHeader = styled(WindowHeader)`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+`;
+
+const DialogWindowFooter = styled(Panel)`
+    display: block;
+    margin: 0.25rem;
+    height: 31px;
+    line-height: 31px;
+    padding-left: 0.25rem;
+`;
+
+const DialogCloseSpan = styled.span`
+    font-weight: bold;
+    transform: translate(2px, -2px);
+    font-size: 25px;
 `;
 
 export class Dialog extends React.Component {
@@ -69,38 +101,29 @@ export class Dialog extends React.Component {
     render() {
         return (
             <DialogBackground>
-                <CenteredWindow style={{ width: 500 }}>
-                    <WindowHeader
-                        style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                        }}
-                    >
+                <DialogWindow resizable>
+                    <DialogWindowHeader>
                         <span>{this.props.title}</span>
                         <Button
-                            style={{ marginRight: '-6px', marginTop: '1px' }}
-                            size={'sm'}
-                            square
                             onClick={() =>
                                 this.props.onCloseClick &&
                                 this.props.onCloseClick()
                             }
                             disabled={this.props.closeDisabled}
                         >
-                            <span
-                                style={{
-                                    fontWeight: 'bold',
-                                    transform: 'translateY(-1px)',
-                                }}
-                            >
-                                x
-                            </span>
+                            <DialogCloseSpan>x</DialogCloseSpan>
                         </Button>
-                    </WindowHeader>
-                    {this.props.toolbar}
+                    </DialogWindowHeader>
+                    {this.props.toolbar && (
+                        <Toolbar>{this.props.toolbar}</Toolbar>
+                    )}
                     <WindowContent>{this.props.children}</WindowContent>
-                </CenteredWindow>
+                    {this.props.footer && (
+                        <DialogWindowFooter>
+                            {this.props.footer}
+                        </DialogWindowFooter>
+                    )}
+                </DialogWindow>
             </DialogBackground>
         );
     }
@@ -114,32 +137,16 @@ export function CustomSnackbar(props) {
     const { closeSnackbar } = useSnackbar();
     return (
         <Window>
-            <WindowHeader
-                style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                }}
-            >
+            <DialogWindowHeader>
                 <MarginRightSpan>{props.message}</MarginRightSpan>
                 <Button
-                    style={{ marginRight: '-6px', marginTop: '1px' }}
-                    size={'sm'}
-                    square
                     onClick={() => {
                         closeSnackbar(props.id);
                     }}
                 >
-                    <span
-                        style={{
-                            fontWeight: 'bold',
-                            transform: 'translateY(-1px)',
-                        }}
-                    >
-                        x
-                    </span>
+                    <DialogCloseSpan>x</DialogCloseSpan>
                 </Button>
-            </WindowHeader>
+            </DialogWindowHeader>
         </Window>
     );
 }
@@ -156,7 +163,7 @@ export function AvatarHolder({ userId = null, ...props }) {
     const color = user.color || { primary: '#fff', secondary: '#000' };
     return (
         <Avatar
-            size={50}
+            size={33}
             style={{
                 background: `#${color.primary}`,
                 color: `#${color.secondary}`,
@@ -171,3 +178,24 @@ export function AvatarHolder({ userId = null, ...props }) {
         </Avatar>
     );
 }
+
+export const RandomProgress = () => {
+    const [percent, setPercent] = useState(0);
+  
+    useEffect(() => {
+      const timer = setInterval(() => {
+        setPercent(previousPercent => {
+          if (previousPercent === 100) {
+            return 0;
+          }
+          const diff = Math.random() * 5;
+          return Math.min(previousPercent + diff, 100);
+        });
+      }, 500);
+      return () => {
+        clearInterval(timer);
+      };
+    }, []);
+  
+    return <Progress variant='tile' value={Math.floor(percent)} />;
+  };

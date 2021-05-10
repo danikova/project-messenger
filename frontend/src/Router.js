@@ -63,7 +63,6 @@ function AppRouter(props) {
                                 <Register />
                             </Route>
                             <Route
-                                path='/'
                                 render={(routeProps) =>
                                     props.user.token ? (
                                         <MainView {...routeProps} />

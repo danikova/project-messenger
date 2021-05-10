@@ -8,7 +8,7 @@ import {
     FlexWindowHeader,
     FlexWindowContent,
 } from '../../../shared/components';
-import { ChatroomMessages } from './ChatroomMessages';
+import ChatroomMessages from './ChatroomMessages';
 import { connect } from 'react-redux';
 import { socket } from '../../../redux/actions/socket.action';
 import { FocusedToolbar } from './FocusedToolbar';
@@ -89,7 +89,6 @@ export class FocusedChatroomWindow extends React.Component {
         const { activeRoom } = this.props.rooms || {};
         const name = activeRoom ? activeRoom.name : null;
         const _id = activeRoom ? activeRoom._id : null;
-        const messages = activeRoom ? activeRoom.messages : [];
         const disabled = (activeRoom ? false : true) || this.state.processing;
         const disabledSend = disabled || (this.state.value ? false : true);
         return (
@@ -110,10 +109,7 @@ export class FocusedChatroomWindow extends React.Component {
                 <FocusedToolbar roomId={_id} />
                 <FlexWindowContentWithoutTopPadding>
                     <ContentWrapper>
-                        <ChatroomMessages
-                            currentUser={this.props.user}
-                            messages={messages}
-                        ></ChatroomMessages>
+                        <ChatroomMessages />
                         <InputField>
                             <MaxHeightGrid container>
                                 <Grid item xs={10} md={11}>
@@ -144,9 +140,8 @@ export class FocusedChatroomWindow extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    const { user, rooms } = state;
+    const { rooms } = state;
     return {
-        user: user.data,
         rooms,
     };
 };

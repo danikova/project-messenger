@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { List, Button, Toolbar, TextField } from 'react95';
+import { Cutout, Button, Toolbar, TextField } from 'react95';
 import { Chatroom } from './Chatroom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -12,8 +12,8 @@ import {
 import { createNewRow } from '../../redux/actions/room.action';
 import { withSnackbar } from 'notistack';
 
-const FullHeightList = styled(List)`
-    height: 100%;
+const FullHeghtCutout = styled(Cutout)`
+    height: calc(100% - 51px);
     overflow-y: auto;
 `;
 
@@ -100,18 +100,16 @@ export class ChatroomsWindow extends React.Component {
                             }}
                         ></CreateNewRoomDialog>
                     ) : null}
-                    <FullHeightList fullWidth>
-                        <CreateNewRoomButton
-                            fullWidth
-                            size='lg'
-                            onClick={() => {
-                                this.setState({ createNewRoomDialog: true });
-                            }}
-                        >
-                            Create new room
-                        </CreateNewRoomButton>
-                        {this.renderChatrooms()}
-                    </FullHeightList>
+                    <CreateNewRoomButton
+                        fullWidth
+                        size='lg'
+                        onClick={() => {
+                            this.setState({ createNewRoomDialog: true });
+                        }}
+                    >
+                        Create new room
+                    </CreateNewRoomButton>
+                    <FullHeghtCutout>{this.renderChatrooms()}</FullHeghtCutout>
                 </ListWindowContent>
             </MaxSizeFlexWindow>
         );

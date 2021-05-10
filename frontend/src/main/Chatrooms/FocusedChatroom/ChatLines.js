@@ -4,7 +4,7 @@ import { Fieldset } from 'react95';
 import styled from 'styled-components';
 import { AvatarHolder } from '../../../shared/components';
 
-const ServerLineWrapper = styled.div`
+export const ServerLineWrapper = styled.div`
     padding: 10px 0 0 5px;
     font-size: 12px;
     color: gray;
