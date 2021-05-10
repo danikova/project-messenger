@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextArea, Button } from 'react95';
+import { TextField, Button } from 'react95';
 import styled from 'styled-components';
 import { Grid } from '@material-ui/core';
 import {
@@ -117,7 +117,7 @@ export class FocusedChatroomWindow extends React.Component {
                         <InputField>
                             <MaxHeightGrid container>
                                 <Grid item xs={10} md={11}>
-                                    <TextArea
+                                    <TextField
                                         id={'text-area-for-focused-chatroom'}
                                         disabled={disabled}
                                         value={this.state.value}
