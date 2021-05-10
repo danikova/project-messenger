@@ -11,17 +11,12 @@ exports.getSelf = async (req, res) => {
 
 exports.getUser = async (req, res) => {
     try {
-        const user = await Users.findOne({ _id: req.params.id });
-        return res.status(200).json((user && user.toJSON()) || {});
-    } catch (err) {
-        return res.status(400).json({ error: err });
-    }
-};
-
-exports.getUsers = async (req, res) => {
-    try {
-        const users = await Users.get({});
-        return res.status(200).json(users || []);
+        const user = await Users.findOne(
+            { _id: req.params.id },
+            { username: 1, email: 1, color: 1, imageUrl: 1 },
+        );
+        const userJson = (user && user.toJSON()) || {};
+        return res.status(200).json(userJson);
     } catch (err) {
         return res.status(400).json({ error: err });
     }

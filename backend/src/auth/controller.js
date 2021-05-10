@@ -9,7 +9,7 @@ exports.register = async (req, res) => {
     } catch (error) {
         return res.status(400).json({ error: error.details[0].message });
     }
-    let user = await User.get({ username: req.body.username });
+    let user = await User.findOne({ username: req.body.username });
     if (user)
         return res.status(400).json({
             error: 'User already registered.',
