@@ -30,7 +30,14 @@ export class ChatroomMessages extends React.Component {
     };
 
     componentDidMount() {
+        if (this.container)
+            this.container.addEventListener('scroll', this.onElementScroll);
         this.scrollToBottom();
+    }
+
+    componentWillUnmount() {
+        if (this.container)
+            this.container.removeEventListener('scroll', this.onElementScroll);
     }
 
     componentDidUpdate() {
@@ -53,23 +60,23 @@ export class ChatroomMessages extends React.Component {
         const messages = activeRoom ? activeRoom.messages : [];
 
         let oldScrollHeight = 0;
-        if (this.container && this.container.firstChild)
-            oldScrollHeight = this.container.firstChild.scrollHeight;
+        if (this.container) oldScrollHeight = this.container.scrollHeight;
 
         if (_id && messages.length !== 0 && messages[0].number > 0) {
             loadOlderMessages(_id, messages[0].number, () => {
-                this.container.firstChild.scrollTop =
-                    this.container.firstChild.scrollHeight - oldScrollHeight;
+                this.container.scrollTop =
+                    this.container.scrollHeight - oldScrollHeight;
             });
         }
     };
 
     scrollContainer() {
-        if (this.container && this.container.firstChild)
-            this.container.firstChild.scrollTop = this.container.firstChild.scrollHeight;
+        if (this.container)
+            this.container.scrollTop = this.container.scrollHeight;
     }
 
     evalScrollPosition(element) {
+        debugger;
         const onBottom =
             element.scrollHeight - element.scrollTop === element.clientHeight;
         this.setState({
@@ -93,8 +100,7 @@ export class ChatroomMessages extends React.Component {
         const messages = activeRoom ? activeRoom.messages : [];
         return (
             <MessageCutout
-                onScroll={this.onElementScroll}
-                ref={(el) => (this.container = el)}
+                ref={(el) => (this.container = el ? el.firstChild : el)}
             >
                 {this.activeRoomHasOlderMessages() && (
                     <Button fullWidth onClick={this.loadOldMessages}>

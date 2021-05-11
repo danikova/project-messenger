@@ -17,7 +17,7 @@ import {
 } from '../constants/room.constant';
 import { TOKEN_COOKIE, UPDATE_SUCCESS } from '../constants/user.constant';
 import { getCookie } from '../../shared/cookie.service';
-import { uuid } from 'uuidv4';
+import { v4 as uuid } from "uuid";
 
 export function readRoomList(cb, errCb) {
     store.dispatch((dispatch) => {
