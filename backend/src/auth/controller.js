@@ -56,10 +56,10 @@ exports.login = async (req, res) => {
 exports.googleLogin = async (req, res) => {
     let payload = {};
     try {
-        const client = new OAuth2Client(process.env.CLIENT_ID);
+        const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
         const ticket = await client.verifyIdToken({
             idToken: req.body.idToken,
-            audience: process.env.CLIENT_ID,
+            audience: process.env.GOOGLE_CLIENT_ID,
         });
         payload = ticket.getPayload();
         asd = 1;

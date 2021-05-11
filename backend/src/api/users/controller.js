@@ -11,9 +11,8 @@ exports.getSelf = async (req, res) => {
 
 exports.getUser = async (req, res) => {
     try {
-        const user = await Users.findOne(
-            { _id: req.params.id },
-            { username: 1, email: 1, color: 1, imageUrl: 1 },
+        const user = await Users.findOne({ _id: req.params.id }).select(
+            'username email color imageUrl',
         );
         const userJson = (user && user.toJSON()) || {};
         return res.status(200).json(userJson);

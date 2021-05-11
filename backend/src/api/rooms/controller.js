@@ -1,6 +1,10 @@
 const Rooms = require('./model');
+const mongoose = require('mongoose');
+const Messages = require('../messages/model');
 const User = require('../users/model');
 const SocketGlobals = require('../../socket/SocketGlobals');
+
+const roomMessageCount = process.env.ROOM_MESSAGE_COUNT || 50;
 
 exports.createRoom = async (req, res) => {
     try {
@@ -18,7 +22,7 @@ exports.getRooms = async (req, res) => {
         const rooms = await Rooms.find({})
             .where('activeUsers')
             .in(req.user)
-            .select('-users -activeUsers')
+            .select('-activeUsers')
             .slice('messages', -1)
             .populate({
                 path: 'messages',
@@ -37,10 +41,35 @@ exports.getRoom = async (req, res) => {
         const room = await Rooms.findOne({ _id: req.params.id })
             .where('activeUsers')
             .in(req.user)
-            .slice('messages', -50)
-            .populate('messages users')
-            .exec();
+            .slice('messages', -roomMessageCount);
         return res.status(200).json((room && room.toJSON()) || {});
+    } catch (err) {
+        return res.status(400).json({ error: err });
+    }
+};
+
+exports.messagesFrom = async (req, res) => {
+    try {
+        const rooms = await Rooms.aggregate([
+            { $match: { _id: mongoose.Types.ObjectId(req.params.id) } },
+            { $unwind: '$messages' },
+            {
+                $match: {
+                    'messages.number': {
+                        $lt: req.body.number,
+                        $gte: Math.max(0, req.body.number - roomMessageCount),
+                    },
+                },
+            },
+            {
+                $group: {
+                    _id: '$_id',
+                    messages: { $push: '$messages' },
+                },
+            },
+        ]);
+        const room = rooms[0] || null;
+        return res.status(200).json(room || {});
     } catch (err) {
         return res.status(400).json({ error: err });
     }

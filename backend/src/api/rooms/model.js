@@ -59,6 +59,7 @@ RoomSchema.methods = {
         return true;
     },
     pushMessage: async function (messageData, socket = null) {
+        messageData.number = this.messages.length;
         const message = await Message.create(messageData);
         this.messages.push(message);
         const messageJson = message.toJSON();

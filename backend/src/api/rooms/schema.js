@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Messages = require('../messages/schema');
 const Schema = mongoose.Schema;
 
 const RoomSchema = new Schema(
@@ -11,19 +12,8 @@ const RoomSchema = new Schema(
             type: String,
             required: true,
         },
-        users: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: 'Users',
-            },
-        ],
         activeUsers: [Schema.Types.ObjectId],
-        messages: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: 'Messages',
-            },
-        ],
+        messages: [Messages],
     },
     {
         timestamps: true,
