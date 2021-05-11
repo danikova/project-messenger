@@ -7,9 +7,16 @@ import { Provider } from 'react-redux';
 import './shared/Axios.config';
 import AppRouter from './Router';
 
+import English from './lang/en.json';
+import { IntlProvider } from 'react-intl';
+
+const locale = navigator.language;
+
 ReactDOM.render(
     <Provider store={store}>
-        <AppRouter />
+        <IntlProvider locale={locale} messages={English}>
+            <AppRouter />
+        </IntlProvider>
     </Provider>,
     document.getElementById('root'),
 );

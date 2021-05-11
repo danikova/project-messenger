@@ -1,0 +1,4 @@
+{
+    "room.userLeaving": "{username} is leaved the room",
+    "room.userJoining": "{username} is joined the room"
+}

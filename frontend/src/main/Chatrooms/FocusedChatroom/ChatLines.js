@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { Fieldset } from 'react95';
 import styled from 'styled-components';
 import { AvatarHolder } from '../../../shared/components';
+import { FormattedMessage } from 'react-intl';
 
 const ServerLineWrapper = styled.div`
     padding: 10px 0 0 5px;
@@ -53,6 +54,10 @@ export function ChatLines(props) {
             return (
                 <ServerLineWrapper key={message._id}>
                     {message.message}
+                    <FormattedMessage
+                        id={message.serviceMessage.templateName}
+                        values={message.serviceMessage.templateVariables}
+                    />
                 </ServerLineWrapper>
             );
         return (

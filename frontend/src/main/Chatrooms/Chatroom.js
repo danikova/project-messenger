@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { Button, Avatar } from 'react95';
 
 import styled from 'styled-components';
@@ -77,9 +78,17 @@ export class Chatroom extends React.Component {
     lastMessageString() {
         const { messages: m, currentUser: cu } = this.props;
         if (m.length !== 0) {
-            if (!m[0].user) return m[0].message;
-            if (cu && cu._id === m[0].user._id) return `You: ${m[0].message}`;
-            return `${m[0].user.username}: ${m[0].message}`;
+            const lastM = m[0];
+            if (!lastM.user && lastM.serviceMessage)
+                return (
+                    <FormattedMessage
+                        id={lastM.serviceMessage.templateName}
+                        values={lastM.serviceMessage.templateVariables}
+                    />
+                );
+            else if (cu && cu._id === lastM.user._id)
+                return `You: ${lastM.message}`;
+            return `${lastM.user.username}: ${lastM.message}`;
         }
         return '';
     }
