@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import { useSelector } from 'react-redux';
 import { Fieldset } from 'react95';
 import styled from 'styled-components';
@@ -58,6 +59,7 @@ export function ChatLines(props) {
             <ChatLineWrapper
                 key={message._id}
                 reverse={currentUser._id === userId}
+                title={moment(message.sent).fromNow()}
             >
                 <ChatAvatarWrapper>
                     {userChange && <ChatAvatar userId={userId} />}
