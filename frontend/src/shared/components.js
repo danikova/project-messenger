@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import {
     Button,
@@ -8,7 +8,6 @@ import {
     Toolbar,
     Avatar,
     Panel,
-    Progress
 } from 'react95';
 import { Grid } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
@@ -178,24 +177,3 @@ export function AvatarHolder({ userId = null, ...props }) {
         </Avatar>
     );
 }
-
-export const RandomProgress = () => {
-    const [percent, setPercent] = useState(0);
-  
-    useEffect(() => {
-      const timer = setInterval(() => {
-        setPercent(previousPercent => {
-          if (previousPercent === 100) {
-            return 0;
-          }
-          const diff = Math.random() * 5;
-          return Math.min(previousPercent + diff, 100);
-        });
-      }, 500);
-      return () => {
-        clearInterval(timer);
-      };
-    }, []);
-  
-    return <Progress variant='tile' value={Math.floor(percent)} />;
-  };

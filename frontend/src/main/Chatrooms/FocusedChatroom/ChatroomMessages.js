@@ -2,9 +2,9 @@ import React from 'react';
 import { Cutout, Button } from 'react95';
 import styled from 'styled-components';
 
-import { ChatLines, ServerLineWrapper } from './ChatLines';
+import { ChatLines } from './ChatLines';
 import { connect } from 'react-redux';
-import { RandomProgress } from '../../../shared/components';
+import { loadOlderMessages } from '../../../redux/actions/room.action';
 
 const MessageCutout = styled(Cutout)`
     flex: 1 0;
@@ -25,8 +25,6 @@ const ScrollToBottomButton = styled(Button)`
 
 export class ChatroomMessages extends React.Component {
     state = {
-        loadOldMessages: false,
-        onTop: false,
         onBottom: true,
         sticky: true,
     };
@@ -41,7 +39,7 @@ export class ChatroomMessages extends React.Component {
 
     scrollToBottom = () => {
         this.scrollContainer();
-        this.setState({ sticky: true, onBottom: true, onTop: false });
+        this.setState({ sticky: true, onBottom: true });
     };
 
     onElementScroll = (e) => {
@@ -49,8 +47,21 @@ export class ChatroomMessages extends React.Component {
         this.evalScrollPosition(element);
     };
 
-    onLoadOldMessages = () => {
-        console.log('loading...');
+    loadOldMessages = () => {
+        const { activeRoom } = this.props.rooms || {};
+        const _id = activeRoom ? activeRoom._id : null;
+        const messages = activeRoom ? activeRoom.messages : [];
+
+        let oldScrollHeight = 0;
+        if (this.container && this.container.firstChild)
+            oldScrollHeight = this.container.firstChild.scrollHeight;
+
+        if (_id && messages.length !== 0 && messages[0].number > 0) {
+            loadOlderMessages(_id, messages[0].number, () => {
+                this.container.firstChild.scrollTop =
+                    this.container.firstChild.scrollHeight - oldScrollHeight;
+            });
+        }
     };
 
     scrollContainer() {
@@ -59,24 +70,22 @@ export class ChatroomMessages extends React.Component {
     }
 
     evalScrollPosition(element) {
-        const onTop = element.scrollTop < 10;
         const onBottom =
             element.scrollHeight - element.scrollTop === element.clientHeight;
-        this.setState(
-            {
-                onBottom,
-                onTop,
-                sticky: onBottom,
-            },
-            () => {
-                if (this.state.onTop && !this.state.loadOldMessages) {
-                    if (this.container && this.container.firstChild)
-                        this.container.firstChild.scrollTop = 0;
-                    this.onLoadOldMessages();
-                    this.setState({ loadOldMessages: true });
-                }
-            },
-        );
+        this.setState({
+            onBottom,
+            sticky: onBottom,
+        });
+    }
+
+    activeRoomHasOlderMessages() {
+        const { activeRoom } = this.props.rooms || {};
+        const messages = activeRoom ? activeRoom.messages : [];
+        try {
+            return messages[0].number > 0;
+        } catch {
+            return false;
+        }
     }
 
     render() {
@@ -87,13 +96,10 @@ export class ChatroomMessages extends React.Component {
                 onScroll={this.onElementScroll}
                 ref={(el) => (this.container = el)}
             >
-                {this.state.loadOldMessages && (
-                    <div>
-                        <RandomProgress />
-                        <ServerLineWrapper>
-                            Loading older messages ...
-                        </ServerLineWrapper>
-                    </div>
+                {this.activeRoomHasOlderMessages() && (
+                    <Button fullWidth onClick={this.loadOldMessages}>
+                        Load older messages
+                    </Button>
                 )}
                 <ChatLines messages={messages} currentUser={this.props.user} />
                 <LastLinePadding />

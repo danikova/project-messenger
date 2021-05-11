@@ -3,6 +3,7 @@ import {
     ROOM_READ_FAILURE,
     ROOM_DETAILS_SUCCESS,
     PUSH_NEW_MESSAGE,
+    ROOM_MORE_MESSAGE_SUCCESS,
 } from '../constants/room.constant';
 
 export function rooms(
@@ -30,6 +31,19 @@ export function rooms(
                 ...state,
                 activeRoom: keysLength !== 0 ? action.data : null,
             };
+        case ROOM_MORE_MESSAGE_SUCCESS:
+            if (state.activeRoom._id === action.data._id)
+                return {
+                    ...state,
+                    activeRoom: {
+                        ...state.activeRoom,
+                        messages: [
+                            ...action.data.messages,
+                            ...state.activeRoom.messages,
+                        ],
+                    },
+                };
+            return { ...state };
         case PUSH_NEW_MESSAGE:
             state = { ...state };
             if (state.activeRoom && state.activeRoom._id === action.roomId)

@@ -11,6 +11,9 @@ import {
     CREATE_NEW_ROOM_REQUEST,
     LEAVE_ROOM_REQUEST,
     ADD_USER_TO_ROOM_REQUEST,
+    ROOM_MORE_MESSAGE_REQUEST,
+    ROOM_MORE_MESSAGE_SUCCESS,
+    ROOM_MORE_MESSAGE_FAILURE,
 } from '../constants/room.constant';
 import { TOKEN_COOKIE, UPDATE_SUCCESS } from '../constants/user.constant';
 import { getCookie } from '../../shared/cookie.service';
@@ -101,6 +104,40 @@ export function pushMessage(id, message) {
             roomId: id,
             message,
         });
+    });
+}
+
+export function loadOlderMessages(id, number, cb, errCb) {
+    store.dispatch((dispatch) => {
+        dispatch({
+            type: ROOM_MORE_MESSAGE_REQUEST,
+        });
+        const request = Axios({
+            method: 'post',
+            url: `/api/rooms/${id}/messages-from`,
+            headers: {
+                'x-access-token': getCookie(TOKEN_COOKIE),
+            },
+            data: {
+                number,
+            },
+        });
+        request.then(
+            (response) => {
+                dispatch({
+                    type: ROOM_MORE_MESSAGE_SUCCESS,
+                    data: response.data,
+                });
+                cb && cb(response);
+            },
+            (error) => {
+                dispatch({
+                    type: ROOM_MORE_MESSAGE_FAILURE,
+                    error: { ...error },
+                });
+                errCb && errCb(error);
+            },
+        );
     });
 }
 
