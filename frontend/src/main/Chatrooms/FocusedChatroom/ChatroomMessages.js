@@ -60,7 +60,9 @@ export class ChatroomMessages extends React.Component {
         const messages = activeRoom ? activeRoom.messages : [];
 
         let oldScrollHeight = 0;
-        if (this.container) oldScrollHeight = this.container.scrollHeight;
+        if (this.container)
+            oldScrollHeight =
+                this.container.scrollHeight - this.container.scrollTop;
 
         if (_id && messages.length !== 0 && messages[0].number > 0) {
             loadOlderMessages(_id, messages[0].number, () => {
@@ -76,7 +78,6 @@ export class ChatroomMessages extends React.Component {
     }
 
     evalScrollPosition(element) {
-        debugger;
         const onBottom =
             element.scrollHeight - element.scrollTop === element.clientHeight;
         this.setState({
