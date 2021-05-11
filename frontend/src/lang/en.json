@@ -11,6 +11,11 @@
     "auth.username": "username",
     "auth.password": "password",
 
+    "appbar.startBtn.List.profile": "Profile",
+    "appbar.startBtn.List.chatrooms": "Chatrooms",
+    "appbar.startBtn.List.logout": "Logout",
+    "appbar.searchPlaceholder": "Search...",
+
     "chatrooms.serviceMessage.userLeaving": "{username} is leaved the room",
     "chatrooms.serviceMessage.userJoining": "{username} is joined the room"
 }

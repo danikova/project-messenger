@@ -1,13 +1,9 @@
 import { useSnackbar } from 'notistack';
 import React from 'react';
-import {
-    List,
-    ListItem,
-    Divider
-} from 'react95';
+import { FormattedMessage } from 'react-intl';
+import { List, ListItem, Divider } from 'react95';
 import { forgetUser } from '../../redux/actions/user.action';
 import { history } from '../../Router';
-
 
 export function AppbarList(props) {
     const { enqueueSnackbar } = useSnackbar();
@@ -25,13 +21,13 @@ export function AppbarList(props) {
                 <span role='img' aria-label='👨‍💻'>
                     👨‍💻
                 </span>
-                Profile
+                <FormattedMessage id='appbar.startBtn.List.profile' />
             </ListItem>
             <ListItem onClick={() => history.push('/chatrooms')}>
                 <span role='img' aria-label='📁'>
                     📁
                 </span>
-                Chatrooms
+                <FormattedMessage id='appbar.startBtn.List.chatrooms' />
             </ListItem>
             <Divider />
             <ListItem
@@ -43,7 +39,7 @@ export function AppbarList(props) {
                 <span role='img' aria-label='🔙'>
                     🔙
                 </span>
-                Logout
+                <FormattedMessage id='appbar.startBtn.List.logout' />
             </ListItem>
         </List>
     );

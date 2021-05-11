@@ -5,6 +5,7 @@ import { AppBar as OriginalAppBar, Toolbar, TextField, Button } from 'react95';
 import { AppbarList } from './AppbarList';
 import { AvatarHolder } from '../../shared/components';
 import { connect } from 'react-redux';
+import { injectIntl } from 'react-intl';
 
 const CustomAppBar = styled(OriginalAppBar)`
     z-index: 50;
@@ -70,7 +71,12 @@ export class AppBar extends React.Component {
                         <AvatarMargin />
                         <div>{this.props.user.data.username}</div>
                     </ToolbarContentWrapper>
-                    <TextField placeholder='Search...' width={300} />
+                    <TextField
+                        placeholder={this.props.intl.formatMessage({
+                            id: 'appbar.searchPlaceholder',
+                        })}
+                        width={300}
+                    />
                 </CustomToolbar>
             </CustomAppBar>
         );
@@ -84,4 +90,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(AppBar);
+export default injectIntl(connect(mapStateToProps)(AppBar));
