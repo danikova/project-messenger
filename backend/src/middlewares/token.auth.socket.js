@@ -11,10 +11,10 @@ module.exports = async (socket, next) => {
         );
         const { _id } = decoded;
         const user = await User.findOne({ _id });
-        if (!user) new Error('Authentication error');
+        if (!user) throw Error('Authentication error');
         socket.user = user;
         next();
-    } catch(e){
+    } catch (e) {
         socket.disconnect(true);
     }
 };
