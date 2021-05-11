@@ -38,7 +38,7 @@ const FlexWindowContentWithoutTopPadding = styled(FlexWindowContent)`
 export class FocusedChatroomWindow extends React.Component {
     constructor(props) {
         super(props);
-        this.textArea = null;
+        this.textArea = React.createRef();
     }
 
     state = { value: '', processing: false };
@@ -46,13 +46,11 @@ export class FocusedChatroomWindow extends React.Component {
     onPushMessageSuccess = () => {
         pushActiveMessage(this.state.value);
         this.setState({ value: '', processing: false });
+        this.textArea.focus();
     };
 
     componentDidMount() {
         socket.on('pushMessageSuccess', this.onPushMessageSuccess);
-        this.textArea = document.getElementById(
-            'text-area-for-focused-chatroom',
-        );
     }
 
     componentWillUnmount() {
@@ -68,9 +66,6 @@ export class FocusedChatroomWindow extends React.Component {
     onTextAreaEnterPress = (e) => {
         if (e.key === 'Enter') {
             this.onSendButtonClick();
-            setTimeout(() => {
-                this.textArea.focus();
-            }, 0);
         }
     };
 
@@ -114,7 +109,9 @@ export class FocusedChatroomWindow extends React.Component {
                             <MaxHeightGrid container>
                                 <Grid item xs={10} md={11}>
                                     <TextField
-                                        id={'text-area-for-focused-chatroom'}
+                                        multiline
+                                        rows={2}
+                                        ref={(el) => (this.textArea = el)}
                                         disabled={disabled}
                                         value={this.state.value}
                                         onChange={this.onTextAreaChange}

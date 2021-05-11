@@ -3,7 +3,6 @@ import { Button, Toolbar, TextField } from 'react95';
 import { addUserToRoom, leaveRoom } from '../../../redux/actions/room.action';
 import { Dialog } from '../../../shared/components';
 
-
 export const FocusedToolbar = (props) => {
     const [value, setValue] = useState('');
     const [addDialog, setAddDialog] = useState(false);
@@ -42,7 +41,7 @@ export const FocusedToolbar = (props) => {
                                     });
                             }}
                             onChange={(e) => setValue(e.target.value)}
-                            width={400}
+                            fullWidth
                         />
                         <Button
                             onClick={() => {
@@ -66,7 +65,7 @@ export const FocusedToolbar = (props) => {
                         You are about to leave this chat room, are you sure?
                     </div>
                     <Button
-                    style={{ marginRight: '10px' }}
+                        style={{ marginRight: '10px' }}
                         onClick={() => {
                             leaveRoom(props.roomId);
                             setLeaveDialog(false);

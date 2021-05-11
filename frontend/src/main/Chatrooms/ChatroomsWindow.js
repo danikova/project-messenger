@@ -41,7 +41,7 @@ const CreateNewRoomDialog = (props) => {
                     }}
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
-                    width={400}
+                    fullWidth
                 />
                 <Button
                     onClick={() => {
