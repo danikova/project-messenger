@@ -11,6 +11,6 @@
     "auth.username": "username",
     "auth.password": "password",
 
-    "room.userLeaving": "{username} is leaved the room",
-    "room.userJoining": "{username} is joined the room"
+    "chatrooms.serviceMessage.userLeaving": "{username} is leaved the room",
+    "chatrooms.serviceMessage.userJoining": "{username} is joined the room"
 }
