@@ -20,8 +20,24 @@
     "appbar.startBtn.List.profile": "Profile",
     "appbar.startBtn.List.chatrooms": "Chatrooms",
     "appbar.startBtn.List.logout": "Logout",
-    "appbar.searchPlaceholder": "Search...",
+    "appbar.searchPlaceholder": "search...",
 
     "chatrooms.serviceMessage.userLeaving": "{username} is leaved the room",
-    "chatrooms.serviceMessage.userJoining": "{username} is joined the room"
+    "chatrooms.serviceMessage.userJoining": "{username} is joined the room",
+
+    "chatrooms.roomList.createNewRoom.btnText": "Create new room",
+    "chatrooms.roomList.createNewRoom.dialog.TextField.placeholder": "new room name",
+    "chatrooms.roomList.createNewRoom.dialog.btnText": "create",
+
+    "chatrooms.focusedChatroom.addUser.btnText": "add user",
+    "chatrooms.focusedChatroom.addUser.dialog.TextField.placeholder": "username or email",
+    "chatrooms.focusedChatroom.addUser.dialog.btnText": "add",
+
+    "chatrooms.focusedChatroom.leaveRoom.btnText": "leave room",
+    "chatrooms.focusedChatroom.leaveRoom.dialog.description": "You are about to leave this chat room, are you sure?",
+    "chatrooms.focusedChatroom.leaveRoom.dialog.yes.BtnText": "yes",
+    "chatrooms.focusedChatroom.leaveRoom.dialog.no.BtnText": "no",
+    
+    "chatrooms.focusedChatroom.newMessage.TextField.placeholder": "type in here...",
+    "chatrooms.focusedChatroom.newMessage.btnText": "send"
 }

@@ -1,0 +1,43 @@
+{
+    "auth.login.goToRegisterText": "Ha nincs működő profilod ",
+    "auth.login.registerLink": "-> Regisztrálj (kattints)",
+    "auth.login.btnText": "Bejelentkezés",
+    "auth.login.googleBtnText": "Bejelentkezés Google profilal",
+    "auth.login.snackbar.successful": "Sikeres bejelentkezés",
+    "auth.login.snackbar.failure": "A megadott felhasználónév vagy jelszó helytelen. Kérlek regisztrálj ha nincs működő profilod.",
+    "auth.login.snackbar.googleFailure": "Váratlan hiba történt. Kérlek próbálj más módon bejelentkezni.",
+
+    "auth.register.goToLoginText": "Ha van működő profilod ",
+    "auth.register.loginLink": "-> Jelenetkezz be (kattints)",
+    "auth.register.btnText": "Fiók létrehozása",
+    "auth.register.snackbar.successful": "Sikeresen regisztráltál. Kérlek jelentkezz be az új adataiddal.",
+
+    "auth.logout": "Sikeres kijelentkezés",
+
+    "auth.username": "felhasználónév",
+    "auth.password": "jelszó",
+
+    "appbar.startBtn.List.profile": "Profil",
+    "appbar.startBtn.List.chatrooms": "Chatszobák",
+    "appbar.startBtn.List.logout": "Kijelentkezés",
+    "appbar.searchPlaceholder": "keresés...",
+
+    "chatrooms.serviceMessage.userLeaving": "{username} elhagyta a szobát",
+    "chatrooms.serviceMessage.userJoining": "{username} csatlakozott a szobához",
+
+    "chatrooms.roomList.createNewRoom.btnText": "Új szoba létrehozása",
+    "chatrooms.roomList.createNewRoom.dialog.TextField.placeholder": "új szoba neve",
+    "chatrooms.roomList.createNewRoom.dialog.btnText": "ok",
+
+    "chatrooms.focusedChatroom.addUser.btnText": "felhasználó hozzáadása",
+    "chatrooms.focusedChatroom.addUser.dialog.TextField.placeholder": "felhasználónév vagy email",
+    "chatrooms.focusedChatroom.addUser.dialog.btnText": "ok",
+    
+    "chatrooms.focusedChatroom.leaveRoom.btnText": "szoba elhagyása",
+    "chatrooms.focusedChatroom.leaveRoom.dialog.description": "Biztos el akarod hagyni ezt a szobát?",
+    "chatrooms.focusedChatroom.leaveRoom.dialog.yes.BtnText": "igen",
+    "chatrooms.focusedChatroom.leaveRoom.dialog.no.BtnText": "nem",
+
+    "chatrooms.focusedChatroom.newMessage.TextField.placeholder": "kezdj el gépelni...",
+    "chatrooms.focusedChatroom.newMessage.btnText": "küldés"
+}

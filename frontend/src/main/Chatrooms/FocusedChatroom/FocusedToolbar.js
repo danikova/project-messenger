@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Button, Toolbar, TextField } from 'react95';
 import { addUserToRoom, leaveRoom } from '../../../redux/actions/room.action';
 import { Dialog } from '../../../shared/components';
@@ -7,6 +8,7 @@ export const FocusedToolbar = (props) => {
     const [value, setValue] = useState('');
     const [addDialog, setAddDialog] = useState(false);
     const [leaveDialog, setLeaveDialog] = useState(false);
+    const intl = useIntl();
 
     return (
         <Toolbar>
@@ -16,7 +18,7 @@ export const FocusedToolbar = (props) => {
                 size='sm'
                 onClick={() => setAddDialog(true)}
             >
-                add user
+                <FormattedMessage id='chatrooms.focusedChatroom.addUser.btnText' />
             </Button>
             <Button
                 disabled={!props.roomId}
@@ -24,7 +26,7 @@ export const FocusedToolbar = (props) => {
                 size='sm'
                 onClick={() => setLeaveDialog(true)}
             >
-                leave room
+                <FormattedMessage id='chatrooms.focusedChatroom.leaveRoom.btnText' />
             </Button>
             {addDialog ? (
                 <Dialog
@@ -42,6 +44,9 @@ export const FocusedToolbar = (props) => {
                             }}
                             onChange={(e) => setValue(e.target.value)}
                             fullWidth
+                            placeholder={intl.formatMessage({
+                                id: 'chatrooms.focusedChatroom.addUser.dialog.TextField.placeholder',
+                            })}
                         />
                         <Button
                             onClick={() => {
@@ -51,7 +56,7 @@ export const FocusedToolbar = (props) => {
                             }}
                             style={{ marginLeft: '2px' }}
                         >
-                            Add
+                            <FormattedMessage id='chatrooms.focusedChatroom.addUser.dialog.btnText' />
                         </Button>
                     </Toolbar>
                 </Dialog>
@@ -62,7 +67,7 @@ export const FocusedToolbar = (props) => {
                     onCloseClick={() => setLeaveDialog(false)}
                 >
                     <div style={{ marginBottom: '10px' }}>
-                        You are about to leave this chat room, are you sure?
+                        <FormattedMessage id='chatrooms.focusedChatroom.leaveRoom.dialog.description' />
                     </div>
                     <Button
                         style={{ marginRight: '10px' }}
@@ -71,9 +76,11 @@ export const FocusedToolbar = (props) => {
                             setLeaveDialog(false);
                         }}
                     >
-                        Yes
+                        <FormattedMessage id='chatrooms.focusedChatroom.leaveRoom.dialog.yes.BtnText' />
                     </Button>
-                    <Button onClick={() => setLeaveDialog(false)}>No</Button>
+                    <Button onClick={() => setLeaveDialog(false)}>
+                        <FormattedMessage id='chatrooms.focusedChatroom.leaveRoom.dialog.no.BtnText' />
+                    </Button>
                 </Dialog>
             ) : null}
         </Toolbar>

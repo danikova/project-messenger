@@ -11,6 +11,7 @@ import {
 } from '../../shared/components';
 import { createNewRow } from '../../redux/actions/room.action';
 import { withSnackbar } from 'notistack';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 const FullHeghtCutout = styled(Cutout)`
     height: calc(100% - 51px);
@@ -28,6 +29,7 @@ const ListWindowContent = styled(FlexWindowContent)`
 
 const CreateNewRoomDialog = (props) => {
     const [value, setValue] = useState('');
+    const intl = useIntl();
 
     return (
         <Dialog title={'createNewRoom.exe'} onCloseClick={props.closeDialog}>
@@ -42,6 +44,9 @@ const CreateNewRoomDialog = (props) => {
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
                     fullWidth
+                    placeholder={intl.formatMessage({
+                        id: 'chatrooms.roomList.createNewRoom.dialog.TextField.placeholder',
+                    })}
                 />
                 <Button
                     onClick={() => {
@@ -51,7 +56,7 @@ const CreateNewRoomDialog = (props) => {
                     }}
                     style={{ marginLeft: '2px' }}
                 >
-                    Create
+                    <FormattedMessage id='chatrooms.roomList.createNewRoom.dialog.btnText' />
                 </Button>
             </Toolbar>
         </Dialog>
@@ -107,7 +112,7 @@ export class ChatroomsWindow extends React.Component {
                             this.setState({ createNewRoomDialog: true });
                         }}
                     >
-                        Create new room
+                        <FormattedMessage id='chatrooms.roomList.createNewRoom.btnText' />
                     </CreateNewRoomButton>
                     <FullHeghtCutout>{this.renderChatrooms()}</FullHeghtCutout>
                 </ListWindowContent>

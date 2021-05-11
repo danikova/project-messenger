@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import { socket } from '../../../redux/actions/socket.action';
 import { FocusedToolbar } from './FocusedToolbar';
 import { pushActiveMessage } from '../../../redux/actions/room.action';
+import { FormattedMessage, injectIntl } from 'react-intl';
 
 const ContentWrapper = styled.div`
     height: 100%;
@@ -116,7 +117,11 @@ export class FocusedChatroomWindow extends React.Component {
                                         value={this.state.value}
                                         onChange={this.onTextAreaChange}
                                         onKeyPress={this.onTextAreaEnterPress}
-                                        placeholder='Type in here..'
+                                        placeholder={this.props.intl.formatMessage(
+                                            {
+                                                id: 'chatrooms.focusedChatroom.newMessage.TextField.placeholder',
+                                            },
+                                        )}
                                     />
                                 </Grid>
                                 <Grid item xs={2} md={1}>
@@ -124,7 +129,7 @@ export class FocusedChatroomWindow extends React.Component {
                                         disabled={disabledSend}
                                         onClick={this.onSendButtonClick}
                                     >
-                                        send
+                                        <FormattedMessage id='chatrooms.focusedChatroom.newMessage.btnText' />
                                     </SendButton>
                                 </Grid>
                             </MaxHeightGrid>
@@ -143,4 +148,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(FocusedChatroomWindow);
+export default injectIntl(connect(mapStateToProps)(FocusedChatroomWindow));
