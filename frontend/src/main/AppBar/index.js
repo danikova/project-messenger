@@ -15,6 +15,18 @@ const AvatarMargin = styled.div`
     display: inline;
 `;
 
+const CustomToolbar = styled(Toolbar)`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+`;
+
+const ToolbarContentWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+`;
+
 export class AppBar extends React.Component {
     state = {
         toolbarOpen: false,
@@ -23,13 +35,8 @@ export class AppBar extends React.Component {
     render() {
         return (
             <CustomAppBar>
-                <Toolbar style={{ justifyContent: 'space-between' }}>
-                    <div
-                        style={{
-                            position: 'relative',
-                            display: 'flex',
-                        }}
-                    >
+                <CustomToolbar>
+                    <ToolbarContentWrapper>
                         <Button
                             onClick={() =>
                                 this.setState({
@@ -54,14 +61,17 @@ export class AppBar extends React.Component {
                             />
                         )}
                         <AvatarMargin />
+
                         <AvatarHolder
                             userId={
                                 this.props.user.data && this.props.user.data._id
                             }
                         />
-                    </div>
+                        <AvatarMargin />
+                        <div>{this.props.user.data.username}</div>
+                    </ToolbarContentWrapper>
                     <TextField placeholder='Search...' width={300} />
-                </Toolbar>
+                </CustomToolbar>
             </CustomAppBar>
         );
     }
