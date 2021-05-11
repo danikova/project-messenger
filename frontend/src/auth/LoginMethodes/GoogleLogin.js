@@ -20,24 +20,24 @@ export class GoogleLogin extends React.Component {
             { idToken: res.tokenId },
             '/auth/google-login',
             () => {
-                this.props.enqueueSnackbar(`Successful login`);
+                this.props.enqueueSnackbar(
+                    this.props.intl.formatMessage({
+                        id: 'auth.login.snackbar.successful',
+                    }),
+                );
                 this.props.onLoginSuccess();
             },
             (error) => {
-                this.props.enqueueSnackbar(
-                    `${
-                        error.response.data.error ||
-                        error.response.data.message ||
-                        JSON.stringify(error.response.data.error)
-                    }\nPlease try other login methode.`,
-                );
+                this.onGoogleLoginFailure();
             },
         );
     };
 
     onGoogleLoginFailure = (res) => {
         this.props.enqueueSnackbar(
-            `Something happend. Please try other login methode.`,
+            this.props.intl.formatMessage({
+                id: 'auth.login.snackbar.googleFailure',
+            }),
         );
     };
 

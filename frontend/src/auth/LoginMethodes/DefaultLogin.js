@@ -24,12 +24,18 @@ export class DefaultLogin extends React.Component {
             },
             '/auth/login',
             () => {
-                this.props.enqueueSnackbar(`Successful login`);
+                this.props.enqueueSnackbar(
+                    this.props.intl.formatMessage({
+                        id: 'auth.login.snackbar.successful',
+                    }),
+                );
                 this.props.onLoginSuccess();
             },
             () => {
                 this.props.enqueueSnackbar(
-                    `Username or password is invalid. Please register if you dont have a valid account.`,
+                    this.props.intl.formatMessage({
+                        id: 'auth.login.snackbar.failure',
+                    }),
                 );
             },
         );

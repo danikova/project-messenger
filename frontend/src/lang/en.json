@@ -3,10 +3,16 @@
     "auth.login.registerLink": "-> Register (click)",
     "auth.login.btnText": "Login",
     "auth.login.googleBtnText": "Sign in with Google",
+    "auth.login.snackbar.successful": "Successful login",
+    "auth.login.snackbar.failure": "Username or password is invalid. Please register if you dont have a valid account",
+    "auth.login.snackbar.googleFailure": "Something happend. Please try other login methode.",
 
     "auth.register.goToLoginText": "If you have a valid account ",
     "auth.register.loginLink": "-> Login (click)",
     "auth.register.btnText": "Register",
+    "auth.register.snackbar.successful": "Successful register. Please login with your credentials",
+
+    "auth.logout": "Successful logout",
 
     "auth.username": "username",
     "auth.password": "password",

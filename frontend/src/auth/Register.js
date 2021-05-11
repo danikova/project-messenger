@@ -69,7 +69,9 @@ export class Register extends React.Component {
                             () => {
                                 this.setState({ registerSuccess: true });
                                 this.props.enqueueSnackbar(
-                                    `Successful register. Please login with your credentials.`,
+                                    this.props.intl.formatMessage({
+                                        id: 'auth.register.snackbar.successful',
+                                    }),
                                 );
                             },
                             (error) => {
@@ -86,7 +88,7 @@ export class Register extends React.Component {
                     style={{ marginLeft: '2px' }}
                     disabled={!this.state.username || !this.state.password}
                 >
-                    <FormattedMessage id="auth.register.btnText"/>
+                    <FormattedMessage id='auth.register.btnText' />
                 </Button>
             </Dialog>
         );

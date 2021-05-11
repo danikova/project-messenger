@@ -1,12 +1,13 @@
 import { useSnackbar } from 'notistack';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { List, ListItem, Divider } from 'react95';
 import { forgetUser } from '../../redux/actions/user.action';
 import { history } from '../../Router';
 
 export function AppbarList(props) {
     const { enqueueSnackbar } = useSnackbar();
+    const intl = useIntl();
 
     return (
         <List
@@ -33,7 +34,11 @@ export function AppbarList(props) {
             <ListItem
                 onClick={() => {
                     forgetUser();
-                    enqueueSnackbar(`Successful logout`, true);
+                    enqueueSnackbar(
+                        intl.formatMessage({
+                            id: 'auth.logout',
+                        }),
+                    );
                 }}
             >
                 <span role='img' aria-label='🔙'>
