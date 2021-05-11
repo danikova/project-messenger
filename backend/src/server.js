@@ -1,6 +1,6 @@
 require('dotenv').config();
-if(!process.env.CLIENT_ID)
-    throw Error('Google OAuth 2.0 CLIENT_ID not found')
+if(!process.env.GOOGLE_CLIENT_ID)
+    throw Error('Google OAuth 2.0 GOOGLE_CLIENT_ID not found')
 
 const config = require('config');
 const express = require('express');
