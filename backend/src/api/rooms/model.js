@@ -38,7 +38,12 @@ RoomSchema.methods = {
         if (this.activeUsers.indexOf(user.id) < 0) {
             this.activeUsers.push(user);
             await this.pushMessage({
-                message: `'${user.username}' is joined the room.`,
+                serviceMessage: {
+                    templateName: `room.userJoining`,
+                    templateVariables: {
+                        username: user.username,
+                    },
+                },
             });
             if (user.id in SocketGlobals.activeUsers)
                 SocketGlobals.activeUsers[user.id].joinRoom(this);
@@ -52,7 +57,12 @@ RoomSchema.methods = {
                 return false;
             } else {
                 await this.pushMessage({
-                    message: `'${user.username}' is leaved the room.`,
+                    serviceMessage: {
+                        templateName: `room.userLeaving`,
+                        templateVariables: {
+                            username: user.username,
+                        },
+                    },
                 });
             }
         }
