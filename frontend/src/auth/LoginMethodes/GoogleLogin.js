@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { loginWithCredentials } from '../../redux/actions/user.action';
 import { GoogleLogin as ReactGoogleLogin } from 'react-google-login';
 import { withSnackbar } from 'notistack';
+import { injectIntl } from 'react-intl';
 
 const GoogleLoginBtnContainer = styled.div`
     width: 100%;
@@ -49,6 +50,9 @@ export class GoogleLogin extends React.Component {
                         onSuccess={this.onGoogleLoginSuccess}
                         onFailure={this.onGoogleLoginFailure}
                         cookiePolicy={'single_host_origin'}
+                        buttonText={this.props.intl.formatMessage({
+                            id: 'auth.login.googleBtnText',
+                        })}
                     />
                 </GoogleLoginBtnWrapper>
             </GoogleLoginBtnContainer>
@@ -56,4 +60,4 @@ export class GoogleLogin extends React.Component {
     }
 }
 
-export default withSnackbar(GoogleLogin);
+export default injectIntl(withSnackbar(GoogleLogin));

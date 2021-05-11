@@ -5,6 +5,7 @@ import { TextField, Button, Anchor } from 'react95';
 import styled from 'styled-components';
 import Axios from 'axios';
 import { withSnackbar } from 'notistack';
+import { FormattedMessage, injectIntl } from 'react-intl';
 
 const FullWidthTextField = styled(TextField)`
     width: 100%;
@@ -29,18 +30,24 @@ export class Register extends React.Component {
         return (
             <Dialog title='register.exe' closeDisabled>
                 <AnchorWrapper>
-                    {'If you have a valid account '}
-                    <Anchor href='/login'>-> Login (click)</Anchor>
+                    <FormattedMessage id='auth.register.goToLoginText' />
+                    <Anchor href='/login'>
+                        <FormattedMessage id='auth.register.loginLink' />
+                    </Anchor>
                 </AnchorWrapper>
                 <FullWidthTextField
-                    placeholder='username'
+                    placeholder={this.props.intl.formatMessage({
+                        id: 'auth.username',
+                    })}
                     value={this.state.username}
                     onChange={(e) =>
                         this.setState({ username: e.target.value })
                     }
                 />
                 <FullWidthTextField
-                    placeholder='password'
+                    placeholder={this.props.intl.formatMessage({
+                        id: 'auth.password',
+                    })}
                     value={this.state.password}
                     onChange={(e) =>
                         this.setState({ password: e.target.value })
@@ -79,11 +86,11 @@ export class Register extends React.Component {
                     style={{ marginLeft: '2px' }}
                     disabled={!this.state.username || !this.state.password}
                 >
-                    Register
+                    <FormattedMessage id="auth.register.btnText"/>
                 </Button>
             </Dialog>
         );
     }
 }
 
-export default withSnackbar(Register);
+export default injectIntl(withSnackbar(Register));

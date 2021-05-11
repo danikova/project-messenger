@@ -1,4 +1,16 @@
 {
+    "auth.login.goToRegisterText": "If you don't have any valid account ",
+    "auth.login.registerLink": "-> Register (click)",
+    "auth.login.btnText": "Login",
+    "auth.login.googleBtnText": "Sign in with Google",
+
+    "auth.register.goToLoginText": "If you have a valid account ",
+    "auth.register.loginLink": "-> Login (click)",
+    "auth.register.btnText": "Register",
+
+    "auth.username": "username",
+    "auth.password": "password",
+
     "room.userLeaving": "{username} is leaved the room",
     "room.userJoining": "{username} is joined the room"
 }

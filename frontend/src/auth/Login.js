@@ -5,6 +5,7 @@ import { Anchor, Divider } from 'react95';
 import styled from 'styled-components';
 import DefaultLogin from './LoginMethodes/DefaultLogin';
 import GoogleLogin from './LoginMethodes/GoogleLogin';
+import { FormattedMessage } from 'react-intl';
 
 const AnchorWrapper = styled.h1`
     margin-bottom: 10px;
@@ -18,20 +19,23 @@ const DividerWrapper = styled(Divider)`
 export default class Login extends React.Component {
     state = {
         loginSuccess: false,
-        to: '/'
+        to: '/',
     };
 
-    onLoginSuccess = (to='/') => {
+    onLoginSuccess = (to = '/') => {
         this.setState({ loginSuccess: true, to });
     };
 
     render() {
-        if (this.state.loginSuccess) return <Redirect to={this.state.to}></Redirect>;
+        if (this.state.loginSuccess)
+            return <Redirect to={this.state.to}></Redirect>;
         return (
             <Dialog title='login.exe' closeDisabled>
                 <AnchorWrapper>
-                    {"If you don't have any valid account "}
-                    <Anchor href='/register'>-> Register (click)</Anchor>
+                    <FormattedMessage id='auth.login.goToRegisterText' />
+                    <Anchor href='/register'>
+                        <FormattedMessage id='auth.login.registerLink' />
+                    </Anchor>
                 </AnchorWrapper>
                 <DefaultLogin onLoginSuccess={this.onLoginSuccess} />
                 <DividerWrapper />
