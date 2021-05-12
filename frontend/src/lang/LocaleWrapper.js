@@ -3,6 +3,9 @@ import { IntlProvider } from 'react-intl';
 
 import Hungarian from './hu.json';
 import English from './en.json';
+import { getCookie, setCookie } from '../shared/cookie.service';
+
+const LANG_COOKIE = 'lang.cookie';
 
 const checkMessageKeys = () => {
     const hungariankeys = Object.keys(Hungarian);
@@ -20,7 +23,7 @@ checkMessageKeys();
 
 export const Context = React.createContext();
 
-const local = navigator.language;
+const local = getCookie(LANG_COOKIE) || navigator.language.substring(0, 2);
 
 let lang;
 if (local === 'en') {
@@ -35,8 +38,9 @@ const LocaleWrapper = (props) => {
 
     function selectLanguage(e) {
         const newLocale = e.target.value;
+        setCookie(LANG_COOKIE, newLocale);
         setLocale(newLocale);
-        if (local === 'en') {
+        if (newLocale === 'en') {
             setMessages(English);
         } else {
             setMessages(Hungarian);

@@ -13,6 +13,7 @@ const ChatroomButton = styled(Button)`
 const ButtonContent = styled.div`
     display: flex;
     flex-direction: row;
+    align-items: center;
     height: 100%;
     width: 100%;
 `;

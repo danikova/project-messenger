@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import {
     Button,
@@ -8,11 +8,13 @@ import {
     Toolbar,
     Avatar,
     Panel,
+    Select,
 } from 'react95';
 import { Grid } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
 import { useSelector } from 'react-redux';
 import { getUserInfo } from '../redux/actions/user.action';
+import { Context } from '../lang/LocaleWrapper';
 
 export const AppWrapperGrid = styled(Grid)`
     height: calc(100% - 28px);
@@ -79,7 +81,7 @@ const DialogWindowFooter = styled(Panel)`
 
 const DialogCloseSpan = styled.span`
     font-weight: bold;
-    transform: translate(2px, -2px);
+    transform: translate(0px, -2px);
     font-size: 25px;
 `;
 
@@ -175,5 +177,28 @@ export function AvatarHolder({ userId = null, ...props }) {
                 ? user.username.charAt(0).toUpperCase()
                 : '...'}
         </Avatar>
+    );
+}
+
+export const FixedLocaleSelectorWrapper = styled.div`
+    position: fixed;
+    top: 20px;
+    right: 20px;
+`;
+
+export function LocaleSelector() {
+    const context = useContext(Context);
+
+    const options = [
+        { value: 'hu', label: '🇭🇺' },
+        { value: 'en', label: '🇬🇧' },
+    ];
+
+    return (
+        <Select
+            defaultValue={context.locale}
+            options={options}
+            onChange={context.selectLanguage}
+        />
     );
 }

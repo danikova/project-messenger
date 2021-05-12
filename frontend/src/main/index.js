@@ -4,6 +4,7 @@ import page404 from '../assets/404.png';
 import AppBar from './AppBar';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Chatrooms from './Chatrooms';
+import Profile from './Profile';
 
 const MainViewWrapper = styled.div`
     padding: 20px;
@@ -34,7 +35,7 @@ export default class MainView extends React.Component {
                 <AppBar />
                 <Switch>
                     <Route path='/profile'>
-                        <div>hi</div>
+                        <Profile />
                     </Route>
                     <Route path='/chatrooms'>
                         <Chatrooms />

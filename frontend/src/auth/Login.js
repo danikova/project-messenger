@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dialog } from '../shared/components';
+import { Dialog, LocaleSelector, FixedLocaleSelectorWrapper } from '../shared/components';
 import { Redirect } from 'react-router-dom';
 import { Anchor, Divider } from 'react95';
 import styled from 'styled-components';
@@ -31,6 +31,9 @@ export default class Login extends React.Component {
             return <Redirect to={this.state.to}></Redirect>;
         return (
             <Dialog title='login.exe' closeDisabled>
+                <FixedLocaleSelectorWrapper>
+                    <LocaleSelector />
+                </FixedLocaleSelectorWrapper>
                 <AnchorWrapper>
                     <FormattedMessage id='auth.login.goToRegisterText' />
                     <Anchor href='/register'>

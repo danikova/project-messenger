@@ -1,9 +1,14 @@
 import styled from 'styled-components';
 import React from 'react';
 
-import { AppBar as OriginalAppBar, Toolbar, TextField, Button } from 'react95';
+import {
+    AppBar as OriginalAppBar,
+    Toolbar,
+    TextField,
+    Button,
+} from 'react95';
 import { AppbarList } from './AppbarList';
-import { AvatarHolder } from '../../shared/components';
+import { AvatarHolder, LocaleSelector } from '../../shared/components';
 import { connect } from 'react-redux';
 import { injectIntl } from 'react-intl';
 
@@ -71,12 +76,15 @@ export class AppBar extends React.Component {
                         <AvatarMargin />
                         <div>{this.props.user.data.username}</div>
                     </ToolbarContentWrapper>
-                    <TextField
-                        placeholder={this.props.intl.formatMessage({
-                            id: 'appbar.searchPlaceholder',
-                        })}
-                        width={300}
-                    />
+                    <ToolbarContentWrapper>
+                        <LocaleSelector />
+                        <TextField
+                            placeholder={this.props.intl.formatMessage({
+                                id: 'appbar.searchPlaceholder',
+                            })}
+                            width={300}
+                        />
+                    </ToolbarContentWrapper>
                 </CustomToolbar>
             </CustomAppBar>
         );
