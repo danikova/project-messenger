@@ -172,12 +172,25 @@ export function AvatarHolder({ userId = null, ...props }) {
                     '-1px -1px 0 #595959, 1px -1px 0 #595959, -1px 1px 0 #595959, 1px 1px 0 #595959',
             }}
             src={user.imageUrl}
+            {...props}
         >
             {user && user.username
                 ? user.username.charAt(0).toUpperCase()
                 : '...'}
         </Avatar>
     );
+}
+
+export function NameHolder({ userId = null, ...props }) {
+    const users = useSelector((state) => state.users);
+
+    let user = {};
+    if (userId) {
+        if (users[userId]) user = users[userId];
+        else getUserInfo(userId);
+    }
+
+    return <span {...props}>{user && user.username}</span>;
 }
 
 export const FixedLocaleSelectorWrapper = styled.div`
