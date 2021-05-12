@@ -7,7 +7,7 @@ const serviceMessage = new Schema({
 });
 
 const MessageSchema = new Schema({
-    user: { type: Schema.Types.ObjectId, ref: 'Users', default: null },
+    userId: { type: Schema.Types.ObjectId, default: null },
     message: { type: String },
     serviceMessage: serviceMessage,
     sent: { type: Date, default: Date.now },

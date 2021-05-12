@@ -4,7 +4,7 @@ module.exports = function (sc) {
         const room = await sc.getActiveRoom(data.roomId);
         await room.pushMessage(
             {
-                user,
+                userId: user._id,
                 message: data.message,
             },
             sc.socket,

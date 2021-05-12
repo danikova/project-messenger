@@ -45,7 +45,6 @@ export function rooms(
                 };
             return { ...state };
         case PUSH_NEW_MESSAGE:
-            debugger;
             state = { ...state };
             if (state.activeRoom && state.activeRoom._id === action.roomId)
                 state.activeRoom.messages.push({

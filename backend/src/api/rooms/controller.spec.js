@@ -49,7 +49,7 @@ test('get room list without user lists and with only just the last messages', as
         const room = await Room.create({ name: i });
         await room.addUser(user);
         for (let j = 0; j < 20; j++)
-            await room.pushMessage({ user: user, message: j });
+            await room.pushMessage({ userId: user._id, message: j });
         room.save();
     }
     const res = await request(app)
@@ -75,7 +75,7 @@ test('get room list with populated message.user', async () => {
     });
     const room = await Room.create({ name: 'test' });
     await room.addUser(user);
-    await room.pushMessage({ user: user, message: 'first' });
+    await room.pushMessage({ userId: user._id, message: 'first' });
     room.save();
     const res = await request(app)
         .get('/api/rooms')
@@ -129,7 +129,7 @@ test('get room by id', async () => {
         lastRoom = await Room.create({ name: 'test' });
         await lastRoom.addUser(user);
         for (let j = 0; j < 20; j++)
-            await lastRoom.pushMessage({ user: user, message: j });
+            await lastRoom.pushMessage({ userId: user._id, message: j });
         lastRoom.save();
     }
     const res = await request(app)

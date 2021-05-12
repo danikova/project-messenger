@@ -84,7 +84,7 @@ export function openRoom(id, cb, errCb) {
 }
 
 export function pushMessage(id, message) {
-    store.dispatch((dispatch, getState) => {
+    store.dispatch((dispatch) => {
         dispatch({
             type: PUSH_NEW_MESSAGE,
             roomId: id,
@@ -133,10 +133,10 @@ export function pushActiveMessage(messageString) {
         const { activeRoom } = rooms;
         if (activeRoom) {
             const message = {
-                user: user.data,
+                userId: user.data._id,
                 message: messageString,
                 sent: new Date().toISOString(),
-                _id: uuid(),
+                _id: `temp-${uuid()}`,
             };
             dispatch({
                 type: PUSH_NEW_MESSAGE,
