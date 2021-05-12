@@ -20,10 +20,10 @@ const GlobalStyles = createGlobalStyle`
         font-weight: 400;
         font-style: normal;
     }
-    * {
-        font-family: 'ms_sans_serif' !important;
-        letter-spacing: 0.1em !important;
-    }
+    // * {
+    //     font-family: 'ms_sans_serif' !important;
+    //     letter-spacing: 0.1em !important;
+    // }
   ${styleReset}
 `;
 
