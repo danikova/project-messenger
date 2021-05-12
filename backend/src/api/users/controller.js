@@ -22,11 +22,20 @@ exports.getUser = async (req, res) => {
 };
 
 exports.updateSelf = async (req, res) => {
-    const userData = {
-        openChatroom: req.body.openChatroom,
-    };
     try {
-        const user = await Users.update({ _id: req.user._id }, userData);
+        const updatedKeys = Object.keys(req.body);
+        const projection = updatedKeys.reduce(
+            (obj, x) => {
+                obj[x] = 1;
+                return obj;
+            },
+            { _id: 0 },
+        );
+        const user = await Users.findOneAndUpdate(
+            { _id: req.user._id },
+            req.body,
+            { returnNewDocument: true, projection },
+        );
         return res.status(200).json(user || {});
     } catch (err) {
         return res.status(400).json({ error: err });
