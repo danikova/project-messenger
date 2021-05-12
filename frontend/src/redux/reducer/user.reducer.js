@@ -3,9 +3,10 @@ import {
     LOGIN_FAILURE,
     FORGET_USER,
     GET_SELF_SUCCESS,
-    TOKEN_COOKIE
+    TOKEN_COOKIE,
+    UPDATE_SELF_SUCCESS,
 } from '../constants/user.constant';
-import { getCookie } from "../../shared/cookie.service";
+import { getCookie } from '../../shared/cookie.service';
 
 export function user(
     state = {
@@ -19,6 +20,11 @@ export function user(
             return {
                 ...state,
                 data: { ...action.data },
+            };
+        case UPDATE_SELF_SUCCESS:
+            return {
+                ...state,
+                data: { ...(state.data || {}), ...action.data },
             };
         case LOGIN_SUCCESS:
             return {

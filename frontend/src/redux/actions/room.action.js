@@ -15,9 +15,10 @@ import {
     ROOM_MORE_MESSAGE_SUCCESS,
     ROOM_MORE_MESSAGE_FAILURE,
 } from '../constants/room.constant';
-import { TOKEN_COOKIE, UPDATE_SUCCESS } from '../constants/user.constant';
+import { TOKEN_COOKIE } from '../constants/user.constant';
 import { getCookie } from '../../shared/cookie.service';
-import { v4 as uuid } from "uuid";
+import { v4 as uuid } from 'uuid';
+import { updateSelf } from './user.action';
 
 export function readRoomList(cb, errCb) {
     store.dispatch((dispatch) => {
@@ -51,47 +52,32 @@ export function readRoomList(cb, errCb) {
 }
 
 export function openRoom(id, cb, errCb) {
+    updateSelf({ openChatroom: id });
     store.dispatch((dispatch) => {
         dispatch({
             type: ROOM_DETAILS_REQUEST,
         });
-        const getRoomDetail = Axios({
+        const request = Axios({
             method: 'get',
             url: `/api/rooms/${id}`,
             headers: {
                 'x-access-token': getCookie(TOKEN_COOKIE),
             },
         });
-        const updateUser = Axios({
-            method: 'put',
-            url: '/api/users',
-            data: {
-                openChatroom: id,
-            },
-            headers: {
-                'x-access-token': getCookie(TOKEN_COOKIE),
-            },
-        });
-        Promise.all([getRoomDetail, updateUser]).then(
-            (responses) => {
-                const room = responses[0];
+        request.then(
+            (response) => {
                 dispatch({
                     type: ROOM_DETAILS_SUCCESS,
-                    data: { ...room.data },
+                    data: { ...response.data },
                 });
-                dispatch({
-                    type: UPDATE_SUCCESS,
-                    data: { openChatroom: id },
-                });
-                cb && cb(responses);
+                cb && cb(response);
             },
-            (errors) => {
-                const roomError = errors[0];
+            (error) => {
                 dispatch({
                     type: ROOM_DETAILS_FAILURE,
-                    error: { ...roomError },
+                    error: { ...error },
                 });
-                errCb && errCb(errors);
+                errCb && errCb(error);
             },
         );
     });

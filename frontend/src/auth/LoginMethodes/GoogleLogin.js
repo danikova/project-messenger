@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { loginWithCredentials } from '../../redux/actions/user.action';
+import { loginUser } from '../../redux/actions/user.action';
 import { GoogleLogin as ReactGoogleLogin } from 'react-google-login';
 import { withSnackbar } from 'notistack';
 import { injectIntl } from 'react-intl';
@@ -16,7 +16,7 @@ const GoogleLoginBtnWrapper = styled.div`
 
 export class GoogleLogin extends React.Component {
     onGoogleLoginSuccess = (res) => {
-        loginWithCredentials(
+        loginUser(
             { idToken: res.tokenId },
             '/auth/google-login',
             () => {

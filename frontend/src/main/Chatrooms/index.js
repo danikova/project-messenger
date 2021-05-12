@@ -5,7 +5,7 @@ import ChatroomsWindow from './ChatroomsWindow';
 import FocusedChatroomWindow from './FocusedChatroom/FocusedChatroomWindow';
 import { openRoom, pushMessage, readRoomList } from '../../redux/actions/room.action';
 import { store } from '../../redux/store';
-import { getSelfInfo } from '../../redux/actions/user.action';
+import { getSelf } from '../../redux/actions/user.action';
 import { socket } from '../../redux/actions/socket.action';
 
 export class Chatrooms extends React.Component {
@@ -24,7 +24,7 @@ export class Chatrooms extends React.Component {
     };
 
     componentDidMount() {
-        getSelfInfo(() => {
+        getSelf(() => {
             readRoomList();
         });
         socket.on('newMessage', this.onNewMessage);

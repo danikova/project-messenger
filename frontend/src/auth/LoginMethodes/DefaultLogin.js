@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Button, TextField } from 'react95';
-import { loginWithCredentials } from '../../redux/actions/user.action';
+import { loginUser } from '../../redux/actions/user.action';
 import { withSnackbar } from 'notistack';
 import { FormattedMessage, injectIntl } from 'react-intl';
 
@@ -17,7 +17,7 @@ export class DefaultLogin extends React.Component {
     };
 
     onBtnClick = () => {
-        loginWithCredentials(
+        loginUser(
             {
                 username: this.state.username,
                 password: this.state.password,

@@ -1,4 +1,4 @@
-import { GET_USER_SUCCESS } from '../constants/users.constant';
+import { GET_USER_SUCCESS } from '../constants/user.constant';
 
 export function users(state = {}, action) {
     switch (action.type) {
@@ -6,7 +6,10 @@ export function users(state = {}, action) {
             if (action.data._id)
                 return {
                     ...state,
-                    [action.data._id]: { ...action.data },
+                    [action.data._id]: {
+                        ...(state[action.data._id] || {}),
+                        ...action.data,
+                    },
                 };
             return state;
         default:

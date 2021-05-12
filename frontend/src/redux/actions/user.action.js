@@ -8,15 +8,18 @@ import {
     LOGIN_FAILURE,
     FORGET_USER,
     GET_SELF_SUCCESS,
-} from '../constants/user.constant';
-import { openRoom } from './room.action';
-import {
+    UPDATE_SELF_SUCCESS,
     GET_USER_FAILURE,
     GET_USER_REQUEST,
     GET_USER_SUCCESS,
-} from '../constants/users.constant';
+    GET_SELF_REQUEST,
+    GET_SELF_FAILURE,
+    UPDATE_SELF_REQUEST,
+    UPDATE_SELF_FAILURE,
+} from '../constants/user.constant';
+import { openRoom } from './room.action';
 
-export function loginWithCredentials(data, url, cb, errCb) {
+export function loginUser(data, url, cb, errCb) {
     store.dispatch((dispatch) => {
         dispatch({
             type: LOGIN_REQUEST,
@@ -47,11 +50,14 @@ export function loginWithCredentials(data, url, cb, errCb) {
     });
 }
 
-export function getSelfInfo(cb, errCb) {
+export function getSelf(cb, errCb) {
     store.dispatch((dispatch) => {
+        dispatch({
+            type: GET_SELF_REQUEST,
+        });
         const request = Axios({
             method: 'get',
-            url: '/api/users/get-self',
+            url: '/api/users/self',
             headers: {
                 'x-access-token': getCookie(TOKEN_COOKIE),
             },
@@ -71,6 +77,42 @@ export function getSelfInfo(cb, errCb) {
                 cb && cb(response);
             },
             (error) => {
+                dispatch({
+                    type: GET_SELF_FAILURE,
+                    error: { ...error },
+                });
+                errCb && errCb(error);
+            },
+        );
+    });
+}
+
+export function updateSelf(data, cb, errCb) {
+    store.dispatch((dispatch) => {
+        dispatch({
+            type: UPDATE_SELF_REQUEST,
+        });
+        const request = Axios({
+            method: 'put',
+            url: '/api/users/self',
+            headers: {
+                'x-access-token': getCookie(TOKEN_COOKIE),
+            },
+            data,
+        });
+        request.then(
+            (response) => {
+                dispatch({
+                    type: UPDATE_SELF_SUCCESS,
+                    data: { ...response.data },
+                });
+                cb && cb(response);
+            },
+            (error) => {
+                dispatch({
+                    type: UPDATE_SELF_FAILURE,
+                    error: { ...error },
+                });
                 errCb && errCb(error);
             },
         );
@@ -110,7 +152,7 @@ export function getUserInfo(id, cb, errCb) {
     });
 }
 
-export function forgetUser() {
+export function logoutUser() {
     store.dispatch((dispatch) => {
         dispatch({
             type: FORGET_USER,

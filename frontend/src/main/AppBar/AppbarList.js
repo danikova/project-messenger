@@ -2,7 +2,7 @@ import { useSnackbar } from 'notistack';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { List, ListItem, Divider } from 'react95';
-import { forgetUser } from '../../redux/actions/user.action';
+import { logoutUser } from '../../redux/actions/user.action';
 import { history } from '../../Router';
 
 export function AppbarList(props) {
@@ -33,7 +33,7 @@ export function AppbarList(props) {
             <Divider />
             <ListItem
                 onClick={() => {
-                    forgetUser();
+                    logoutUser();
                     enqueueSnackbar(
                         intl.formatMessage({
                             id: 'auth.logout',
