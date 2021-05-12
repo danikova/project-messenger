@@ -4,6 +4,7 @@ import { Button, Avatar } from 'react95';
 
 import styled from 'styled-components';
 import { openRoom } from '../../redux/actions/room.action';
+import { NameHolder } from '../../shared/components';
 
 const ChatroomButton = styled(Button)`
     justify-content: start !important;
@@ -89,7 +90,14 @@ export class Chatroom extends React.Component {
                 );
             else if (cu && cu._id === lastM.user._id)
                 return `You: ${lastM.message}`;
-            return `${lastM.user.username}: ${lastM.message}`;
+
+            return (
+                <div>
+                    <NameHolder userId={lastM.user} />
+                    {': '}
+                    {lastM.message}
+                </div>
+            );
         }
         return '';
     }

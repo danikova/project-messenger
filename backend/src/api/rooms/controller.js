@@ -24,10 +24,6 @@ exports.getRooms = async (req, res) => {
             .in(req.user)
             .select('-activeUsers')
             .slice('messages', -1)
-            .populate({
-                path: 'messages',
-                populate: { path: 'user', select: 'username' },
-            })
             .sort('-updatedAt')
             .exec();
         return res.status(200).json(rooms || []);
@@ -41,6 +37,7 @@ exports.getRoom = async (req, res) => {
         const room = await Rooms.findOne({ _id: req.params.id })
             .where('activeUsers')
             .in(req.user)
+            .select('-activeUsers')
             .slice('messages', -roomMessageCount);
         return res.status(200).json((room && room.toJSON()) || {});
     } catch (err) {
