@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { ChatLines } from './ChatLines';
 import { connect } from 'react-redux';
-import { loadOlderMessages } from '../../../redux/actions/room.action';
+import { loadOlderMessages } from '../../../../redux/actions/room.action';
 
 const MessageCutout = styled(Cutout)`
     flex: 1 0;

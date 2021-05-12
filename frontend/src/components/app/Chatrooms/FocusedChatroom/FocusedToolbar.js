@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Button, Toolbar, TextField } from 'react95';
-import { addUserToRoom, leaveRoom } from '../../../redux/actions/room.action';
+import { addUserToRoom, leaveRoom } from '../../../../redux/actions/room.action';
 import { Dialog } from '../../../shared/components';
 
 export const FocusedToolbar = (props) => {

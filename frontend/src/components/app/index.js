@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import page404 from '../assets/404.png';
+import page404 from '../../assets/404.png';
 import AppBar from './AppBar';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Chatrooms from './Chatrooms';
@@ -28,7 +28,7 @@ const Page404Img = styled.img`
     margin: auto;
 `;
 
-export default class MainView extends React.Component {
+export default class AppView extends React.Component {
     render() {
         return (
             <MainViewWrapper>

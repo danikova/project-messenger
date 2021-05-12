@@ -5,8 +5,8 @@ import * as serviceWorker from './serviceWorker';
 import { store, persistor } from './redux/store';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import { Provider } from 'react-redux';
-import './shared/Axios.config';
-import AppRouter from './Router';
+import './shared/axios.config';
+import AppRouter from './components';
 import LocaleWrapper from './lang/LocaleWrapper';
 
 ReactDOM.render(

@@ -38,7 +38,7 @@ export class Register extends React.Component {
                 </FixedLocaleSelectorWrapper>
                 <AnchorWrapper>
                     <FormattedMessage id='auth.register.goToLoginText' />
-                    <Anchor href='/login'>
+                    <Anchor href='/authentication'>
                         <FormattedMessage id='auth.register.loginLink' />
                     </Anchor>
                 </AnchorWrapper>

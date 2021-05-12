@@ -13,8 +13,8 @@ import {
 import { Grid } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
 import { useSelector } from 'react-redux';
-import { getUserInfo } from '../redux/actions/user.action';
-import { Context } from '../lang/LocaleWrapper';
+import { getUserInfo } from '../../redux/actions/user.action';
+import { Context } from '../../lang/LocaleWrapper';
 
 export const AppWrapperGrid = styled(Grid)`
     height: calc(100% - 28px);

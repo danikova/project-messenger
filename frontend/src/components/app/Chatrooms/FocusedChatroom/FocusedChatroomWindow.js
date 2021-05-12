@@ -10,9 +10,9 @@ import {
 } from '../../../shared/components';
 import ChatroomMessages from './ChatroomMessages';
 import { connect } from 'react-redux';
-import { socket } from '../../../redux/actions/socket.action';
+import { socket } from '../../../../redux/actions/socket.action';
 import { FocusedToolbar } from './FocusedToolbar';
-import { pushActiveMessage } from '../../../redux/actions/room.action';
+import { pushActiveMessage } from '../../../../redux/actions/room.action';
 import { FormattedMessage, injectIntl } from 'react-intl';
 
 const ContentWrapper = styled.div`

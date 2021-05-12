@@ -9,7 +9,7 @@ import {
     FlexWindowContent,
     Dialog,
 } from '../../shared/components';
-import { createNewRow } from '../../redux/actions/room.action';
+import { createNewRow } from '../../../redux/actions/room.action';
 import { withSnackbar } from 'notistack';
 import { FormattedMessage, useIntl } from 'react-intl';
 

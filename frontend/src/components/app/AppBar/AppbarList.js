@@ -2,8 +2,8 @@ import { useSnackbar } from 'notistack';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { List, ListItem, Divider } from 'react95';
-import { logoutUser } from '../../redux/actions/user.action';
-import { history } from '../../Router';
+import { history } from '../../../shared/history.service';
+import { logoutUser } from '../../../redux/actions/user.action';
 
 export function AppbarList(props) {
     const { enqueueSnackbar } = useSnackbar();

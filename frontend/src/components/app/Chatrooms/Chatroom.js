@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { Button, Avatar } from 'react95';
 
 import styled from 'styled-components';
-import { openRoom } from '../../redux/actions/room.action';
+import { openRoom } from '../../../redux/actions/room.action';
 import { NameHolder } from '../../shared/components';
 
 const ChatroomButton = styled(Button)`
@@ -81,19 +81,19 @@ export class Chatroom extends React.Component {
         const { messages: m, currentUser: cu } = this.props;
         if (m.length !== 0) {
             const lastM = m[0];
-            if (!lastM.user && lastM.serviceMessage)
+            if (!lastM.userId && lastM.serviceMessage)
                 return (
                     <FormattedMessage
                         id={lastM.serviceMessage.templateName}
                         values={lastM.serviceMessage.templateVariables}
                     />
                 );
-            else if (cu && cu._id === lastM.user._id)
+            else if (cu && cu._id === lastM.userId)
                 return `You: ${lastM.message}`;
 
             return (
                 <div>
-                    <NameHolder userId={lastM.user} />
+                    <NameHolder userId={lastM.userId} />
                     {': '}
                     {lastM.message}
                 </div>

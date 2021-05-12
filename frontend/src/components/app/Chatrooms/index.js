@@ -3,10 +3,10 @@ import { AppWrapperGrid } from '../../shared/components';
 import { Grid } from '@material-ui/core';
 import ChatroomsWindow from './ChatroomsWindow';
 import FocusedChatroomWindow from './FocusedChatroom/FocusedChatroomWindow';
-import { openRoom, pushMessage, readRoomList } from '../../redux/actions/room.action';
-import { store } from '../../redux/store';
-import { getSelf } from '../../redux/actions/user.action';
-import { socket } from '../../redux/actions/socket.action';
+import { openRoom, pushMessage, readRoomList } from '../../../redux/actions/room.action';
+import { store } from '../../../redux/store';
+import { getSelf } from '../../../redux/actions/user.action';
+import { socket } from '../../../redux/actions/socket.action';
 
 export class Chatrooms extends React.Component {
     onNewMessage = (data) => {

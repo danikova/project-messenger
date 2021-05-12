@@ -48,9 +48,9 @@ export function ChatLines(props) {
     const { messages, currentUser } = props;
     let userId = '';
     return (messages || []).map((message) => {
-        const userChange = userId !== message.user;
-        userId = message.user;
-        if (!message.user)
+        const userChange = userId !== message.userId;
+        userId = message.userId;
+        if (!message.userId)
             return (
                 <ServerLineWrapper key={message._id}>
                     {message.message}
@@ -72,7 +72,7 @@ export function ChatLines(props) {
                 <LineContent
                     label={
                         userChange &&
-                        ((users[userId] && users[userId].username) || userId)
+                        ((users[userId] && users[userId].username) || '...')
                     }
                 >
                     {message.message}
