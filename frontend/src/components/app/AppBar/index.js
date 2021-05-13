@@ -1,17 +1,13 @@
 import styled from 'styled-components';
 import React from 'react';
 
-import {
-    AppBar as OriginalAppBar,
-    Toolbar,
-    TextField,
-    Button,
-} from 'react95';
+import { AppBar as OriginalAppBar, Toolbar, TextField, Button } from 'react95';
 import { AppbarList } from './AppbarList';
 import { AvatarHolder } from '../../shared/AvatarHolder';
 import { LocaleSelector } from '../../shared/LocaleSelector';
 import { connect } from 'react-redux';
 import { injectIntl } from 'react-intl';
+import logoIMG from '../../../assets/logo.png';
 
 const CustomAppBar = styled(OriginalAppBar)`
     z-index: 50;
@@ -53,11 +49,11 @@ export class AppBar extends React.Component {
                             active={this.state.toolbarOpen}
                             style={{ fontWeight: 'bold' }}
                         >
-                            {/* <img
+                            <img
                                 src={logoIMG}
                                 alt='react95 logo'
                                 style={{ height: '20px', marginRight: 4 }}
-                            /> */}
+                            />
                             Start
                         </Button>
                         {this.state.toolbarOpen && (
