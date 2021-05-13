@@ -6,6 +6,7 @@ import SocketWrapper from './SocketWrapper';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Chatrooms from './Chatrooms';
 import Profile from './Profile';
+import { AppContainer } from '../shared/styled-components';
 
 const MainViewWrapper = styled.div`
     padding: 20px;
@@ -35,22 +36,24 @@ export default class AppView extends React.Component {
             <MainViewWrapper>
                 <SocketWrapper>
                     <AppBar />
-                    <Switch>
-                        <Route path='/profile'>
-                            <Profile />
-                        </Route>
-                        <Route path='/chatrooms'>
-                            <Chatrooms />
-                        </Route>
-                        <Redirect exact from='/' to='/chatrooms' />
-                        <Route
-                            render={(routeProps) => (
-                                <Page404Wrapper>
-                                    <Page404Img src={page404} />
-                                </Page404Wrapper>
-                            )}
-                        />
-                    </Switch>
+                    <AppContainer>
+                        <Switch>
+                            <Route path='/profile'>
+                                <Profile />
+                            </Route>
+                            <Route path='/chatrooms'>
+                                <Chatrooms />
+                            </Route>
+                            <Redirect exact from='/' to='/chatrooms' />
+                            <Route
+                                render={(routeProps) => (
+                                    <Page404Wrapper>
+                                        <Page404Img src={page404} />
+                                    </Page404Wrapper>
+                                )}
+                            />
+                        </Switch>
+                    </AppContainer>
                 </SocketWrapper>
             </MainViewWrapper>
         );

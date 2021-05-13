@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppWrapperGrid } from '../../shared/styled-components';
+import { ChatroomWrapperGrid } from '../../shared/styled-components';
 import { Grid } from '@material-ui/core';
 import ChatroomsWindow from './ChatroomsWindow';
 import FocusedChatroomWindow from './FocusedChatroom/FocusedChatroomWindow';
@@ -44,7 +44,7 @@ export class Chatrooms extends React.Component {
 
     render() {
         return (
-            <AppWrapperGrid container spacing={2}>
+            <ChatroomWrapperGrid container spacing={2}>
                 <Helmet>
                     <title>
                         {this.props.intl.formatMessage({
@@ -58,7 +58,7 @@ export class Chatrooms extends React.Component {
                 <Grid item xs={7} sm={8} md={9}>
                     <FocusedChatroomWindow></FocusedChatroomWindow>
                 </Grid>
-            </AppWrapperGrid>
+            </ChatroomWrapperGrid>
         );
     }
 }

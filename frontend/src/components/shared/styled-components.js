@@ -2,10 +2,9 @@ import styled from 'styled-components';
 import { Window, WindowHeader, WindowContent, Panel } from 'react95';
 import { Grid } from '@material-ui/core';
 
-export const AppWrapperGrid = styled(Grid)`
-    height: calc(100% - 28px);
-    max-height: calc(100% - 28px) !important;
-    margin-top: 37px !important;
+export const ChatroomWrapperGrid = styled(Grid)`
+    height: calc(100% + 16px) !important;
+    max-height: calc(100% + 16px) !important;
     > div {
         max-height: 100% !important;
     }
@@ -79,4 +78,10 @@ export const FixedLocaleSelectorWrapper = styled.div`
     position: fixed;
     top: 20px;
     right: 20px;
+`;
+
+export const AppContainer = styled.div`
+    width: 100%;
+    height: calc(100% - 45px);
+    margin-top: 45px;
 `;
