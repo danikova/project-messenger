@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import io from 'socket.io-client';
 import { TOKEN_COOKIE } from '../../redux/constants/user.constant';
 import { getCookie } from '../../shared/cookie.service';
-import { LoadingDialog } from '../shared/components';
+import { LoadingDialog } from '../shared/LoadingDialog';
 
 const SocketContext = React.createContext();
 

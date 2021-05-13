@@ -1,5 +1,7 @@
 import React from 'react';
-import { Dialog, LocaleSelector, FixedLocaleSelectorWrapper } from '../shared/components';
+import { FixedLocaleSelectorWrapper } from '../shared/styled-components';
+import { Dialog } from '../shared/Dialog';
+import { LocaleSelector } from '../shared/LocaleSelector';
 import { Redirect } from 'react-router-dom';
 import { Anchor, Divider } from 'react95';
 import styled from 'styled-components';

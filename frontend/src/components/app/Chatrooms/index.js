@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppWrapperGrid } from '../../shared/components';
+import { AppWrapperGrid } from '../../shared/styled-components';
 import { Grid } from '@material-ui/core';
 import ChatroomsWindow from './ChatroomsWindow';
 import FocusedChatroomWindow from './FocusedChatroom/FocusedChatroomWindow';

@@ -3,7 +3,7 @@ import moment from 'moment';
 import { useSelector } from 'react-redux';
 import { Fieldset } from 'react95';
 import styled from 'styled-components';
-import { AvatarHolder } from '../../../shared/components';
+import { AvatarHolder } from '../../../shared/AvatarHolder';
 import { FormattedMessage } from 'react-intl';
 
 const ServerLineWrapper = styled.div`

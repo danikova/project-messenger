@@ -7,7 +7,7 @@ import {
     MaxSizeFlexWindow,
     FlexWindowHeader,
     FlexWindowContent,
-} from '../../../shared/components';
+} from '../../../shared/styled-components';
 import ChatroomMessages from './ChatroomMessages';
 import { connect } from 'react-redux';
 import { FocusedToolbar } from './FocusedToolbar';

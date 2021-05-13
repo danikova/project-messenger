@@ -8,7 +8,8 @@ import {
     Button,
 } from 'react95';
 import { AppbarList } from './AppbarList';
-import { AvatarHolder, LocaleSelector } from '../../shared/components';
+import { AvatarHolder } from '../../shared/AvatarHolder';
+import { LocaleSelector } from '../../shared/LocaleSelector';
 import { connect } from 'react-redux';
 import { injectIntl } from 'react-intl';
 

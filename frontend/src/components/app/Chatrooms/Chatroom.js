@@ -4,7 +4,7 @@ import { Button, Avatar } from 'react95';
 
 import styled from 'styled-components';
 import { openRoom } from '../../../redux/actions/room.action';
-import { NameHolder } from '../../shared/components';
+import { NameHolder } from '../../shared/NameHolder';
 
 const ChatroomButton = styled(Button)`
     justify-content: start !important;

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { styleReset } from 'react95';
 import { SnackbarProvider } from 'notistack';
-import { CustomSnackbar } from './shared/components';
+import { CustomSnackbar } from './shared/CustomSnackbar';
 import ms_sans_serif from 'react95/dist/fonts/ms_sans_serif.woff2';
 import original from 'react95/dist/themes/original';
 import { history } from '../shared/history.service';
