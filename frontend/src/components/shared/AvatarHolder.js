@@ -1,7 +1,7 @@
 import React from 'react';
 import { Avatar } from 'react95';
 import { useSelector } from 'react-redux';
-import { getUserInfo } from '../../redux/actions/user.action';
+import { getUserInfo } from '../../store/actions/user.action';
 
 
 export function AvatarHolder({ userId = null, ...props }) {

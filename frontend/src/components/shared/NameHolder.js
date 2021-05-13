@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { getUserInfo } from '../../redux/actions/user.action';
+import { getUserInfo } from '../../store/actions/user.action';
 
 
 export function NameHolder({ userId = null, ...props }) {

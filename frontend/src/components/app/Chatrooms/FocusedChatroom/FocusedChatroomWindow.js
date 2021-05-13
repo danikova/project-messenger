@@ -11,7 +11,7 @@ import {
 import ChatroomMessages from './ChatroomMessages';
 import { connect } from 'react-redux';
 import { FocusedToolbar } from './FocusedToolbar';
-import { pushActiveMessage } from '../../../../redux/actions/room.action';
+import { pushActiveMessage } from '../../../../store/actions/room.action';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { withSocket } from '../../SocketWrapper';
 import { Helmet } from 'react-helmet';

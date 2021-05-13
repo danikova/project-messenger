@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { store } from '../store';
+import { store } from '..';
 import {
     ROOM_READ_REQUEST,
     ROOM_READ_SUCCESS,

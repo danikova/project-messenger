@@ -3,7 +3,7 @@ import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { List, ListItem, Divider } from 'react95';
 import { history } from '../../../shared/history.service';
-import { logoutUser } from '../../../redux/actions/user.action';
+import { logoutUser } from '../../../store/actions/user.action';
 
 export function AppbarList(props) {
     const { enqueueSnackbar } = useSnackbar();

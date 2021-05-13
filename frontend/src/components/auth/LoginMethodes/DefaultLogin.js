@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Button, TextField } from 'react95';
-import { loginUser } from '../../../redux/actions/user.action';
+import { loginUser } from '../../../store/actions/user.action';
 import { withSnackbar } from 'notistack';
 import { FormattedMessage, injectIntl } from 'react-intl';
 

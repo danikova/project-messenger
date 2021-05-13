@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { store } from '../store';
+import { store } from '..';
 import { setCookie, eraseCookie, getCookie } from '../../shared/cookie.service';
 import {
     LOGIN_REQUEST,

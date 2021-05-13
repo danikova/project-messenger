@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { Button, Avatar } from 'react95';
 
 import styled from 'styled-components';
-import { openRoom } from '../../../redux/actions/room.action';
+import { openRoom } from '../../../store/actions/room.action';
 import { NameHolder } from '../../shared/NameHolder';
 
 const ChatroomButton = styled(Button)`

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import io from 'socket.io-client';
-import { logoutUser } from '../../redux/actions/user.action';
-import { TOKEN_COOKIE } from '../../redux/constants/user.constant';
+import { logoutUser } from '../../store/actions/user.action';
+import { TOKEN_COOKIE } from '../../store/constants/user.constant';
 import { getCookie } from '../../shared/cookie.service';
 import { LoadingDialog } from '../shared/LoadingDialog';
 

@@ -7,9 +7,9 @@ import {
     openRoom,
     pushMessage,
     readRoomList,
-} from '../../../redux/actions/room.action';
-import { store } from '../../../redux/store';
-import { getSelf } from '../../../redux/actions/user.action';
+} from '../../../store/actions/room.action';
+import { store } from '../../../store';
+import { getSelf } from '../../../store/actions/user.action';
 import { withSocket } from '../SocketWrapper';
 import { injectIntl } from 'react-intl';
 import { Helmet } from 'react-helmet';
