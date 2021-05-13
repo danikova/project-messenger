@@ -5,8 +5,10 @@ const SocketConnection = require('./SocketConnection');
 const onPushMessage = require('./on.push.message');
 const onDisconnect = require('./on.disconnect');
 
-module.exports = function (server) {
-    const io = socketIO(server);
+module.exports = function (server, path) {
+    const io = socketIO(server, {
+        path,
+    });
     io.use(tokenAuthSocket);
     io.on('connection', async (socket) => {
         const sc = new SocketConnection(socket);

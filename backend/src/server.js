@@ -26,11 +26,11 @@ app.get('/api/', function (req, res, next) {
     res.status(200).json(listEndpoints(app));
 });
 
-setSocket(server);
 const apiRouter = setApiRoutes();
 const authRouter = setAuthRoutes();
 app.use('/api/', apiRouter);
 app.use('/auth/', authRouter);
+setSocket(server, "/comm/socket");
 
 server.listen(config.get('server.port'), config.get('server.host'), () => {
     console.log(`Server is running on ${config.get('server.host')}:${config.get('server.port')}`);
