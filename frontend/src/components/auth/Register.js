@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import Axios from 'axios';
 import { withSnackbar } from 'notistack';
 import { FormattedMessage, injectIntl } from 'react-intl';
+import { Helmet } from 'react-helmet';
 
 const FullWidthTextField = styled(TextField)`
     width: 100%;
@@ -31,6 +32,13 @@ export class Register extends React.Component {
             return <Redirect to='/login'></Redirect>;
         return (
             <Dialog title='register.exe' closeDisabled>
+                <Helmet>
+                    <title>
+                        {this.props.intl.formatMessage({
+                            id: 'helmet.register.title',
+                        })}
+                    </title>
+                </Helmet>
                 <FixedLocaleSelectorWrapper>
                     <LocaleSelector />
                 </FixedLocaleSelectorWrapper>

@@ -34,12 +34,18 @@
     "chatrooms.focusedChatroom.addUser.btnText": "felhasználó hozzáadása",
     "chatrooms.focusedChatroom.addUser.dialog.TextField.placeholder": "felhasználónév vagy email",
     "chatrooms.focusedChatroom.addUser.dialog.btnText": "ok",
-    
+
     "chatrooms.focusedChatroom.leaveRoom.btnText": "szoba elhagyása",
     "chatrooms.focusedChatroom.leaveRoom.dialog.description": "Biztos el akarod hagyni ezt a szobát?",
     "chatrooms.focusedChatroom.leaveRoom.dialog.yes.BtnText": "igen",
     "chatrooms.focusedChatroom.leaveRoom.dialog.no.BtnText": "nem",
 
     "chatrooms.focusedChatroom.newMessage.TextField.placeholder": "kezdj el gépelni...",
-    "chatrooms.focusedChatroom.newMessage.btnText": "küldés"
+    "chatrooms.focusedChatroom.newMessage.btnText": "küldés",
+
+    "helmet.login.title": "Bejelentkezés",
+    "helmet.register.title": "Regisztráció",
+    "helmet.chatrooms.title": "Chat szobák",
+    "helmet.chatrooms.activeRoom.title": "{activeRoomName} (M95)",
+    "helmet.profile.title": "Profil"
 }

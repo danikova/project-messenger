@@ -3,10 +3,16 @@ import { AppWrapperGrid } from '../../shared/styled-components';
 import { Grid } from '@material-ui/core';
 import ChatroomsWindow from './ChatroomsWindow';
 import FocusedChatroomWindow from './FocusedChatroom/FocusedChatroomWindow';
-import { openRoom, pushMessage, readRoomList } from '../../../redux/actions/room.action';
+import {
+    openRoom,
+    pushMessage,
+    readRoomList,
+} from '../../../redux/actions/room.action';
 import { store } from '../../../redux/store';
 import { getSelf } from '../../../redux/actions/user.action';
 import { withSocket } from '../SocketWrapper';
+import { injectIntl } from 'react-intl';
+import { Helmet } from 'react-helmet';
 
 export class Chatrooms extends React.Component {
     onNewMessage = (data) => {
@@ -39,6 +45,13 @@ export class Chatrooms extends React.Component {
     render() {
         return (
             <AppWrapperGrid container spacing={2}>
+                <Helmet>
+                    <title>
+                        {this.props.intl.formatMessage({
+                            id: 'helmet.chatrooms.title',
+                        })}
+                    </title>
+                </Helmet>
                 <Grid item xs={5} sm={4} md={3}>
                     <ChatroomsWindow></ChatroomsWindow>
                 </Grid>
@@ -50,4 +63,4 @@ export class Chatrooms extends React.Component {
     }
 }
 
-export default withSocket(Chatrooms);
+export default injectIntl(withSocket(Chatrooms));

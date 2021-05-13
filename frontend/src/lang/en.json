@@ -41,5 +41,11 @@
     "chatrooms.focusedChatroom.leaveRoom.dialog.no.BtnText": "no",
 
     "chatrooms.focusedChatroom.newMessage.TextField.placeholder": "type in here...",
-    "chatrooms.focusedChatroom.newMessage.btnText": "send"
+    "chatrooms.focusedChatroom.newMessage.btnText": "send",
+
+    "helmet.login.title": "Login",
+    "helmet.register.title": "Register",
+    "helmet.chatrooms.title": "Chatrooms",
+    "helmet.chatrooms.activeRoom.title": "{activeRoomName} (M95)",
+    "helmet.profile.title": "Profile"
 }

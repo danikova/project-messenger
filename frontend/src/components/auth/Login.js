@@ -7,7 +7,8 @@ import { Anchor, Divider } from 'react95';
 import styled from 'styled-components';
 import DefaultLogin from './LoginMethodes/DefaultLogin';
 import GoogleLogin from './LoginMethodes/GoogleLogin';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
+import { Helmet } from 'react-helmet';
 
 const AnchorWrapper = styled.h1`
     margin-bottom: 10px;
@@ -18,7 +19,7 @@ const DividerWrapper = styled(Divider)`
     margin-top: 16px;
 `;
 
-export default class Login extends React.Component {
+export class Login extends React.Component {
     state = {
         loginSuccess: false,
         to: '/',
@@ -33,6 +34,13 @@ export default class Login extends React.Component {
             return <Redirect to={this.state.to}></Redirect>;
         return (
             <Dialog title='login.exe' closeDisabled>
+                <Helmet>
+                    <title>
+                        {this.props.intl.formatMessage({
+                            id: 'helmet.login.title',
+                        })}
+                    </title>
+                </Helmet>
                 <FixedLocaleSelectorWrapper>
                     <LocaleSelector />
                 </FixedLocaleSelectorWrapper>
@@ -49,3 +57,5 @@ export default class Login extends React.Component {
         );
     }
 }
+
+export default injectIntl(Login);

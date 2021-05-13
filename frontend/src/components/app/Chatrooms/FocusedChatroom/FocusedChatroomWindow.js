@@ -14,6 +14,7 @@ import { FocusedToolbar } from './FocusedToolbar';
 import { pushActiveMessage } from '../../../../redux/actions/room.action';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { withSocket } from '../../SocketWrapper';
+import { Helmet } from 'react-helmet';
 
 const ContentWrapper = styled.div`
     height: 100%;
@@ -89,6 +90,18 @@ export class FocusedChatroomWindow extends React.Component {
         const disabledSend = disabled || (this.state.value ? false : true);
         return (
             <MaxSizeFlexWindow key={_id}>
+                {name && (
+                    <Helmet>
+                        <title>
+                            {this.props.intl.formatMessage(
+                                {
+                                    id: 'helmet.chatrooms.activeRoom.title',
+                                },
+                                { activeRoomName: name },
+                            )}
+                        </title>
+                    </Helmet>
+                )}
                 <FlexWindowHeader
                     style={{
                         display: 'flex',
