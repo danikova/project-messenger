@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../api/users/model');
 
 module.exports = async (socket, next) => {
+    let user = null;
     try {
         const token = socket.handshake.query.token;
         const decoded = jwt.verify(
@@ -10,11 +11,8 @@ module.exports = async (socket, next) => {
             config.get('authentication.privatekey'),
         );
         const { _id } = decoded;
-        const user = await User.findOne({ _id });
-        if (!user) throw Error('Authentication error');
-        socket.user = user;
-        next();
-    } catch (e) {
-        socket.disconnect(true);
-    }
+        user = await User.findOne({ _id });
+    } catch (e) {}
+    socket.user = user;
+    next();
 };

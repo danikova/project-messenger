@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import io from 'socket.io-client';
+import { logoutUser } from '../../redux/actions/user.action';
 import { TOKEN_COOKIE } from '../../redux/constants/user.constant';
 import { getCookie } from '../../shared/cookie.service';
 import { LoadingDialog } from '../shared/LoadingDialog';
@@ -29,6 +30,10 @@ export default class SocketWrapper extends React.Component {
             clearInterval(this.state.loadingDialogInterval);
             this.setState({ connected: true, showLoadingDialog: false });
         });
+
+        socket.on('unauthorized', ()=>{
+            logoutUser();
+        })
 
         this.setState({
             socket,

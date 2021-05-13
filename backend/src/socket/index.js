@@ -11,16 +11,26 @@ module.exports = function (server, path) {
     });
     io.use(tokenAuthSocket);
     io.on('connection', async (socket) => {
-        const sc = new SocketConnection(socket);
-        await sc.getActiveRoom(
-            socket.user.openChatroom && socket.user.openChatroom._id,
-        );
-        await sc.joinAllRoom();
-        socket.on('connect', () => {
-            console.log('connect');
-        });
-        socket.on('pushMessage', onPushMessage(sc));
-        socket.on('disconnect', onDisconnect(sc));
+        if (socket.user) await acceptAuthorizedSocket(socket);
+        else await rejectUnauthorizedSocket(socket);
     });
     console.log(`SocketIo ready for connection`);
 };
+
+async function acceptAuthorizedSocket(socket) {
+    const sc = new SocketConnection(socket);
+    await sc.getActiveRoom(
+        socket.user.openChatroom && socket.user.openChatroom._id,
+    );
+    await sc.joinAllRoom();
+    socket.on('connect', () => {
+        console.log('connect');
+    });
+    socket.on('pushMessage', onPushMessage(sc));
+    socket.on('disconnect', onDisconnect(sc));
+}
+
+async function rejectUnauthorizedSocket(socket) {
+    socket.emit('unauthorized');
+    socket.disconnect();
+}
