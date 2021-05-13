@@ -47,5 +47,8 @@
     "helmet.register.title": "Regisztráció",
     "helmet.chatrooms.title": "Chat szobák",
     "helmet.chatrooms.activeRoom.title": "{activeRoomName} (M95)",
-    "helmet.profile.title": "Profil"
+    "helmet.profile.title": "Profil",
+
+    "profile.userInfo.tabText": "Felhasználói adatok",
+    "profile.settings.tabText": "Beállítások"
 }

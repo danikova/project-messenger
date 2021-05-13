@@ -86,13 +86,7 @@ export class ChatroomsWindow extends React.Component {
     render() {
         return (
             <MaxSizeFlexWindow>
-                <FlexWindowHeader
-                    style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                    }}
-                >
+                <FlexWindowHeader>
                     <span>chatrooms.exe</span>
                 </FlexWindowHeader>
                 <ListWindowContent>

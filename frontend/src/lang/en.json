@@ -47,5 +47,8 @@
     "helmet.register.title": "Register",
     "helmet.chatrooms.title": "Chatrooms",
     "helmet.chatrooms.activeRoom.title": "{activeRoomName} (M95)",
-    "helmet.profile.title": "Profile"
+    "helmet.profile.title": "Profile",
+
+    "profile.userInfo.tabText": "User info",
+    "profile.settings.tabText": "Settings"
 }

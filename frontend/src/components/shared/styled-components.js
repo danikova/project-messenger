@@ -22,6 +22,9 @@ export const MaxSizeFlexWindow = styled(Window)`
 `;
 
 export const FlexWindowHeader = styled(WindowHeader)`
+    display: 'flex';
+    align-items: 'center';
+    justify-content: 'space-between';
     flex: 0 1;
 `;
 
