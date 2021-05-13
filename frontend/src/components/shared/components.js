@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {
     Button,
@@ -9,12 +9,14 @@ import {
     Avatar,
     Panel,
     Select,
+    Progress,
 } from 'react95';
 import { Grid } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
 import { useSelector } from 'react-redux';
 import { getUserInfo } from '../../redux/actions/user.action';
-import { LangContext } from '../../lang/LocaleWrapper';
+import { useLocale } from '../../lang/LocaleWrapper';
+import { FormattedMessage } from 'react-intl';
 
 export const AppWrapperGrid = styled(Grid)`
     height: calc(100% - 28px);
@@ -200,7 +202,7 @@ export const FixedLocaleSelectorWrapper = styled.div`
 `;
 
 export function LocaleSelector() {
-    const context = useContext(LangContext);
+    const { locale, selectLanguage } = useLocale();
 
     const options = [
         { value: 'hu', label: '🇭🇺' },
@@ -209,9 +211,39 @@ export function LocaleSelector() {
 
     return (
         <Select
-            defaultValue={context.locale}
+            defaultValue={locale}
             options={options}
-            onChange={context.selectLanguage}
+            onChange={selectLanguage}
         />
     );
 }
+
+export const LoadingDialog = () => {
+    const [percent, setPercent] = useState(0);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setPercent((previousPercent) => {
+                if (previousPercent === 100) {
+                    return 0;
+                }
+                const diff = Math.random() * 10;
+                return Math.min(previousPercent + diff, 100);
+            });
+        }, 500);
+        return () => {
+            clearInterval(timer);
+        };
+    }, []);
+
+    return (
+        <Dialog title='websocketConnection.exe'>
+            <Progress variant='tile' value={Math.floor(percent)} />
+            <h1>
+                <FormattedMessage
+                    id={'appbar.websocket.waitingForConnection.msg'}
+                />
+            </h1>
+        </Dialog>
+    );
+};

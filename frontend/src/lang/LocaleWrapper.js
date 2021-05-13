@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { IntlProvider } from 'react-intl';
 
 import Hungarian from './hu.json';
@@ -21,7 +21,7 @@ const checkMessageKeys = () => {
 };
 checkMessageKeys();
 
-export const LangContext = React.createContext();
+const LangContext = React.createContext();
 
 const local = getCookie(LANG_COOKIE) || navigator.language.substring(0, 2);
 
@@ -57,3 +57,11 @@ const LocaleWrapper = (props) => {
 };
 
 export default LocaleWrapper;
+
+export function useLocale(){
+    const context = useContext(LangContext);
+    return {
+        locale: context.locale,
+        selectLanguage: context.selectLanguage,
+    };
+}

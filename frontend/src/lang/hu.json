@@ -17,6 +17,8 @@
     "auth.username": "felhasználónév",
     "auth.password": "jelszó",
 
+    "appbar.websocket.waitingForConnection.msg": "Csatlakozás...",
+
     "appbar.startBtn.List.profile": "Profil",
     "appbar.startBtn.List.chatrooms": "Chatszobák",
     "appbar.startBtn.List.logout": "Kijelentkezés",

@@ -10,10 +10,10 @@ import {
 } from '../../../shared/components';
 import ChatroomMessages from './ChatroomMessages';
 import { connect } from 'react-redux';
-import { socket } from '../../../../redux/actions/socket.action';
 import { FocusedToolbar } from './FocusedToolbar';
 import { pushActiveMessage } from '../../../../redux/actions/room.action';
 import { FormattedMessage, injectIntl } from 'react-intl';
+import { withSocket } from '../../SocketWrapper';
 
 const ContentWrapper = styled.div`
     height: 100%;
@@ -51,11 +51,11 @@ export class FocusedChatroomWindow extends React.Component {
     };
 
     componentDidMount() {
-        socket.on('pushMessageSuccess', this.onPushMessageSuccess);
+        this.props.socket.on('pushMessageSuccess', this.onPushMessageSuccess);
     }
 
     componentWillUnmount() {
-        socket.off('pushMessageSuccess', this.onPushMessageSuccess);
+        this.props.socket.off('pushMessageSuccess', this.onPushMessageSuccess);
     }
 
     onTextAreaChange = (e) => {
@@ -73,7 +73,7 @@ export class FocusedChatroomWindow extends React.Component {
     onSendButtonClick = () => {
         const { activeRoom } = this.props.rooms || {};
         if (activeRoom && !this.state.processing && this.state.value.trim()) {
-            socket.emit('pushMessage', {
+            this.props.socket.emit('pushMessage', {
                 roomId: activeRoom._id,
                 message: this.state.value,
             });
@@ -148,4 +148,6 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default injectIntl(connect(mapStateToProps)(FocusedChatroomWindow));
+export default withSocket(
+    injectIntl(connect(mapStateToProps)(FocusedChatroomWindow)),
+);

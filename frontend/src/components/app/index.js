@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import page404 from '../../assets/404.png';
 import AppBar from './AppBar';
+import SocketWrapper from './SocketWrapper';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Chatrooms from './Chatrooms';
 import Profile from './Profile';
@@ -32,23 +33,25 @@ export default class AppView extends React.Component {
     render() {
         return (
             <MainViewWrapper>
-                <AppBar />
-                <Switch>
-                    <Route path='/profile'>
-                        <Profile />
-                    </Route>
-                    <Route path='/chatrooms'>
-                        <Chatrooms />
-                    </Route>
-                    <Redirect exact from='/' to='/chatrooms' />
-                    <Route
-                        render={(routeProps) => (
-                            <Page404Wrapper>
-                                <Page404Img src={page404} />
-                            </Page404Wrapper>
-                        )}
-                    />
-                </Switch>
+                <SocketWrapper>
+                    <AppBar />
+                    <Switch>
+                        <Route path='/profile'>
+                            <Profile />
+                        </Route>
+                        <Route path='/chatrooms'>
+                            <Chatrooms />
+                        </Route>
+                        <Redirect exact from='/' to='/chatrooms' />
+                        <Route
+                            render={(routeProps) => (
+                                <Page404Wrapper>
+                                    <Page404Img src={page404} />
+                                </Page404Wrapper>
+                            )}
+                        />
+                    </Switch>
+                </SocketWrapper>
             </MainViewWrapper>
         );
     }
