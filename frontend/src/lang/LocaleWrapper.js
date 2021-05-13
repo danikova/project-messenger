@@ -21,7 +21,7 @@ const checkMessageKeys = () => {
 };
 checkMessageKeys();
 
-export const Context = React.createContext();
+export const LangContext = React.createContext();
 
 const local = getCookie(LANG_COOKIE) || navigator.language.substring(0, 2);
 
@@ -48,11 +48,11 @@ const LocaleWrapper = (props) => {
     }
 
     return (
-        <Context.Provider value={{ locale, selectLanguage }}>
+        <LangContext.Provider value={{ locale, selectLanguage }}>
             <IntlProvider messages={messages} locale={locale}>
                 {props.children}
             </IntlProvider>
-        </Context.Provider>
+        </LangContext.Provider>
     );
 };
 

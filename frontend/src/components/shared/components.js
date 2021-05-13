@@ -14,7 +14,7 @@ import { Grid } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
 import { useSelector } from 'react-redux';
 import { getUserInfo } from '../../redux/actions/user.action';
-import { Context } from '../../lang/LocaleWrapper';
+import { LangContext } from '../../lang/LocaleWrapper';
 
 export const AppWrapperGrid = styled(Grid)`
     height: calc(100% - 28px);
@@ -200,7 +200,7 @@ export const FixedLocaleSelectorWrapper = styled.div`
 `;
 
 export function LocaleSelector() {
-    const context = useContext(Context);
+    const context = useContext(LangContext);
 
     const options = [
         { value: 'hu', label: '🇭🇺' },
