@@ -32,6 +32,10 @@ export const FlexWindowContent = styled(WindowContent)`
     flex: 1 1;
 `;
 
+export const MaxWindowContent = styled(WindowContent)`
+    height: 100%;
+`;
+
 export const DialogBackground = styled.div`
     position: fixed;
     top: 0;

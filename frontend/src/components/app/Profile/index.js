@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Helmet } from 'react-helmet';
 import {
     FlexWindowHeader,
     MaxSizeFlexWindow,
+    MaxWindowContent,
 } from '../../shared/styled-components';
-import { Tab, Tabs, TabBody, WindowContent } from 'react95';
+import { Tab, Tabs, TabBody } from 'react95';
+
+const FullHeightTabBody = styled(TabBody)`
+    height: calc(100% - 34px);
+`;
 
 export function Profile() {
     const intl = useIntl();
@@ -27,7 +33,7 @@ export function Profile() {
             <FlexWindowHeader>
                 <span>profile.exe</span>
             </FlexWindowHeader>
-            <WindowContent>
+            <MaxWindowContent>
                 <Tabs value={activeTab} onChange={handleTabChange}>
                     <Tab value={0}>
                         <FormattedMessage id='profile.userInfo.tabText' />
@@ -36,11 +42,11 @@ export function Profile() {
                         <FormattedMessage id='profile.settings.tabText' />
                     </Tab>
                 </Tabs>
-                <TabBody>
+                <FullHeightTabBody>
                     {activeTab === 0 && <div>user info</div>}
                     {activeTab === 1 && <div>settings</div>}
-                </TabBody>
-            </WindowContent>
+                </FullHeightTabBody>
+            </MaxWindowContent>
         </MaxSizeFlexWindow>
     );
 }
