@@ -1,10 +1,10 @@
+const config = require('config');
 const Rooms = require('./model');
 const mongoose = require('mongoose');
-const Messages = require('../messages/model');
 const User = require('../users/model');
 const SocketGlobals = require('../../socket/SocketGlobals');
 
-const roomMessageCount = process.env.ROOM_MESSAGE_COUNT || 50;
+const roomMessageCount = config.get('api.room.messageCount') || 50;
 
 exports.createRoom = async (req, res) => {
     try {

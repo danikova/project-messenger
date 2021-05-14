@@ -1,7 +1,10 @@
+const config = require('config');
 const bcrypt = require('bcryptjs');
 const User = require('../api/users/model');
 const { OAuth2Client } = require('google-auth-library');
 const { validateUser, makeRandomString } = require('./utils');
+
+const googleClientId = config.get('authentication.googleClientId');
 
 exports.register = async (req, res) => {
     try {
@@ -56,10 +59,10 @@ exports.login = async (req, res) => {
 exports.googleLogin = async (req, res) => {
     let payload = {};
     try {
-        const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+        const client = new OAuth2Client(googleClientId);
         const ticket = await client.verifyIdToken({
             idToken: req.body.idToken,
-            audience: process.env.GOOGLE_CLIENT_ID,
+            audience: googleClientId,
         });
         payload = ticket.getPayload();
         asd = 1;
@@ -77,7 +80,7 @@ exports.googleLogin = async (req, res) => {
                 username: payload.email,
                 password: makeRandomString,
                 email: payload.email,
-                imageUrl: payload.picture
+                imageUrl: payload.picture,
             });
             created = true;
         } catch (e) {
