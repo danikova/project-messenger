@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Helmet } from 'react-helmet';
@@ -10,6 +10,7 @@ import {
 } from '../../shared/styled-components';
 import { Tab, Tabs, TabBody, Cutout } from 'react95';
 import Settings from './Settings';
+import { history } from '../../../shared/history.service';
 
 const FullHeightTabBody = styled(TabBody)`
     height: calc(100% - 34px);
@@ -20,13 +21,9 @@ const MaxHeightCutout = styled(Cutout)`
     max-height: 100%;
 `;
 
-export function Profile() {
+export function Profile(props) {
     const intl = useIntl();
-    const [activeTab, setActiveTab] = useState(0);
-
-    function handleTabChange(_e, value) {
-        setActiveTab(value);
-    }
+    const { pathname } = props.location;
 
     return (
         <MaxSizeFlexWindow>
@@ -41,22 +38,25 @@ export function Profile() {
                 <span>profile.exe</span>
             </FlexWindowHeader>
             <MaxWindowContent>
-                <Tabs value={activeTab} onChange={handleTabChange}>
-                    <Tab value={0}>
+                <Tabs
+                    value={pathname}
+                    onChange={(_e, value) => history.push(value)}
+                >
+                    <Tab value='/profile'>
                         <FormattedMessage id='profile.userInfo.tabText' />
                     </Tab>
-                    <Tab value={1}>
+                    <Tab value='/profile/settings'>
                         <FormattedMessage id='profile.settings.tabText' />
                     </Tab>
                 </Tabs>
                 <FullHeightTabBody>
                     <MaxHeightCutout>
-                        {activeTab === 0 && (
+                        {pathname === '/profile' && (
                             <Pad>
                                 <div>user info</div>
                             </Pad>
                         )}
-                        {activeTab === 1 && (
+                        {pathname === '/profile/settings' && (
                             <Pad>
                                 <Settings />
                             </Pad>

@@ -38,9 +38,7 @@ export default class AppView extends React.Component {
                     <AppBar />
                     <AppContainer>
                         <Switch>
-                            <Route path='/profile'>
-                                <Profile />
-                            </Route>
+                            <Route path='/profile' component={Profile} />
                             <Route path='/chatrooms'>
                                 <Chatrooms />
                             </Route>
