@@ -4,6 +4,7 @@ import { logoutUser } from '../../store/actions/user.action';
 import { TOKEN_COOKIE } from '../../store/constants/user.constant';
 import { getCookie } from '../../shared/cookie.service';
 import { LoadingDialog } from '../shared/LoadingDialog';
+import { API_COMMUNICATION_SOCKET_URL } from '../../routes';
 
 const SocketContext = React.createContext();
 
@@ -18,7 +19,7 @@ export default class SocketWrapper extends React.Component {
     componentDidMount() {
         const socket = io.connect(window.location.origin, {
             query: { token: getCookie(TOKEN_COOKIE) },
-            path: '/comm/socket',
+            path: API_COMMUNICATION_SOCKET_URL,
         });
 
         socket.on('disconnect', () => {
@@ -31,9 +32,9 @@ export default class SocketWrapper extends React.Component {
             this.setState({ connected: true, showLoadingDialog: false });
         });
 
-        socket.on('unauthorized', ()=>{
+        socket.on('unauthorized', () => {
             logoutUser();
-        })
+        });
 
         this.setState({
             socket,

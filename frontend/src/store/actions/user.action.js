@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import { store } from '..';
+import { API_USER_DETAIL_URL, API_USER_SELF_URL } from '../../routes';
 import { setCookie, eraseCookie, getCookie } from '../../shared/cookie.service';
 import {
     LOGIN_REQUEST,
@@ -18,6 +19,7 @@ import {
     UPDATE_SELF_FAILURE,
 } from '../constants/user.constant';
 import { openRoom } from './room.action';
+import UrlTemplate from 'url-template';
 
 export function loginUser(data, url, cb, errCb) {
     store.dispatch((dispatch) => {
@@ -57,7 +59,7 @@ export function getSelf(cb, errCb) {
         });
         const request = Axios({
             method: 'get',
-            url: '/api/users/self',
+            url: API_USER_SELF_URL,
             headers: {
                 'x-access-token': getCookie(TOKEN_COOKIE),
             },
@@ -94,7 +96,7 @@ export function updateSelf(data, cb, errCb) {
         });
         const request = Axios({
             method: 'put',
-            url: '/api/users/self',
+            url: API_USER_SELF_URL,
             headers: {
                 'x-access-token': getCookie(TOKEN_COOKIE),
             },
@@ -119,14 +121,14 @@ export function updateSelf(data, cb, errCb) {
     });
 }
 
-export function getUserInfo(id, cb, errCb) {
+export function getUserInfo(userId, cb, errCb) {
     store.dispatch((dispatch) => {
         dispatch({
             type: GET_USER_REQUEST,
         });
         const request = Axios({
             method: 'get',
-            url: `/api/users/${id}`,
+            url: UrlTemplate.parse(API_USER_DETAIL_URL).expand({ userId }),
             headers: {
                 'x-access-token': getCookie(TOKEN_COOKIE),
             },

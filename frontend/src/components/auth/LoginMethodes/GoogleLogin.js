@@ -4,6 +4,7 @@ import { loginUser } from '../../../store/actions/user.action';
 import { GoogleLogin as ReactGoogleLogin } from 'react-google-login';
 import { withSnackbar } from 'notistack';
 import { injectIntl } from 'react-intl';
+import { API_GOOGLE_LOGIN_URL } from '../../../routes';
 
 const GoogleLoginBtnContainer = styled.div`
     width: 100%;
@@ -18,7 +19,7 @@ export class GoogleLogin extends React.Component {
     onGoogleLoginSuccess = (res) => {
         loginUser(
             { idToken: res.tokenId },
-            '/auth/google-login',
+            API_GOOGLE_LOGIN_URL,
             () => {
                 this.props.enqueueSnackbar(
                     this.props.intl.formatMessage({

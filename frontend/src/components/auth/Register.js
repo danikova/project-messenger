@@ -9,7 +9,7 @@ import Axios from 'axios';
 import { withSnackbar } from 'notistack';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { Helmet } from 'react-helmet';
-import { FRONTEND_LOGIN_URL } from '../../routes';
+import { API_REGISTER_URL, FRONTEND_LOGIN_URL } from '../../routes';
 
 const FullWidthTextField = styled(TextField)`
     width: 100%;
@@ -73,7 +73,7 @@ export class Register extends React.Component {
                     onClick={() => {
                         const request = Axios({
                             method: 'post',
-                            url: '/auth/register',
+                            url: API_REGISTER_URL,
                             data: {
                                 username: this.state.username,
                                 password: this.state.password,

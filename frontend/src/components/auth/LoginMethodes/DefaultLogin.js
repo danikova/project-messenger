@@ -4,6 +4,7 @@ import { Button, TextField } from 'react95';
 import { loginUser } from '../../../store/actions/user.action';
 import { withSnackbar } from 'notistack';
 import { FormattedMessage, injectIntl } from 'react-intl';
+import { API_LOGIN_URL } from '../../../routes';
 
 const FullWidthTextField = styled(TextField)`
     width: 100%;
@@ -22,7 +23,7 @@ export class DefaultLogin extends React.Component {
                 username: this.state.username,
                 password: this.state.password,
             },
-            '/auth/login',
+            API_LOGIN_URL,
             () => {
                 this.props.enqueueSnackbar(
                     this.props.intl.formatMessage({

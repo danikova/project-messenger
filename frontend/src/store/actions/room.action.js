@@ -19,6 +19,14 @@ import { TOKEN_COOKIE } from '../constants/user.constant';
 import { getCookie } from '../../shared/cookie.service';
 import { v4 as uuid } from 'uuid';
 import { updateSelf } from './user.action';
+import {
+    API_ROOMS_URL,
+    API_ROOM_DETAIL_URL,
+    API_ROOM_DETAIL_ADD_USER_URL,
+    API_ROOM_DETAIL_MESSAGE_FROM_URL,
+    API_ROOM_DETAIL_REMOVE_SELF_URL,
+} from '../../routes';
+import UrlTemplate from 'url-template';
 
 export function readRoomList(cb, errCb) {
     store.dispatch((dispatch) => {
@@ -27,7 +35,7 @@ export function readRoomList(cb, errCb) {
         });
         const request = Axios({
             method: 'get',
-            url: '/api/rooms',
+            url: API_ROOMS_URL,
             headers: {
                 'x-access-token': getCookie(TOKEN_COOKIE),
             },
@@ -51,15 +59,15 @@ export function readRoomList(cb, errCb) {
     });
 }
 
-export function openRoom(id, cb, errCb) {
-    updateSelf({ openChatroom: id });
+export function openRoom(roomId, cb, errCb) {
+    updateSelf({ openChatroom: roomId });
     store.dispatch((dispatch) => {
         dispatch({
             type: ROOM_DETAILS_REQUEST,
         });
         const request = Axios({
             method: 'get',
-            url: `/api/rooms/${id}`,
+            url: UrlTemplate.parse(API_ROOM_DETAIL_URL).expand({ roomId }),
             headers: {
                 'x-access-token': getCookie(TOKEN_COOKIE),
             },
@@ -93,14 +101,14 @@ export function pushMessage(id, message) {
     });
 }
 
-export function loadOlderMessages(id, number, cb, errCb) {
+export function loadOlderMessages(roomId, number, cb, errCb) {
     store.dispatch((dispatch) => {
         dispatch({
             type: ROOM_MORE_MESSAGE_REQUEST,
         });
         const request = Axios({
             method: 'post',
-            url: `/api/rooms/${id}/messages-from`,
+            url: UrlTemplate.parse(API_ROOM_DETAIL_MESSAGE_FROM_URL).expand({ roomId }),
             headers: {
                 'x-access-token': getCookie(TOKEN_COOKIE),
             },
@@ -154,7 +162,7 @@ export function createNewRow(roomName, cb, errCb) {
         });
         const request = Axios({
             method: 'post',
-            url: '/api/rooms',
+            url: API_ROOMS_URL,
             headers: {
                 'x-access-token': getCookie(TOKEN_COOKIE),
             },
@@ -183,7 +191,7 @@ export function addUserToRoom(roomId, username, cb, errCb) {
         });
         const request = Axios({
             method: 'post',
-            url: `/api/rooms/${roomId}/add-user/`,
+            url: UrlTemplate.parse(API_ROOM_DETAIL_ADD_USER_URL).expand({ roomId }),
             headers: {
                 'x-access-token': getCookie(TOKEN_COOKIE),
             },
@@ -210,7 +218,7 @@ export function leaveRoom(roomId, cb, errCb) {
         });
         const request = Axios({
             method: 'post',
-            url: `/api/rooms/${roomId}/remove-self/`,
+            url: UrlTemplate.parse(API_ROOM_DETAIL_REMOVE_SELF_URL).expand({ roomId }),
             headers: {
                 'x-access-token': getCookie(TOKEN_COOKIE),
             },
