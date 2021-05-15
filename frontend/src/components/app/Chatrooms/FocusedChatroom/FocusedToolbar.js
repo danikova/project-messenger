@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Button, Toolbar, TextField } from 'react95';
-import { addUserToRoom, leaveRoom } from '../../../../store/actions/room.action';
+import {
+    addUserToRoom,
+    leaveRoom,
+} from '../../../../store/actions/room.action';
 import { Dialog } from '../../../shared/Dialog';
 
 export const FocusedToolbar = (props) => {
@@ -31,7 +34,10 @@ export const FocusedToolbar = (props) => {
             {addDialog ? (
                 <Dialog
                     title='addUser.exe'
-                    onCloseClick={() => setAddDialog(false)}
+                    onCloseClick={() => {
+                        setValue('');
+                        setAddDialog(false);
+                    }}
                 >
                     <Toolbar>
                         <TextField
