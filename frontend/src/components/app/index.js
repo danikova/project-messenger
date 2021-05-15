@@ -35,41 +35,35 @@ const Page404Img = styled.img`
     margin: auto;
 `;
 
-export default class AppView extends React.Component {
-    render() {
-        return (
-            <MainViewWrapper>
-                <SocketWrapper>
-                    <AppBar />
-                    <AppContainer>
-                        <Switch>
-                            <Route
-                                path={FRONTEND_PROFILE_URL}
-                                component={Profile}
-                            />
-                            <Route
-                                path={[
-                                    FRONTEND_CHATROOMS_FOCUSED_WITH_MATCH_URL,
-                                    FRONTEND_CHATROOMS_URL,
-                                ]}
-                                component={Chatrooms}
-                            />
-                            <Redirect
-                                exact
-                                from='/'
-                                to={FRONTEND_CHATROOMS_URL}
-                            />
-                            <Route
-                                render={(routeProps) => (
-                                    <Page404Wrapper>
-                                        <Page404Img src={page404} />
-                                    </Page404Wrapper>
-                                )}
-                            />
-                        </Switch>
-                    </AppContainer>
-                </SocketWrapper>
-            </MainViewWrapper>
-        );
-    }
+export default function AppView(props) {
+    return (
+        <MainViewWrapper>
+            <SocketWrapper>
+                <AppBar />
+                <AppContainer>
+                    <Switch>
+                        <Route
+                            path={FRONTEND_PROFILE_URL}
+                            component={Profile}
+                        />
+                        <Route
+                            path={[
+                                FRONTEND_CHATROOMS_FOCUSED_WITH_MATCH_URL,
+                                FRONTEND_CHATROOMS_URL,
+                            ]}
+                            component={Chatrooms}
+                        />
+                        <Redirect exact from='/' to={FRONTEND_CHATROOMS_URL} />
+                        <Route
+                            render={(routeProps) => (
+                                <Page404Wrapper>
+                                    <Page404Img src={page404} />
+                                </Page404Wrapper>
+                            )}
+                        />
+                    </Switch>
+                </AppContainer>
+            </SocketWrapper>
+        </MainViewWrapper>
+    );
 }
