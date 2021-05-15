@@ -10,7 +10,7 @@ import {
 } from '../../shared/styled-components';
 import { Tab, Tabs, TabBody, Cutout } from 'react95';
 import Settings from './Settings';
-import { history } from '../../../shared/history.service';
+import { historyPush } from '../../../shared/history.service';
 import { FRONTEND_PROFILE_SETTINGS_URL, FRONTEND_PROFILE_URL } from '../../../routes';
 
 const FullHeightTabBody = styled(TabBody)`
@@ -41,7 +41,7 @@ export function Profile(props) {
             <MaxWindowContent>
                 <Tabs
                     value={pathname}
-                    onChange={(_e, value) => history.push(value)}
+                    onChange={(_e, value) => historyPush(value)}
                 >
                     <Tab value={FRONTEND_PROFILE_URL}>
                         <FormattedMessage id='profile.userInfo.tabText' />

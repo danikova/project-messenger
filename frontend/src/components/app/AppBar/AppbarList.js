@@ -7,7 +7,7 @@ import {
     FRONTEND_CHATROOMS_URL,
     FRONTEND_PROFILE_URL,
 } from '../../../routes';
-import { history } from '../../../shared/history.service';
+import { historyPush } from '../../../shared/history.service';
 import { logoutUser } from '../../../store/actions/user.action';
 import UrlTemplate from 'url-template';
 import { useSelector } from 'react-redux';
@@ -27,7 +27,7 @@ export function AppbarList(props) {
             }}
             onClick={props.toolbarClose}
         >
-            <ListItem onClick={() => history.push(FRONTEND_PROFILE_URL)}>
+            <ListItem onClick={() => historyPush(FRONTEND_PROFILE_URL)}>
                 <span role='img' aria-label='👨‍💻'>
                     👨‍💻
                 </span>
@@ -36,12 +36,12 @@ export function AppbarList(props) {
             <ListItem
                 onClick={() => {
                     if (activeRoom && activeRoom._id)
-                        history.push(
+                        historyPush(
                             UrlTemplate.parse(
                                 FRONTEND_CHATROOMS_FOCUSED_URL,
                             ).expand({ roomId: activeRoom._id }),
                         );
-                    else history.push(FRONTEND_CHATROOMS_URL);
+                    else historyPush(FRONTEND_CHATROOMS_URL);
                 }}
             >
                 <span role='img' aria-label='📁'>

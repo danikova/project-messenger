@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { FRONTEND_CHATROOMS_FOCUSED_URL } from '../../../routes';
 import { NameHolder } from '../../shared/NameHolder';
 import UrlTemplate from 'url-template';
-import { history } from '../../../shared/history.service';
+import { historyPush } from '../../../shared/history.service';
 
 const ChatroomButton = styled(Button)`
     justify-content: start !important;
@@ -111,7 +111,7 @@ export class Chatroom extends React.Component {
                 size='lg'
                 active={this.props.active}
                 onClick={() => {
-                    history.push(
+                    historyPush(
                         UrlTemplate.parse(
                             FRONTEND_CHATROOMS_FOCUSED_URL,
                         ).expand({ roomId: this.props._id }),
