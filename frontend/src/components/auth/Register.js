@@ -9,6 +9,7 @@ import Axios from 'axios';
 import { withSnackbar } from 'notistack';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { Helmet } from 'react-helmet';
+import { FRONTEND_LOGIN_URL } from '../../routes';
 
 const FullWidthTextField = styled(TextField)`
     width: 100%;
@@ -44,7 +45,7 @@ export class Register extends React.Component {
                 </FixedLocaleSelectorWrapper>
                 <AnchorWrapper>
                     <FormattedMessage id='auth.register.goToLoginText' />
-                    <Anchor href='/authentication'>
+                    <Anchor href={FRONTEND_LOGIN_URL}>
                         <FormattedMessage id='auth.register.loginLink' />
                     </Anchor>
                 </AnchorWrapper>

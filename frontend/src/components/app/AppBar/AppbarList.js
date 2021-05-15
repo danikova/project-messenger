@@ -2,6 +2,7 @@ import { useSnackbar } from 'notistack';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { List, ListItem, Divider } from 'react95';
+import { FRONTEND_CHATROOMS_URL, FRONTEND_PROFILE_URL } from '../../../routes';
 import { history } from '../../../shared/history.service';
 import { logoutUser } from '../../../store/actions/user.action';
 
@@ -18,13 +19,13 @@ export function AppbarList(props) {
             }}
             onClick={props.toolbarClose}
         >
-            <ListItem onClick={() => history.push('/profile')}>
+            <ListItem onClick={() => history.push(FRONTEND_PROFILE_URL)}>
                 <span role='img' aria-label='👨‍💻'>
                     👨‍💻
                 </span>
                 <FormattedMessage id='appbar.startBtn.List.profile' />
             </ListItem>
-            <ListItem onClick={() => history.push('/chatrooms')}>
+            <ListItem onClick={() => history.push(FRONTEND_CHATROOMS_URL)}>
                 <span role='img' aria-label='📁'>
                     📁
                 </span>

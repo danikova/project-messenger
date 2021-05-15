@@ -9,6 +9,7 @@ import DefaultLogin from './LoginMethodes/DefaultLogin';
 import GoogleLogin from './LoginMethodes/GoogleLogin';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { Helmet } from 'react-helmet';
+import { FRONTEND_REGISTER_URL } from '../../routes';
 
 const AnchorWrapper = styled.h1`
     margin-bottom: 10px;
@@ -46,7 +47,7 @@ export class Login extends React.Component {
                 </FixedLocaleSelectorWrapper>
                 <AnchorWrapper>
                     <FormattedMessage id='auth.login.goToRegisterText' />
-                    <Anchor href='/authentication/register'>
+                    <Anchor href={FRONTEND_REGISTER_URL}>
                         <FormattedMessage id='auth.login.registerLink' />
                     </Anchor>
                 </AnchorWrapper>

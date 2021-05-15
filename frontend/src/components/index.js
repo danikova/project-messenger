@@ -14,6 +14,7 @@ import rose from 'react95/dist/themes/rose';
 import olive from 'react95/dist/themes/olive';
 import tokyoDark from 'react95/dist/themes/tokyoDark';
 import { GlobalStyle } from './shared/GlobalStyle';
+import { FRONTEND_LOGIN_URL } from '../routes';
 
 const themes = {
     original,
@@ -63,7 +64,7 @@ function AppRouter(props) {
                 >
                     <Router history={history}>
                         <Switch>
-                            <Route path='/authentication'>
+                            <Route path={FRONTEND_LOGIN_URL}>
                                 <AuthView />
                             </Route>
                             <Route
@@ -71,7 +72,7 @@ function AppRouter(props) {
                                     props.user.token ? (
                                         <AppView {...routeProps} />
                                     ) : (
-                                        <Redirect to='/authentication' />
+                                        <Redirect to={FRONTEND_LOGIN_URL} />
                                     )
                                 }
                             />

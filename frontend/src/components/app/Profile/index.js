@@ -11,6 +11,7 @@ import {
 import { Tab, Tabs, TabBody, Cutout } from 'react95';
 import Settings from './Settings';
 import { history } from '../../../shared/history.service';
+import { FRONTEND_PROFILE_SETTINGS_URL, FRONTEND_PROFILE_URL } from '../../../routes';
 
 const FullHeightTabBody = styled(TabBody)`
     height: calc(100% - 34px);
@@ -42,21 +43,21 @@ export function Profile(props) {
                     value={pathname}
                     onChange={(_e, value) => history.push(value)}
                 >
-                    <Tab value='/profile'>
+                    <Tab value={FRONTEND_PROFILE_URL}>
                         <FormattedMessage id='profile.userInfo.tabText' />
                     </Tab>
-                    <Tab value='/profile/settings'>
+                    <Tab value={FRONTEND_PROFILE_SETTINGS_URL}>
                         <FormattedMessage id='profile.settings.tabText' />
                     </Tab>
                 </Tabs>
                 <FullHeightTabBody>
                     <MaxHeightCutout>
-                        {pathname === '/profile' && (
+                        {pathname === FRONTEND_PROFILE_URL && (
                             <Pad>
                                 <div>user info</div>
                             </Pad>
                         )}
-                        {pathname === '/profile/settings' && (
+                        {pathname === FRONTEND_PROFILE_SETTINGS_URL && (
                             <Pad>
                                 <Settings />
                             </Pad>
