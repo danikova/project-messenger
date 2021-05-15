@@ -4,13 +4,20 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { Helmet } from 'react-helmet';
 import {
     FlexWindowHeader,
-    MaxSizeFlexWindow,
     MaxWindowContent,
+    MaxSizeFlexWindow,
+    Pad,
 } from '../../shared/styled-components';
-import { Tab, Tabs, TabBody } from 'react95';
+import { Tab, Tabs, TabBody, Cutout } from 'react95';
+import Settings from './Settings';
 
 const FullHeightTabBody = styled(TabBody)`
     height: calc(100% - 34px);
+`;
+
+const MaxHeightCutout = styled(Cutout)`
+    height: 100%;
+    max-height: 100%;
 `;
 
 export function Profile() {
@@ -43,8 +50,18 @@ export function Profile() {
                     </Tab>
                 </Tabs>
                 <FullHeightTabBody>
-                    {activeTab === 0 && <div>user info</div>}
-                    {activeTab === 1 && <div>settings</div>}
+                    <MaxHeightCutout>
+                        {activeTab === 0 && (
+                            <Pad>
+                                <div>user info</div>
+                            </Pad>
+                        )}
+                        {activeTab === 1 && (
+                            <Pad>
+                                <Settings />
+                            </Pad>
+                        )}
+                    </MaxHeightCutout>
                 </FullHeightTabBody>
             </MaxWindowContent>
         </MaxSizeFlexWindow>

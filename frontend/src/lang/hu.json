@@ -50,5 +50,18 @@
     "helmet.profile.title": "Profil",
 
     "profile.userInfo.tabText": "Felhasználói adatok",
-    "profile.settings.tabText": "Beállítások"
+
+    "profile.settings.tabText": "Beállítások",
+    "profile.settings.fieldsets.themeLabel": "Téma",
+    "profile.settings.fieldsets.theme.original": "Eredeti",
+    "profile.settings.fieldsets.theme.rose": "Pink",
+    "profile.settings.fieldsets.theme.tokyoDark": "Sötét",
+    "profile.settings.fieldsets.theme.olive": "Oliva",
+    "profile.settings.fieldsets.backgroundColorLabel": "Háttér szín",
+    "profile.settings.fieldsets.fontLabel": "Betűtípus",
+    "profile.settings.fieldsets.font.vintageFontLabel": "Retró betűtípus",
+    "profile.settings.fieldsets.scanLineLabel": "Retró csíkozódás",
+    "profile.settings.fieldsets.scanLine.intensityLabel": "Villogás intenzitása",
+    "profile.settings.fieldsets.scanLine.intensity.min": "min",
+    "profile.settings.fieldsets.scanLine.intensity.max": "max"
 }

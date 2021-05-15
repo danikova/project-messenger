@@ -50,5 +50,18 @@
     "helmet.profile.title": "Profile",
 
     "profile.userInfo.tabText": "User info",
-    "profile.settings.tabText": "Settings"
+
+    "profile.settings.tabText": "Settings",
+    "profile.settings.fieldsets.themeLabel": "Theme",
+    "profile.settings.fieldsets.theme.original": "Original",
+    "profile.settings.fieldsets.theme.rose": "Rose",
+    "profile.settings.fieldsets.theme.tokyoDark": "Dark",
+    "profile.settings.fieldsets.theme.olive": "Olive",
+    "profile.settings.fieldsets.backgroundColorLabel": "Background color",
+    "profile.settings.fieldsets.fontLabel": "Font",
+    "profile.settings.fieldsets.font.vintageFontLabel": "Vintage font",
+    "profile.settings.fieldsets.scanLineLabel": "Scan lines",
+    "profile.settings.fieldsets.scanLine.intensityLabel": "Flickering intensity",
+    "profile.settings.fieldsets.scanLine.intensity.min": "min",
+    "profile.settings.fieldsets.scanLine.intensity.max": "max"
 }

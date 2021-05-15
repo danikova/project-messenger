@@ -9,11 +9,14 @@ import rootReducer from './reducer';
 const persistConfig = {
     key: 'root',
     storage: storage,
-    whitelist: ['user', 'users'],
+    whitelist: ['user', 'users', 'settings'],
 };
 
 const pReducer = persistReducer(persistConfig, rootReducer);
-const middleware = applyMiddleware(thunk, logger);
+
+let middleware;
+if (process.env.NODE_ENV === 'production') middleware = applyMiddleware(thunk);
+else middleware = applyMiddleware(thunk, logger);
 
 const store = createStore(pReducer, middleware);
 const persistor = persistStore(store);

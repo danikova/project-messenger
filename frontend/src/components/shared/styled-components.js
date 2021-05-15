@@ -33,7 +33,7 @@ export const FlexWindowContent = styled(WindowContent)`
 `;
 
 export const MaxWindowContent = styled(WindowContent)`
-    height: 100%;
+    height: calc(100% - 67px);
 `;
 
 export const DialogBackground = styled.div`
@@ -91,4 +91,8 @@ export const AppContainer = styled.div`
     width: 100%;
     height: calc(100% - 45px);
     margin-top: 45px;
+`;
+
+export const Pad = styled.div`
+    padding: 8px 16px;
 `;

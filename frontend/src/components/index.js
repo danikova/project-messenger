@@ -1,30 +1,26 @@
 import React from 'react';
 import { Switch, Route, Redirect, Router } from 'react-router-dom';
 import AppView from './app';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 
-import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
-import { styleReset } from 'react95';
+import styled, { ThemeProvider } from 'styled-components';
 import { SnackbarProvider } from 'notistack';
 import { CustomSnackbar } from './shared/CustomSnackbar';
-import ms_sans_serif from 'react95/dist/fonts/ms_sans_serif.woff2';
-import original from 'react95/dist/themes/original';
 import { history } from '../shared/history.service';
 import { AuthView } from './auth';
 
-const GlobalStyles = createGlobalStyle`
-    @font-face {
-        font-family: 'ms_sans_serif';
-        src: url('${ms_sans_serif}') format('woff2');
-        font-weight: 400;
-        font-style: normal;
-    }
-    // * {
-    //     font-family: 'ms_sans_serif' !important;
-    //     letter-spacing: 0.1em !important;
-    // }
-  ${styleReset}
-`;
+import original from 'react95/dist/themes/original';
+import rose from 'react95/dist/themes/rose';
+import olive from 'react95/dist/themes/olive';
+import tokyoDark from 'react95/dist/themes/tokyoDark';
+import { GlobalStyle } from './shared/GlobalStyle';
+
+const themes = {
+    original,
+    rose,
+    olive,
+    tokyoDark,
+};
 
 const GlobalWrapper = styled.div`
     height: 100%;
@@ -32,10 +28,24 @@ const GlobalWrapper = styled.div`
 `;
 
 function AppRouter(props) {
+    const {
+        theme,
+        vintageFont,
+        fontSize,
+        scanLines,
+        scanLinesIntensity,
+        backgroundColor,
+    } = useSelector((state) => state.settings);
     return (
         <GlobalWrapper>
-            <GlobalStyles />
-            <ThemeProvider theme={original}>
+            <GlobalStyle
+                vintageFont={vintageFont}
+                fontSize={fontSize}
+                scanLines={scanLines}
+                scanLinesIntensity={scanLinesIntensity}
+                backgroundColor={backgroundColor}
+            />
+            <ThemeProvider theme={themes[theme || 'original']}>
                 <SnackbarProvider
                     maxSnack={5}
                     preventDuplicate
