@@ -18,7 +18,6 @@ import {
     UPDATE_SELF_REQUEST,
     UPDATE_SELF_FAILURE,
 } from '../constants/user.constant';
-import { openRoom } from './room.action';
 import UrlTemplate from 'url-template';
 
 export function loginUser(data, url, cb, errCb) {
@@ -74,8 +73,6 @@ export function getSelf(cb, errCb) {
                     type: GET_USER_SUCCESS,
                     data: { ...response.data },
                 });
-                if (response.data.openChatroom)
-                    openRoom(response.data.openChatroom);
                 cb && cb(response);
             },
             (error) => {
@@ -139,8 +136,6 @@ export function getUserInfo(userId, cb, errCb) {
                     type: GET_USER_SUCCESS,
                     data: { ...response.data },
                 });
-                if (response.data.openChatroom)
-                    openRoom(response.data.openChatroom);
                 cb && cb(response);
             },
             (error) => {

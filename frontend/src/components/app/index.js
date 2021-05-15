@@ -7,7 +7,11 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Chatrooms from './Chatrooms';
 import Profile from './Profile';
 import { AppContainer } from '../shared/styled-components';
-import { FRONTEND_CHATROOMS_URL, FRONTEND_PROFILE_URL } from '../../routes';
+import {
+    FRONTEND_CHATROOMS_FOCUSED_WITH_MATCH_URL,
+    FRONTEND_CHATROOMS_URL,
+    FRONTEND_PROFILE_URL,
+} from '../../routes';
 
 const MainViewWrapper = styled.div`
     padding: 20px;
@@ -39,10 +43,17 @@ export default class AppView extends React.Component {
                     <AppBar />
                     <AppContainer>
                         <Switch>
-                            <Route path={FRONTEND_PROFILE_URL} component={Profile} />
-                            <Route path={FRONTEND_CHATROOMS_URL}>
-                                <Chatrooms />
-                            </Route>
+                            <Route
+                                path={FRONTEND_PROFILE_URL}
+                                component={Profile}
+                            />
+                            <Route
+                                path={[
+                                    FRONTEND_CHATROOMS_FOCUSED_WITH_MATCH_URL,
+                                    FRONTEND_CHATROOMS_URL,
+                                ]}
+                                component={Chatrooms}
+                            />
                             <Redirect
                                 exact
                                 from='/'

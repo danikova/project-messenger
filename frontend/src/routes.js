@@ -1,7 +1,8 @@
 export const FRONTEND_LOGIN_URL = `/authentication`;
 export const FRONTEND_REGISTER_URL = `${FRONTEND_LOGIN_URL}/register`;
 
-export const FRONTEND_CHATROOMS_URL = `/chatrooms`;
+export const FRONTEND_CHATROOMS_URL = `/cr`;
+export const FRONTEND_CHATROOMS_FOCUSED_WITH_MATCH_URL = `${FRONTEND_CHATROOMS_URL}/:roomId`;
 export const FRONTEND_CHATROOMS_FOCUSED_URL = `${FRONTEND_CHATROOMS_URL}/{roomId}`;
 
 export const FRONTEND_PROFILE_URL = `/profile`;

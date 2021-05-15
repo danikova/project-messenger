@@ -3,8 +3,10 @@ import { FormattedMessage } from 'react-intl';
 import { Button, Avatar } from 'react95';
 
 import styled from 'styled-components';
-import { openRoom } from '../../../store/actions/room.action';
+import { FRONTEND_CHATROOMS_FOCUSED_URL } from '../../../routes';
 import { NameHolder } from '../../shared/NameHolder';
+import UrlTemplate from 'url-template';
+import { history } from '../../../shared/history.service';
 
 const ChatroomButton = styled(Button)`
     justify-content: start !important;
@@ -109,7 +111,11 @@ export class Chatroom extends React.Component {
                 size='lg'
                 active={this.props.active}
                 onClick={() => {
-                    openRoom(this.props._id);
+                    history.push(
+                        UrlTemplate.parse(
+                            FRONTEND_CHATROOMS_FOCUSED_URL,
+                        ).expand({ roomId: this.props._id }),
+                    );
                 }}
             >
                 <ButtonContent>

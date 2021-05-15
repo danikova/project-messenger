@@ -2,11 +2,19 @@ import { useSnackbar } from 'notistack';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { List, ListItem, Divider } from 'react95';
-import { FRONTEND_CHATROOMS_URL, FRONTEND_PROFILE_URL } from '../../../routes';
+import {
+    FRONTEND_CHATROOMS_FOCUSED_URL,
+    FRONTEND_CHATROOMS_URL,
+    FRONTEND_PROFILE_URL,
+} from '../../../routes';
 import { history } from '../../../shared/history.service';
 import { logoutUser } from '../../../store/actions/user.action';
+import UrlTemplate from 'url-template';
+import { useSelector } from 'react-redux';
 
 export function AppbarList(props) {
+    const rooms = useSelector((state) => state.rooms);
+    const { activeRoom } = rooms;
     const { enqueueSnackbar } = useSnackbar();
     const intl = useIntl();
 
@@ -25,7 +33,17 @@ export function AppbarList(props) {
                 </span>
                 <FormattedMessage id='appbar.startBtn.List.profile' />
             </ListItem>
-            <ListItem onClick={() => history.push(FRONTEND_CHATROOMS_URL)}>
+            <ListItem
+                onClick={() => {
+                    if (activeRoom && activeRoom._id)
+                        history.push(
+                            UrlTemplate.parse(
+                                FRONTEND_CHATROOMS_FOCUSED_URL,
+                            ).expand({ roomId: activeRoom._id }),
+                        );
+                    else history.push(FRONTEND_CHATROOMS_URL);
+                }}
+            >
                 <span role='img' aria-label='📁'>
                     📁
                 </span>

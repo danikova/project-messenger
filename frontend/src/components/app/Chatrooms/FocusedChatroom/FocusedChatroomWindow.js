@@ -11,7 +11,7 @@ import {
 import ChatroomMessages from './ChatroomMessages';
 import { connect } from 'react-redux';
 import { FocusedToolbar } from './FocusedToolbar';
-import { pushActiveMessage } from '../../../../store/actions/room.action';
+import { getRoomDetail, pushActiveMessage } from '../../../../store/actions/room.action';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { withSocket } from '../../SocketWrapper';
 import { Helmet } from 'react-helmet';
@@ -43,6 +43,11 @@ export class FocusedChatroomWindow extends React.Component {
         this.textArea = React.createRef();
     }
 
+    componentDidUpdate(oldProps) {
+        if (this.props.focusedRoomId !== oldProps.focusedRoomId)
+            getRoomDetail(this.props.focusedRoomId);
+    }
+
     state = { value: '', processing: false };
 
     onPushMessageSuccess = () => {
@@ -52,6 +57,7 @@ export class FocusedChatroomWindow extends React.Component {
     };
 
     componentDidMount() {
+        getRoomDetail(this.props.focusedRoomId);
         this.props.socket.on('pushMessageSuccess', this.onPushMessageSuccess);
     }
 

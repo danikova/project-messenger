@@ -4,11 +4,9 @@ import { Grid } from '@material-ui/core';
 import ChatroomsWindow from './ChatroomsWindow';
 import FocusedChatroomWindow from './FocusedChatroom/FocusedChatroomWindow';
 import {
-    openRoom,
     pushMessage,
     readRoomList,
 } from '../../../store/actions/room.action';
-import { store } from '../../../store';
 import { getSelf } from '../../../store/actions/user.action';
 import { withSocket } from '../SocketWrapper';
 import { injectIntl } from 'react-intl';
@@ -21,12 +19,7 @@ export class Chatrooms extends React.Component {
     };
 
     onRefreshRoom = (data) => {
-        const { roomId } = data;
-        const { rooms } = store.getState();
         readRoomList();
-        if (rooms.activeRoom && rooms.activeRoom._id === roomId) {
-            openRoom(roomId);
-        }
     };
 
     componentDidMount() {
@@ -43,6 +36,7 @@ export class Chatrooms extends React.Component {
     }
 
     render() {
+        const { roomId } = this.props.match.params;
         return (
             <ChatroomWrapperGrid container spacing={2}>
                 <Helmet>
@@ -53,10 +47,10 @@ export class Chatrooms extends React.Component {
                     </title>
                 </Helmet>
                 <Grid item xs={5} sm={4} md={3}>
-                    <ChatroomsWindow></ChatroomsWindow>
+                    <ChatroomsWindow />
                 </Grid>
                 <Grid item xs={7} sm={8} md={9}>
-                    <FocusedChatroomWindow></FocusedChatroomWindow>
+                    <FocusedChatroomWindow focusedRoomId={roomId} />
                 </Grid>
             </ChatroomWrapperGrid>
         );

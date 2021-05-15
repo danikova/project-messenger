@@ -59,7 +59,7 @@ export function readRoomList(cb, errCb) {
     });
 }
 
-export function openRoom(roomId, cb, errCb) {
+export function getRoomDetail(roomId, cb, errCb) {
     updateSelf({ openChatroom: roomId });
     store.dispatch((dispatch) => {
         dispatch({
@@ -108,7 +108,9 @@ export function loadOlderMessages(roomId, number, cb, errCb) {
         });
         const request = Axios({
             method: 'post',
-            url: UrlTemplate.parse(API_ROOM_DETAIL_MESSAGE_FROM_URL).expand({ roomId }),
+            url: UrlTemplate.parse(API_ROOM_DETAIL_MESSAGE_FROM_URL).expand({
+                roomId,
+            }),
             headers: {
                 'x-access-token': getCookie(TOKEN_COOKIE),
             },
@@ -183,15 +185,15 @@ export function createNewRow(roomName, cb, errCb) {
 }
 
 export function addUserToRoom(roomId, username, cb, errCb) {
-    store.dispatch((dispatch, getState) => {
-        const { rooms } = getState();
-        const { activeRoom } = rooms;
+    store.dispatch((dispatch) => {
         dispatch({
             type: ADD_USER_TO_ROOM_REQUEST,
         });
         const request = Axios({
             method: 'post',
-            url: UrlTemplate.parse(API_ROOM_DETAIL_ADD_USER_URL).expand({ roomId }),
+            url: UrlTemplate.parse(API_ROOM_DETAIL_ADD_USER_URL).expand({
+                roomId,
+            }),
             headers: {
                 'x-access-token': getCookie(TOKEN_COOKIE),
             },
@@ -201,7 +203,6 @@ export function addUserToRoom(roomId, username, cb, errCb) {
         });
         request.then(
             (response) => {
-                if (roomId === activeRoom._id) openRoom(roomId);
                 cb && cb(response);
             },
             (error) => {
@@ -218,7 +219,9 @@ export function leaveRoom(roomId, cb, errCb) {
         });
         const request = Axios({
             method: 'post',
-            url: UrlTemplate.parse(API_ROOM_DETAIL_REMOVE_SELF_URL).expand({ roomId }),
+            url: UrlTemplate.parse(API_ROOM_DETAIL_REMOVE_SELF_URL).expand({
+                roomId,
+            }),
             headers: {
                 'x-access-token': getCookie(TOKEN_COOKIE),
             },
