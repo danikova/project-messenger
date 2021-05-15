@@ -61,7 +61,7 @@ export class Chatrooms extends React.Component {
                     <ChatroomsWindow />
                 </Grid>
                 <Grid item xs={7} sm={8} md={9}>
-                    <FocusedChatroomWindow focusedRoomId={roomId} />
+                    <FocusedChatroomWindow focusedRoomId={roomId || null} />
                 </Grid>
             </ChatroomWrapperGrid>
         );
