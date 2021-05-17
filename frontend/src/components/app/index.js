@@ -5,12 +5,12 @@ import AppBar from './AppBar';
 import SocketWrapper from './SocketWrapper';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Chatrooms from './Chatrooms';
-import Profile from './Profile';
+import Settings from './Settings';
 import { AppContainer } from '../shared/styled-components';
 import {
     FRONTEND_CHATROOMS_FOCUSED_WITH_MATCH_URL,
     FRONTEND_CHATROOMS_URL,
-    FRONTEND_PROFILE_URL,
+    FRONTEND_SETTINGS_URL,
 } from '../../routes';
 
 const MainViewWrapper = styled.div`
@@ -43,8 +43,8 @@ export default function AppView(props) {
                 <AppContainer>
                     <Switch>
                         <Route
-                            path={FRONTEND_PROFILE_URL}
-                            component={Profile}
+                            path={FRONTEND_SETTINGS_URL}
+                            component={Settings}
                         />
                         <Route
                             path={[

@@ -5,8 +5,7 @@ export const FRONTEND_CHATROOMS_URL = `/cr`;
 export const FRONTEND_CHATROOMS_FOCUSED_WITH_MATCH_URL = `${FRONTEND_CHATROOMS_URL}/:roomId`;
 export const FRONTEND_CHATROOMS_FOCUSED_URL = `${FRONTEND_CHATROOMS_URL}/{roomId}`;
 
-export const FRONTEND_PROFILE_URL = `/profile`;
-export const FRONTEND_PROFILE_SETTINGS_URL = `${FRONTEND_PROFILE_URL}/settings`;
+export const FRONTEND_SETTINGS_URL = `/settings`;
 
 export const API_AUTH_ROOT_URL = `/auth`;
 export const API_LOGIN_URL = `${API_AUTH_ROOT_URL}/login`;

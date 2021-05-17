@@ -19,7 +19,7 @@
 
     "appbar.websocket.waitingForConnection.msg": "Csatlakozás...",
 
-    "appbar.startBtn.List.profile": "Profil",
+    "appbar.startBtn.List.settings": "Beállítások",
     "appbar.startBtn.List.chatrooms": "Chatszobák",
     "appbar.startBtn.List.logout": "Kijelentkezés",
     "appbar.searchPlaceholder": "keresés...",
@@ -50,6 +50,11 @@
     "helmet.profile.title": "Profil",
 
     "profile.userInfo.tabText": "Felhasználói adatok",
+    "profile.userInfo.labelFor.username": "Felhasználónév",
+    "profile.userInfo.labelFor.email": "E-mail cím",
+    "profile.userInfo.resetFormLabel": "Módosítások törlése",
+    "profile.userInfo.updateProfileLabel": "Profil frissítése",
+    "profile.userInfo.update.failure.DuplicateKey": "Hiba történt frissítés közben, egyedinek kell lennie: {duplicateKey}",
 
     "profile.settings.tabText": "Beállítások",
     "profile.settings.fieldsets.themeLabel": "Téma",

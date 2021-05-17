@@ -5,7 +5,7 @@ import { List, ListItem, Divider } from 'react95';
 import {
     FRONTEND_CHATROOMS_FOCUSED_URL,
     FRONTEND_CHATROOMS_URL,
-    FRONTEND_PROFILE_URL,
+    FRONTEND_SETTINGS_URL,
 } from '../../../routes';
 import { historyPush } from '../../../shared/history.service';
 import { logoutUser } from '../../../store/actions/user.action';
@@ -27,11 +27,11 @@ export function AppbarList(props) {
             }}
             onClick={props.toolbarClose}
         >
-            <ListItem onClick={() => historyPush(FRONTEND_PROFILE_URL)}>
+            <ListItem onClick={() => historyPush(FRONTEND_SETTINGS_URL)}>
                 <span role='img' aria-label='👨‍💻'>
-                    👨‍💻
+                    ⚙️
                 </span>
-                <FormattedMessage id='appbar.startBtn.List.profile' />
+                <FormattedMessage id='appbar.startBtn.List.settings' />
             </ListItem>
             <ListItem
                 onClick={() => {
