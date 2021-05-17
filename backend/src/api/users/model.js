@@ -4,6 +4,9 @@ const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const UserSchema = require('./schema');
 const generateColors = require('../../shared/random.color');
+const { removeAccents, createNamingSuggestions } = require('./utils');
+
+const usernameMaxLength = 8;
 
 UserSchema.statics = {
     create: async function (data) {
@@ -16,6 +19,34 @@ UserSchema.statics = {
         user.password = await bcrypt.hashSync(user.password, 10);
         await user.save();
         return user;
+    },
+    createValidUsername: async function (firstName, lastName) {
+        firstName = removeAccents(firstName).toLowerCase();
+        lastName = removeAccents(lastName).toLowerCase();
+
+        const suggestions = createNamingSuggestions(
+            firstName,
+            lastName,
+            usernameMaxLength,
+        );
+        const lastSuggestion = suggestions[suggestions.length - 1];
+
+        let number = 0;
+        let user = null;
+        let username = '';
+        do {
+            if (suggestions.length !== 0) username = suggestions.shift();
+            else {
+                number += 1;
+                const numberStr = number.toString();
+                username = `${lastSuggestion.slice(
+                    0,
+                    usernameMaxLength - numberStr.length,
+                )}${numberStr}`;
+            }
+            user = this.getByName(username);
+        } while (user === null);
+        return username;
     },
     get: async function (query) {
         return await this.find(query).publicData();
@@ -35,7 +66,7 @@ UserSchema.statics = {
     },
     delete: async function (query) {
         return await this.findOneAndDelete(query);
-    }
+    },
 };
 
 UserSchema.methods.generateAuthToken = function () {
@@ -46,9 +77,9 @@ UserSchema.methods.generateAuthToken = function () {
     return token;
 };
 
-UserSchema.query.publicData = function(){
+UserSchema.query.publicData = function () {
     return this.select('username color');
-}
+};
 
 const UsersModel = mongoose.model('Users', UserSchema);
 module.exports = UsersModel;

@@ -4,6 +4,7 @@ const User = require('../api/users/model');
 const { OAuth2Client } = require('google-auth-library');
 const { validateUser, makeRandomString } = require('./utils');
 
+
 const googleClientId = config.get('authentication.googleClientId');
 
 exports.register = async (req, res) => {
@@ -73,16 +74,24 @@ exports.googleLogin = async (req, res) => {
     }
 
     let user = await User.findOne({ email: payload.email });
-    let created = false;
+
+    if (user) {
+        user.imageUrl = payload.picture;
+        user.save(); 
+    }
+
     if (!user)
         try {
+            const username = await User.createValidUsername(
+                payload.given_name,
+                payload.family_name,
+            );
             user = await User.create({
-                username: payload.email,
-                password: makeRandomString,
+                username: username,
+                password: makeRandomString(32),
                 email: payload.email,
                 imageUrl: payload.picture,
             });
-            created = true;
         } catch (e) {
             return res.status(400).json({
                 error: String(e),
@@ -92,7 +101,6 @@ exports.googleLogin = async (req, res) => {
     const token = user.generateAuthToken();
     const userJson = user.toJSON();
     userJson.token = token;
-    userJson.created = created;
     delete userJson.password;
     res.status(200).json(userJson);
 };

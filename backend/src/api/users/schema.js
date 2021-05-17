@@ -25,7 +25,7 @@ const UserSchema = new Schema(
             type: String,
             required: true,
             minlength: 8,
-            maxlength: 255,
+            maxlength: 254,
             select: false
         },
         openChatroom: {
