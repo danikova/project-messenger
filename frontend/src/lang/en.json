@@ -13,6 +13,7 @@
     "auth.register.snackbar.successful": "Successful register. Please login with your credentials",
 
     "auth.logout": "Successful logout",
+    "auth.logout.bySocketDisconnection": "Successful logout, something happend to the server",
 
     "auth.username": "username",
     "auth.password": "password",

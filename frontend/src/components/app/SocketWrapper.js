@@ -5,10 +5,12 @@ import { TOKEN_COOKIE } from '../../store/constants/user.constant';
 import { getCookie } from '../../shared/cookie.service';
 import { LoadingDialog } from '../shared/LoadingDialog';
 import { API_COMMUNICATION_SOCKET_URL } from '../../routes';
+import { injectIntl } from 'react-intl';
+import { withSnackbar } from 'notistack';
 
 const SocketContext = React.createContext();
 
-export default class SocketWrapper extends React.Component {
+export class SocketWrapper extends React.Component {
     state = {
         socket: null,
         connected: false,
@@ -22,18 +24,32 @@ export default class SocketWrapper extends React.Component {
             path: API_COMMUNICATION_SOCKET_URL,
         });
 
-        socket.on('disconnect', () => {
-            socket.removeAllListeners();
-            this.setState({ socket: null, connected: false });
-        });
-
         socket.on('connect', () => {
             clearInterval(this.state.loadingDialogInterval);
-            this.setState({ connected: true, showLoadingDialog: false });
+            this.setState({
+                connected: true,
+                showLoadingDialog: false,
+                loadingDialogInterval: null,
+            });
+        });
+
+        const closeSocket = () => {
+            socket.removeAllListeners();
+            clearInterval(this.state.loadingDialogInterval);
+            logoutUser();
+        };
+
+        socket.on('disconnect', () => {
+            closeSocket();
+            this.props.enqueueSnackbar(
+                this.props.intl.formatMessage({
+                    id: 'auth.logout.bySocketDisconnection',
+                }),
+            );
         });
 
         socket.on('unauthorized', () => {
-            logoutUser();
+            closeSocket();
         });
 
         this.setState({
@@ -61,6 +77,8 @@ export default class SocketWrapper extends React.Component {
         );
     }
 }
+
+export default injectIntl(withSnackbar(SocketWrapper));
 
 export function useSocket() {
     const context = useContext(SocketContext);
