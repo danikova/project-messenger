@@ -40,6 +40,9 @@
     "chatrooms.focusedChatroom.leaveRoom.dialog.yes.BtnText": "yes",
     "chatrooms.focusedChatroom.leaveRoom.dialog.no.BtnText": "no",
 
+    "chatrooms.focusedChatroom.loadOlderMessage.btnText": "Load older messages",
+    "chatrooms.focusedChatroom.scrollToBottom.btnText": "Scroll to Bottom",
+
     "chatrooms.focusedChatroom.newMessage.TextField.placeholder": "type in here...",
     "chatrooms.focusedChatroom.newMessage.btnText": "send",
 

@@ -40,6 +40,9 @@
     "chatrooms.focusedChatroom.leaveRoom.dialog.yes.BtnText": "igen",
     "chatrooms.focusedChatroom.leaveRoom.dialog.no.BtnText": "nem",
 
+    "chatrooms.focusedChatroom.loadOlderMessage.btnText": "Régebbi üzenetek betöltése",
+    "chatrooms.focusedChatroom.scrollToBottom.btnText": "Görgetés az aljára",
+
     "chatrooms.focusedChatroom.newMessage.TextField.placeholder": "kezdj el gépelni...",
     "chatrooms.focusedChatroom.newMessage.btnText": "küldés",
 

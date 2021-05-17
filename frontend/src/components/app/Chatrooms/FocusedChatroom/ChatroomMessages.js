@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { ChatLines } from './ChatLines';
 import { connect } from 'react-redux';
 import { loadOlderMessages } from '../../../../store/actions/room.action';
+import { FormattedMessage } from 'react-intl';
 
 const MessageCutout = styled(Cutout)`
     flex: 1 0;
@@ -105,14 +106,14 @@ export class ChatroomMessages extends React.Component {
             >
                 {this.activeRoomHasOlderMessages() && (
                     <Button fullWidth onClick={this.loadOldMessages}>
-                        Load older messages
+                        <FormattedMessage id='chatrooms.focusedChatroom.loadOlderMessage.btnText' />
                     </Button>
                 )}
                 <ChatLines messages={messages} currentUser={this.props.user} />
                 <LastLinePadding />
                 {!this.state.onBottom && (
                     <ScrollToBottomButton onClick={this.scrollToBottom}>
-                        Scroll to Bottom
+                        <FormattedMessage id='chatrooms.focusedChatroom.scrollToBottom.btnText' />
                     </ScrollToBottomButton>
                 )}
             </MessageCutout>
