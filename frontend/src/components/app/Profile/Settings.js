@@ -9,7 +9,7 @@ import {
     setScreenLinesIntensity,
     toggleScreenLines,
     toggleVintageFont,
-    setBackgroundColor
+    setBackgroundColor,
 } from '../../../store/actions/settings.action';
 
 export function Settings() {
@@ -42,41 +42,43 @@ export function Settings() {
                     <FormattedMessage id='profile.settings.fieldsets.themeLabel' />
                 }
             >
-                <Radio
-                    checked={theme === 'original'}
-                    value='original'
-                    label={
-                        <FormattedMessage id='profile.settings.fieldsets.theme.original' />
-                    }
-                    onChange={handleChangeWrapper(setTheme)}
-                />
-                <br />
-                <Radio
-                    checked={theme === 'rose'}
-                    value='rose'
-                    label={
-                        <FormattedMessage id='profile.settings.fieldsets.theme.rose' />
-                    }
-                    onChange={handleChangeWrapper(setTheme)}
-                />
-                <br />
-                <Radio
-                    checked={theme === 'tokyoDark'}
-                    value='tokyoDark'
-                    label={
-                        <FormattedMessage id='profile.settings.fieldsets.theme.tokyoDark' />
-                    }
-                    onChange={handleChangeWrapper(setTheme)}
-                />
-                <br />
-                <Radio
-                    checked={theme === 'olive'}
-                    value='olive'
-                    label={
-                        <FormattedMessage id='profile.settings.fieldsets.theme.olive' />
-                    }
-                    onChange={handleChangeWrapper(setTheme)}
-                />
+                <Pad>
+                    <Radio
+                        checked={theme === 'original'}
+                        value='original'
+                        label={
+                            <FormattedMessage id='profile.settings.fieldsets.theme.original' />
+                        }
+                        onChange={handleChangeWrapper(setTheme)}
+                    />
+                    <br />
+                    <Radio
+                        checked={theme === 'rose'}
+                        value='rose'
+                        label={
+                            <FormattedMessage id='profile.settings.fieldsets.theme.rose' />
+                        }
+                        onChange={handleChangeWrapper(setTheme)}
+                    />
+                    <br />
+                    <Radio
+                        checked={theme === 'tokyoDark'}
+                        value='tokyoDark'
+                        label={
+                            <FormattedMessage id='profile.settings.fieldsets.theme.tokyoDark' />
+                        }
+                        onChange={handleChangeWrapper(setTheme)}
+                    />
+                    <br />
+                    <Radio
+                        checked={theme === 'olive'}
+                        value='olive'
+                        label={
+                            <FormattedMessage id='profile.settings.fieldsets.theme.olive' />
+                        }
+                        onChange={handleChangeWrapper(setTheme)}
+                    />
+                </Pad>
             </Fieldset>
             <Pad />
             <Fieldset
@@ -84,30 +86,32 @@ export function Settings() {
                     <FormattedMessage id='profile.settings.fieldsets.fontLabel' />
                 }
             >
-                <Checkbox
-                    label={
-                        <FormattedMessage id='profile.settings.fieldsets.font.vintageFontLabel' />
-                    }
-                    checked={vintageFont}
-                    onChange={() => toggleVintageFont(!vintageFont)}
-                />
                 <Pad>
-                    <Slider
-                        value={fontSize}
-                        onChange={(e, val) => {
-                            if (fontSize !== val) setFontSize(val);
-                        }}
-                        min={0.8}
-                        max={1.2}
-                        step={null}
-                        marks={[
-                            { value: 0.8, label: '0.8' },
-                            { value: 0.9, label: '0.9' },
-                            { value: 1, label: '1' },
-                            { value: 1.1, label: '1.1' },
-                            { value: 1.2, label: '1.2' },
-                        ]}
+                    <Checkbox
+                        label={
+                            <FormattedMessage id='profile.settings.fieldsets.font.vintageFontLabel' />
+                        }
+                        checked={vintageFont}
+                        onChange={() => toggleVintageFont(!vintageFont)}
                     />
+                    <Pad>
+                        <Slider
+                            value={fontSize}
+                            onChange={(e, val) => {
+                                if (fontSize !== val) setFontSize(val);
+                            }}
+                            min={0.8}
+                            max={1.2}
+                            step={null}
+                            marks={[
+                                { value: 0.8, label: '0.8' },
+                                { value: 0.9, label: '0.9' },
+                                { value: 1, label: '1' },
+                                { value: 1.1, label: '1.1' },
+                                { value: 1.2, label: '1.2' },
+                            ]}
+                        />
+                    </Pad>
                 </Pad>
             </Fieldset>
             <Pad />
@@ -126,20 +130,22 @@ export function Settings() {
                     <div>
                         <FormattedMessage id='profile.settings.fieldsets.scanLine.intensityLabel' />
                     </div>
-                    <Slider
-                        value={scanLinesIntensity}
-                        onChange={(e, val) => {
-                            if (scanLinesIntensity !== val)
-                                setScreenLinesIntensity(val);
-                        }}
-                        step={10}
-                        min={0}
-                        max={100}
-                        marks={[
-                            { value: 0, label: 'min' },
-                            { value: 100, label: 'max' },
-                        ]}
-                    />
+                    <Pad>
+                        <Slider
+                            value={scanLinesIntensity}
+                            onChange={(e, val) => {
+                                if (scanLinesIntensity !== val)
+                                    setScreenLinesIntensity(val);
+                            }}
+                            step={10}
+                            min={0}
+                            max={100}
+                            marks={[
+                                { value: 0, label: 'min' },
+                                { value: 100, label: 'max' },
+                            ]}
+                        />
+                    </Pad>
                 </Pad>
             </Fieldset>
         </div>
