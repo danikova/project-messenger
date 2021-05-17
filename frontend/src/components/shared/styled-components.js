@@ -103,7 +103,22 @@ export const ProfileTooltip = styled(({ className, ...props }) => (
 ))`
     & .MuiTooltip-tooltip {
         background-color: #0000;
-        margin: 5px;
+        margin: 0;
         display: contents;
+    }
+`;
+
+export const RetroTooltip = styled(({ className, ...props }) => (
+    <Tooltip {...props} classes={{ popper: className }} />
+))`
+    & .MuiTooltip-tooltip {
+        background-color: #fefbcd;
+        color: #000000b0;
+        border-radius: 0;
+        border: 2px solid black;
+        h1 {
+            font-size: 14px;
+            line-height: 18px;
+        }
     }
 `;

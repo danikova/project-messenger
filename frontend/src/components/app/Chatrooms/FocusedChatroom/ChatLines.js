@@ -5,7 +5,10 @@ import { Fieldset } from 'react95';
 import styled from 'styled-components';
 import { AvatarHolder } from '../../../shared/AvatarHolder';
 import { FormattedMessage } from 'react-intl';
-import { ProfileTooltip } from '../../../shared/styled-components';
+import {
+    ProfileTooltip,
+    RetroTooltip,
+} from '../../../shared/styled-components';
 import { ProfileInfo } from '../../../shared/ProfileInfo';
 
 const ServerLineWrapper = styled.div`
@@ -64,16 +67,14 @@ export function ChatLines(props) {
                 </ServerLineWrapper>
             );
         return (
-            <ChatLineWrapper
-                key={message._id}
-                reverse={reverseLine}
-                title={moment(message.sent).fromNow()}
-            >
+            <ChatLineWrapper key={message._id} reverse={reverseLine}>
                 <ChatAvatarWrapper reverse={reverseLine}>
                     {userChange && (
                         <ProfileTooltip
                             title={<ProfileInfo userId={userId} />}
-                            placement={reverseLine ? 'bottom-end' : 'bottom-start'}
+                            placement={
+                                reverseLine ? 'bottom-end' : 'bottom-start'
+                            }
                             interactive
                         >
                             <div>
@@ -82,14 +83,22 @@ export function ChatLines(props) {
                         </ProfileTooltip>
                     )}
                 </ChatAvatarWrapper>
-                <LineContent
-                    label={
-                        userChange &&
-                        ((users[userId] && users[userId].username) || '...')
+                <RetroTooltip
+                    title={
+                        <h1>{moment(message.sent).fromNow()}</h1>
                     }
+                    placement={reverseLine ? 'left' : 'right'}
+                    enterDelay={700}
                 >
-                    {message.message}
-                </LineContent>
+                    <LineContent
+                        label={
+                            userChange &&
+                            ((users[userId] && users[userId].username) || '...')
+                        }
+                    >
+                        {message.message}
+                    </LineContent>
+                </RetroTooltip>
             </ChatLineWrapper>
         );
     });
