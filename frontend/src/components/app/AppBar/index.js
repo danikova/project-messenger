@@ -8,6 +8,8 @@ import { LocaleSelector } from '../../shared/LocaleSelector';
 import { connect } from 'react-redux';
 import { injectIntl } from 'react-intl';
 import logoIMG from '../../../assets/logo.png';
+import { SelfProfileInfo } from '../../shared/SelfProfileInfo';
+import { ProfileTooltip } from '../../shared/styled-components';
 
 const CustomAppBar = styled(OriginalAppBar)`
     z-index: 50;
@@ -36,6 +38,7 @@ export class AppBar extends React.Component {
     };
 
     render() {
+        const userId = this.props.user.data && this.props.user.data._id;
         return (
             <CustomAppBar>
                 <CustomToolbar>
@@ -64,12 +67,16 @@ export class AppBar extends React.Component {
                             />
                         )}
                         <AvatarMargin />
+                        <ProfileTooltip
+                            title={<SelfProfileInfo userId={userId} />}
+                            placement='bottom-start'
+                            interactive
+                        >
+                            <div>
+                                <AvatarHolder userId={userId} />
+                            </div>
+                        </ProfileTooltip>
 
-                        <AvatarHolder
-                            userId={
-                                this.props.user.data && this.props.user.data._id
-                            }
-                        />
                         <AvatarMargin />
                         <div>{this.props.user.data.username}</div>
                     </ToolbarContentWrapper>

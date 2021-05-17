@@ -5,6 +5,8 @@ import { Fieldset } from 'react95';
 import styled from 'styled-components';
 import { AvatarHolder } from '../../../shared/AvatarHolder';
 import { FormattedMessage } from 'react-intl';
+import { ProfileTooltip } from '../../../shared/styled-components';
+import { ProfileInfo } from '../../../shared/ProfileInfo';
 
 const ServerLineWrapper = styled.div`
     padding: 10px 0 0 5px;
@@ -15,23 +17,23 @@ const ServerLineWrapper = styled.div`
 
 const ChatLineWrapper = styled.div`
     display: flex;
-    padding: 5px 0 0 5px;
+    padding: 5px 5px 0 5px;
     ${(props) =>
         props.reverse
-            ? 'flex-direction: row-reverse;' +
-              'legend {' +
-              'left: initial;' +
-              'right: 0.5rem;' +
-              '}'
+            ? `flex-direction: row-reverse;
+              legend {
+              left: initial;
+              right: 0.5rem;
+              }`
             : ''}
 `;
 
 const ChatAvatarWrapper = styled.div`
     flex: 0 0 40px;
-`;
-
-const ChatAvatar = styled(AvatarHolder)`
-    margin: auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: ${(props) => (props.reverse ? 'flex-end' : 'flex-start')};
+    flex-direction: row;
 `;
 
 const LineContent = styled(Fieldset)`
@@ -50,6 +52,7 @@ export function ChatLines(props) {
     return (messages || []).map((message) => {
         const userChange = userId !== message.userId;
         userId = message.userId;
+        const reverseLine = currentUser._id === userId;
         if (!message.userId)
             return (
                 <ServerLineWrapper key={message._id}>
@@ -63,11 +66,21 @@ export function ChatLines(props) {
         return (
             <ChatLineWrapper
                 key={message._id}
-                reverse={currentUser._id === userId}
+                reverse={reverseLine}
                 title={moment(message.sent).fromNow()}
             >
-                <ChatAvatarWrapper>
-                    {userChange && <ChatAvatar userId={userId} />}
+                <ChatAvatarWrapper reverse={reverseLine}>
+                    {userChange && (
+                        <ProfileTooltip
+                            title={<ProfileInfo userId={userId} />}
+                            placement={reverseLine ? 'bottom-end' : 'bottom-start'}
+                            interactive
+                        >
+                            <div>
+                                <AvatarHolder userId={userId} />
+                            </div>
+                        </ProfileTooltip>
+                    )}
                 </ChatAvatarWrapper>
                 <LineContent
                     label={

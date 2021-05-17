@@ -1,6 +1,7 @@
+import React from 'react';
 import styled from 'styled-components';
 import { Window, WindowHeader, WindowContent, Panel } from 'react95';
-import { Grid } from '@material-ui/core';
+import { Grid, Tooltip } from '@material-ui/core';
 
 export const ChatroomWrapperGrid = styled(Grid)`
     height: calc(100% + 16px) !important;
@@ -95,4 +96,14 @@ export const AppContainer = styled.div`
 
 export const Pad = styled.div`
     padding: 8px 16px;
+`;
+
+export const ProfileTooltip = styled(({ className, ...props }) => (
+    <Tooltip {...props} classes={{ popper: className }} />
+))`
+    & .MuiTooltip-tooltip {
+        background-color: #0000;
+        margin: 5px;
+        display: contents;
+    }
 `;
