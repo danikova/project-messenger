@@ -90,7 +90,8 @@ export function ChatLines(props) {
                         <h1>{moment(message.sent).locale(locale).fromNow()}</h1>
                     }
                     placement={reverseLine ? 'left' : 'right'}
-                    enterDelay={700}
+                    enterDelay={1000}
+                    enterNextDelay={200}
                 >
                     <LineContent
                         label={

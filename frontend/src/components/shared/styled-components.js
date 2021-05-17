@@ -99,7 +99,12 @@ export const Pad = styled.div`
 `;
 
 export const ProfileTooltip = styled(({ className, ...props }) => (
-    <Tooltip {...props} classes={{ popper: className }} />
+    <Tooltip
+        enterDelay={700}
+        enterNextDelay={500}
+        {...props}
+        classes={{ popper: className }}
+    />
 ))`
     & .MuiTooltip-tooltip {
         background-color: #0000;
