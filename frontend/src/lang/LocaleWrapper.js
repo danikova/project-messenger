@@ -4,7 +4,6 @@ import { IntlProvider } from 'react-intl';
 import Hungarian from './hu.json';
 import English from './en.json';
 
-import moment from 'moment';
 import 'moment/locale/hu';
 
 import { getCookie, setCookie } from '../shared/cookie.service';
@@ -28,7 +27,6 @@ checkMessageKeys();
 const LangContext = React.createContext();
 
 const local = getCookie(LANG_COOKIE) || navigator.language.substring(0, 2);
-moment.locale(local);
 
 let lang;
 if (local === 'en') {
@@ -45,7 +43,6 @@ const LocaleWrapper = (props) => {
         const newLocale = e.target.value;
         setCookie(LANG_COOKIE, newLocale);
         setLocale(newLocale);
-        moment.locale(newLocale);
         if (newLocale === 'en') {
             setMessages(English);
         } else {

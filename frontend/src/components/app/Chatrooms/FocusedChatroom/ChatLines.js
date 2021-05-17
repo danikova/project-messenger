@@ -10,6 +10,7 @@ import {
     RetroTooltip,
 } from '../../../shared/styled-components';
 import { ProfileInfo } from '../../../shared/ProfileInfo';
+import { useLocale } from '../../../../lang/LocaleWrapper';
 
 const ServerLineWrapper = styled.div`
     padding: 10px 0 0 5px;
@@ -49,6 +50,7 @@ const LineContent = styled(Fieldset)`
 `;
 
 export function ChatLines(props) {
+    const { locale } = useLocale();
     const users = useSelector((state) => state.users);
     const { messages, currentUser } = props;
     let userId = '';
@@ -85,7 +87,7 @@ export function ChatLines(props) {
                 </ChatAvatarWrapper>
                 <RetroTooltip
                     title={
-                        <h1>{moment(message.sent).fromNow()}</h1>
+                        <h1>{moment(message.sent).locale(locale).fromNow()}</h1>
                     }
                     placement={reverseLine ? 'left' : 'right'}
                     enterDelay={700}
