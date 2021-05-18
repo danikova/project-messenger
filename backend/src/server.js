@@ -3,9 +3,6 @@ const express = require('express');
 const http = require('http');
 const listEndpoints = require('express-list-endpoints');
 const morgan = require('morgan');
-const bodyParser = require('body-parser');
-const bodyParserJSON = bodyParser.json();
-const bodyParserURLEncoded = bodyParser.urlencoded({ extended: true });
 
 const databaseSetup = require('./services/database.setup');
 const startSocketIO = require('./socket');
@@ -40,8 +37,8 @@ const server = http.createServer(app);
 //
 // -----------------------------------------
 app.use(morgan('dev'));
-app.use(bodyParserJSON);
-app.use(bodyParserURLEncoded);
+app.use(express.json());
+app.use(express.urlencoded());
 
 // -----------------------------------------
 //
@@ -65,7 +62,16 @@ app.use(function (req, res, next) {
     });
 });
 app.use(function (err, req, res, next) {
-    error('---------------- Server error:\n', err.stack, '----------------');
+    error(
+        `// -----------------------------------------
+        //
+        //    Server error
+        //
+        // -----------------------------------------
+        `,
+        err.stack,
+        '// -----------------------------------------',
+    );
     res.status(500).send({
         error: {
             templateName: 'api.500',
