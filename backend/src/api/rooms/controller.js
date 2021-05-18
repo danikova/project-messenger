@@ -2,11 +2,12 @@ const config = require('config');
 const Rooms = require('./model');
 const mongoose = require('mongoose');
 const User = require('../users/model');
+const wrap = require('../../services/async.view.wrapper');
 const SocketGlobals = require('../../socket/SocketGlobals');
 
 const roomMessageCount = config.get('api.room.messageCount') || 50;
 
-exports.createRoom = async (req, res) => {
+exports.createRoom = wrap(async (req, res) => {
     try {
         const room = await Rooms.create({ name: req.body.name });
         await room.addUser(req.user);
@@ -15,9 +16,9 @@ exports.createRoom = async (req, res) => {
     } catch (err) {
         return res.status(400).json({ error: err });
     }
-};
+});
 
-exports.getRooms = async (req, res) => {
+exports.getRooms = wrap(async (req, res) => {
     try {
         const rooms = await Rooms.find({})
             .where('activeUsers')
@@ -30,9 +31,9 @@ exports.getRooms = async (req, res) => {
     } catch (err) {
         return res.status(400).json({ error: err });
     }
-};
+});
 
-exports.getRoom = async (req, res) => {
+exports.getRoom = wrap(async (req, res) => {
     try {
         const room = await Rooms.findOne({ _id: req.params.id })
             .where('activeUsers')
@@ -43,9 +44,9 @@ exports.getRoom = async (req, res) => {
     } catch (err) {
         return res.status(400).json({ error: err });
     }
-};
+});
 
-exports.messagesFrom = async (req, res) => {
+exports.messagesFrom = wrap(async (req, res) => {
     try {
         const rooms = await Rooms.aggregate([
             { $match: { _id: mongoose.Types.ObjectId(req.params.id) } },
@@ -70,9 +71,9 @@ exports.messagesFrom = async (req, res) => {
     } catch (err) {
         return res.status(400).json({ error: err });
     }
-};
+});
 
-exports.addUserToRoom = async (req, res) => {
+exports.addUserToRoom = wrap(async (req, res) => {
     try {
         const room = await Rooms.findOne({ _id: req.params.id })
             .where('activeUsers')
@@ -95,9 +96,9 @@ exports.addUserToRoom = async (req, res) => {
     return res.status(400).json({
         error: `add user(${req.body.userId}) to room(${req.params.id}) was not success`,
     });
-};
+});
 
-const removeUserFromRoom = async (req, res) => {
+const removeUserFromRoom = wrap(async (req, res) => {
     try {
         const room = await Rooms.findOne({ _id: req.params.id })
             .where('activeUsers')
@@ -117,10 +118,10 @@ const removeUserFromRoom = async (req, res) => {
     return res.status(400).json({
         error: `remove user(${req.body.userId}) from room(${req.params.id}) was not success`,
     });
-};
+});
 
 exports.removeUserFromRoom = removeUserFromRoom;
-exports.removeSelfFromRoom = async (req, res) => {
+exports.removeSelfFromRoom = wrap(async (req, res) => {
     req.body.userId = req.user.id;
     return await removeUserFromRoom(req, res);
-};
+});

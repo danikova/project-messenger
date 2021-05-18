@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const User = require('../api/users/model');
+const wrap = require('../services/async.view.wrapper');
 const {
     validateUser,
     findOrCreateOAuthUser,
@@ -7,7 +8,7 @@ const {
     fetchGoogleCredentials,
 } = require('./utils');
 
-exports.register = async (req, res) => {
+exports.register = wrap(async (req, res) => {
     try {
         await validateUser(req.body);
     } catch (error) {
@@ -31,9 +32,9 @@ exports.register = async (req, res) => {
     }
 
     res.status(201).json(user.selfJson());
-};
+});
 
-exports.login = async (req, res) => {
+exports.login = wrap(async (req, res) => {
     let user = await User.findOne({ username: req.body.username }).select(
         '+password',
     );
@@ -47,9 +48,10 @@ exports.login = async (req, res) => {
         });
 
     res.status(200).json(user.selfJson());
-};
+});
 
-exports.googleLogin = async (req, res) => {
+exports.googleLogin = wrap(async (req, res) => {
+    next(new Error(`Something went wrong!`));
     try {
         const payload = await fetchGoogleCredentials(req.body.idToken);
         const user = await findOrCreateOAuthUser(
@@ -64,9 +66,9 @@ exports.googleLogin = async (req, res) => {
             error: 'User not exists with these provided credentials.',
         });
     }
-};
+});
 
-exports.facebookLogin = async (req, res) => {
+exports.facebookLogin = wrap(async (req, res) => {
     try {
         const payload = await fetchFacebookCredentials(req.body.accessToken);
         const user = await findOrCreateOAuthUser(
@@ -82,4 +84,4 @@ exports.facebookLogin = async (req, res) => {
             error: 'User not exists with these provided credentials.',
         });
     }
-};
+});

@@ -1,15 +1,16 @@
 const Users = require('./model');
+const wrap = require('../../services/async.view.wrapper');
 
-exports.getSelf = async (req, res) => {
+exports.getSelf = wrap(async (req, res) => {
     try {
         const user = req.user;
         return res.status(200).json(user.toJSON());
     } catch (err) {
         return res.status(400).json({ error: err });
     }
-};
+});
 
-exports.getUser = async (req, res) => {
+exports.getUser = wrap(async (req, res) => {
     try {
         const user = await Users.findOne({ _id: req.params.id }).select(
             'username email color imageUrl',
@@ -19,9 +20,9 @@ exports.getUser = async (req, res) => {
     } catch (err) {
         return res.status(400).json({ error: err });
     }
-};
+});
 
-exports.updateSelf = async (req, res) => {
+exports.updateSelf = wrap(async (req, res) => {
     try {
         const updatedKeys = Object.keys(req.body);
         const projection = updatedKeys.reduce(
@@ -40,4 +41,4 @@ exports.updateSelf = async (req, res) => {
     } catch (err) {
         return res.status(400).json({ error: err });
     }
-};
+});
