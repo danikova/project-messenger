@@ -11,7 +11,7 @@ for (const key of ['privatekey', 'googleClientId']) {
     }
 }
 
-const databaseSetup = require('./shared/database');
+const databaseSetup = require('./services/database.setup');
 const middlewares = require('./middlewares');
 const setApiRoutes = require('./api/routes');
 const setAuthRoutes = require('./auth/routes');

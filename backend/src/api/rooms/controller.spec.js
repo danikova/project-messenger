@@ -1,6 +1,6 @@
 const request = require('supertest');
 const app = require('../../server');
-const dbHandler = require('../../shared/db.handler.for.tests');
+const dbHandler = require('../../services/test.database.setup');
 const User = require('../users/model');
 const Room = require('./model');
 
