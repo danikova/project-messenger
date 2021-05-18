@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const RoomSchema = require('./schema');
-const generateColors = require('../../shared/random.color');
+const { generateColors } = require('../utils');
 const Message = require('../messages/model');
 const SocketGlobals = require('../../socket/SocketGlobals');
 

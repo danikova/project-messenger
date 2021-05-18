@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const UserSchema = require('./schema');
-const generateColors = require('../../shared/random.color');
+const { generateColors } = require('../utils');
 const { removeAccents, createNamingSuggestions } = require('./utils');
 
 const usernameMaxLength = 8;

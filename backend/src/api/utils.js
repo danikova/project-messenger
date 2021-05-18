@@ -1,7 +1,7 @@
 const ColorScheme = require('color-scheme');
 const scheme = new ColorScheme();
 
-module.exports = function (hueValue = null) {
+exports.generateColors = function (hueValue = null) {
     if (hueValue == null) {
         const hueWheelSection = 360 / 100;
         hueValue = parseInt(Math.random() * 100 * hueWheelSection);
