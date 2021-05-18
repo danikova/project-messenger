@@ -51,7 +51,6 @@ exports.login = wrap(async (req, res) => {
 });
 
 exports.googleLogin = wrap(async (req, res) => {
-    next(new Error(`Something went wrong!`));
     try {
         const payload = await fetchGoogleCredentials(req.body.idToken);
         const user = await findOrCreateOAuthUser(
