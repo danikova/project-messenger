@@ -37,6 +37,7 @@ export class SocketWrapper extends React.Component {
             socket.removeAllListeners();
             clearInterval(this.state.loadingDialogInterval);
             logoutUser();
+            socket.disconnect();
         };
 
         socket.on('disconnect', closeSocket);
