@@ -13,7 +13,6 @@
     "auth.register.snackbar.successful": "Sikeresen regisztráltál. Kérlek jelentkezz be az új adataiddal.",
 
     "auth.logout": "Sikeres kijelentkezés",
-    "auth.logout.bySocketDisconnection": "Sikeres kijelentkezés, valami történt a háttérben",
 
     "auth.username": "felhasználónév",
     "auth.password": "jelszó",

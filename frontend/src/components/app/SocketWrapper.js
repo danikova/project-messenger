@@ -39,18 +39,8 @@ export class SocketWrapper extends React.Component {
             logoutUser();
         };
 
-        socket.on('disconnect', () => {
-            closeSocket();
-            this.props.enqueueSnackbar(
-                this.props.intl.formatMessage({
-                    id: 'auth.logout.bySocketDisconnection',
-                }),
-            );
-        });
-
-        socket.on('unauthorized', () => {
-            closeSocket();
-        });
+        socket.on('disconnect', closeSocket);
+        socket.on('unauthorized', closeSocket);
 
         this.setState({
             socket,
