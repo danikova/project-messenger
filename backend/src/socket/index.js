@@ -4,8 +4,9 @@ const SocketConnection = require('./SocketConnection');
 
 const onPushMessage = require('./on.push.message');
 const onDisconnect = require('./on.disconnect');
+const { info, warning } = require('../services/colored.logger');
 
-module.exports = function (server, path) {
+module.exports = function (server, path, cb) {
     const io = socketIO(server, {
         path,
     });
@@ -14,23 +15,22 @@ module.exports = function (server, path) {
         if (socket.user) await acceptAuthorizedSocket(socket);
         else await rejectUnauthorizedSocket(socket);
     });
-    console.log(`SocketIo ready for connection`);
+    if (cb) cb();
 };
 
 async function acceptAuthorizedSocket(socket) {
+    info(`user connected: ${socket.user._id}`);
     const sc = new SocketConnection(socket);
     await sc.getActiveRoom(
         socket.user.openChatroom && socket.user.openChatroom._id,
     );
     await sc.joinAllRoom();
-    socket.on('connect', () => {
-        console.log('connect');
-    });
     socket.on('pushMessage', onPushMessage(sc));
     socket.on('disconnect', onDisconnect(sc));
 }
 
 async function rejectUnauthorizedSocket(socket) {
+    warning(`unauthorized websocket connection`);
     socket.emit('unauthorized');
     socket.disconnect();
 }
