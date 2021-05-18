@@ -1,11 +1,11 @@
-const config = require('config');
 const bcrypt = require('bcryptjs');
 const User = require('../api/users/model');
-const { OAuth2Client } = require('google-auth-library');
-const { validateUser, makeRandomString } = require('./utils');
-
-
-const googleClientId = config.get('authentication.googleClientId');
+const {
+    validateUser,
+    findOrCreateOAuthUser,
+    fetchFacebookCredentials,
+    fetchGoogleCredentials,
+} = require('./utils');
 
 exports.register = async (req, res) => {
     try {
@@ -30,11 +30,7 @@ exports.register = async (req, res) => {
         });
     }
 
-    const token = user.generateAuthToken();
-    const userJson = user.toJSON();
-    userJson.token = token;
-    delete userJson.password;
-    res.status(201).json(userJson);
+    res.status(201).json(user.selfJson());
 };
 
 exports.login = async (req, res) => {
@@ -50,57 +46,40 @@ exports.login = async (req, res) => {
             error: 'User not exists with these provided credentials.',
         });
 
-    const token = user.generateAuthToken();
-    const userJson = user.toJSON();
-    userJson.token = token;
-    delete userJson.password;
-    res.status(200).json(userJson);
+    res.status(200).json(user.selfJson());
 };
 
 exports.googleLogin = async (req, res) => {
-    let payload = {};
     try {
-        const client = new OAuth2Client(googleClientId);
-        const ticket = await client.verifyIdToken({
-            idToken: req.body.idToken,
-            audience: googleClientId,
-        });
-        payload = ticket.getPayload();
-        asd = 1;
+        const payload = await fetchGoogleCredentials(req.body.idToken);
+        const user = await findOrCreateOAuthUser(
+            payload.given_name,
+            payload.family_name,
+            payload.email,
+            payload.picture,
+        );
+        res.status(200).json(user.selfJson());
     } catch (e) {
         return res.status(401).json({
             error: 'User not exists with these provided credentials.',
         });
     }
+};
 
-    let user = await User.findOne({ email: payload.email });
+exports.facebookLogin = async (req, res) => {
+    try {
+        const payload = await fetchFacebookCredentials(req.body.accessToken);
+        const user = await findOrCreateOAuthUser(
+            payload.first_name,
+            payload.last_name,
+            payload.email,
+            payload.picture && payload.picture.data && payload.picture.data.url,
+        );
 
-    if (user) {
-        user.imageUrl = payload.picture;
-        user.save(); 
+        res.status(200).json(user.selfJson());
+    } catch (e) {
+        return res.status(401).json({
+            error: 'User not exists with these provided credentials.',
+        });
     }
-
-    if (!user)
-        try {
-            const username = await User.createValidUsername(
-                payload.given_name,
-                payload.family_name,
-            );
-            user = await User.create({
-                username: username,
-                password: makeRandomString(32),
-                email: payload.email,
-                imageUrl: payload.picture,
-            });
-        } catch (e) {
-            return res.status(400).json({
-                error: String(e),
-            });
-        }
-
-    const token = user.generateAuthToken();
-    const userJson = user.toJSON();
-    userJson.token = token;
-    delete userJson.password;
-    res.status(200).json(userJson);
 };

@@ -77,6 +77,13 @@ UserSchema.methods.generateAuthToken = function () {
     return token;
 };
 
+UserSchema.methods.selfJson = function () {
+    const userJson = this.toJSON();
+    userJson.token = this.generateAuthToken();
+    delete userJson.password;
+    return userJson;
+};
+
 UserSchema.query.publicData = function () {
     return this.select('username color');
 };
