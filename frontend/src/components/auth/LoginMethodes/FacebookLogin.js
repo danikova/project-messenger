@@ -1,18 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import { loginUser } from '../../../store/actions/user.action';
-import ReactFacebookLogin from 'react-facebook-login';
+import ReactFacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import { withSnackbar } from 'notistack';
-import { injectIntl } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { API_FACEBOOK_LOGIN_URL } from '../../../routes';
 
-const GoogleLoginBtnContainer = styled.div`
-    width: 100%;
-    padding-top: 16px;
-`;
-const GoogleLoginBtnWrapper = styled.div`
-    margin: 0 auto;
-    display: table;
+const FacebookButton = styled.button`
+    background: #4267b2;
+    border: none;
+    height: 43px;
+    color: white;
+    padding: 0 20px;
+    cursor: pointer;
 `;
 
 export class FacebookLogin extends React.Component {
@@ -36,23 +36,23 @@ export class FacebookLogin extends React.Component {
         else
             this.props.enqueueSnackbar(
                 this.props.intl.formatMessage({
-                    id: 'auth.login.snackbar.googleFailure',
+                    id: 'auth.login.snackbar.oAuthFailure',
                 }),
             );
     };
 
     render() {
         return (
-            <GoogleLoginBtnContainer>
-                <GoogleLoginBtnWrapper>
-                    <ReactFacebookLogin
-                        appId='176623211025291'
-                        autoLoad={true}
-                        // fields='name,email,picture'
-                        callback={this.onFacebookResponse}
-                    />
-                </GoogleLoginBtnWrapper>
-            </GoogleLoginBtnContainer>
+            <ReactFacebookLogin
+                appId='176623211025291'
+                autoLoad={false}
+                callback={this.onFacebookResponse}
+                render={(renderProps) => (
+                    <FacebookButton onClick={renderProps.onClick}>
+                        <FormattedMessage id='auth.login.facebookBtnText' />
+                    </FacebookButton>
+                )}
+            />
         );
     }
 }

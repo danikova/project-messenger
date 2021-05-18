@@ -3,9 +3,10 @@
     "auth.login.registerLink": "-> Regisztrálj (kattints)",
     "auth.login.btnText": "Bejelentkezés",
     "auth.login.googleBtnText": "Bejelentkezés Google profilal",
+    "auth.login.facebookBtnText": "Bejelentkezés Facebook profilal",
     "auth.login.snackbar.successful": "Sikeres bejelentkezés",
     "auth.login.snackbar.failure": "A megadott felhasználónév vagy jelszó helytelen. Kérlek regisztrálj ha nincs működő profilod.",
-    "auth.login.snackbar.googleFailure": "Váratlan hiba történt. Kérlek próbálj más módon bejelentkezni.",
+    "auth.login.snackbar.oAuthFailure": "Váratlan hiba történt. Kérlek próbálj más módon bejelentkezni.",
 
     "auth.register.goToLoginText": "Ha van működő profilod ",
     "auth.register.loginLink": "-> Jelenetkezz be (kattints)",

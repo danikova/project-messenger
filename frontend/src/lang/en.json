@@ -3,9 +3,10 @@
     "auth.login.registerLink": "-> Register (click)",
     "auth.login.btnText": "Login",
     "auth.login.googleBtnText": "Sign in with Google",
+    "auth.login.facebookBtnText": "Sign in with Facebook",
     "auth.login.snackbar.successful": "Successful login",
     "auth.login.snackbar.failure": "Username or password is invalid. Please register if you dont have a valid account",
-    "auth.login.snackbar.googleFailure": "Something happend. Please try other login methode.",
+    "auth.login.snackbar.oAuthFailure": "Something happend. Please try other login methode.",
 
     "auth.register.goToLoginText": "If you have a valid account ",
     "auth.register.loginLink": "-> Login (click)",

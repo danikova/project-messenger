@@ -21,6 +21,15 @@ const DividerWrapper = styled(Divider)`
     margin-top: 16px;
 `;
 
+const OAuthBtnContainer = styled.div`
+    width: 100%;
+`;
+const OAuthLoginBtnWrapper = styled.div`
+    margin: 0 auto;
+    display: table;
+    padding-top: 16px;
+`;
+
 export class Login extends React.Component {
     state = {
         loginSuccess: false,
@@ -54,8 +63,14 @@ export class Login extends React.Component {
                 </AnchorWrapper>
                 <DefaultLogin onLoginSuccess={this.onLoginSuccess} />
                 <DividerWrapper />
-                <GoogleLogin onLoginSuccess={this.onLoginSuccess} />
-                <FacebookLogin onLoginSuccess={this.onLoginSuccess} />
+                <OAuthBtnContainer>
+                    <OAuthLoginBtnWrapper>
+                        <GoogleLogin onLoginSuccess={this.onLoginSuccess} />
+                    </OAuthLoginBtnWrapper>
+                    <OAuthLoginBtnWrapper>
+                        <FacebookLogin onLoginSuccess={this.onLoginSuccess} />
+                    </OAuthLoginBtnWrapper>
+                </OAuthBtnContainer>
             </Dialog>
         );
     }

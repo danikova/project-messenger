@@ -1,19 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
 import { loginUser } from '../../../store/actions/user.action';
 import { GoogleLogin as ReactGoogleLogin } from 'react-google-login';
 import { withSnackbar } from 'notistack';
 import { injectIntl } from 'react-intl';
 import { API_GOOGLE_LOGIN_URL } from '../../../routes';
-
-const GoogleLoginBtnContainer = styled.div`
-    width: 100%;
-    padding-top: 16px;
-`;
-const GoogleLoginBtnWrapper = styled.div`
-    margin: 0 auto;
-    display: table;
-`;
 
 export class GoogleLogin extends React.Component {
     onGoogleLoginSuccess = (res) => {
@@ -37,26 +27,22 @@ export class GoogleLogin extends React.Component {
     onGoogleLoginFailure = (res) => {
         this.props.enqueueSnackbar(
             this.props.intl.formatMessage({
-                id: 'auth.login.snackbar.googleFailure',
+                id: 'auth.login.snackbar.oAuthFailure',
             }),
         );
     };
 
     render() {
         return (
-            <GoogleLoginBtnContainer>
-                <GoogleLoginBtnWrapper>
-                    <ReactGoogleLogin
-                        clientId='890308939368-2o9ige6ektotc4csofkt5liusl22rdep.apps.googleusercontent.com'
-                        onSuccess={this.onGoogleLoginSuccess}
-                        onFailure={this.onGoogleLoginFailure}
-                        cookiePolicy={'single_host_origin'}
-                        buttonText={this.props.intl.formatMessage({
-                            id: 'auth.login.googleBtnText',
-                        })}
-                    />
-                </GoogleLoginBtnWrapper>
-            </GoogleLoginBtnContainer>
+            <ReactGoogleLogin
+                clientId='890308939368-2o9ige6ektotc4csofkt5liusl22rdep.apps.googleusercontent.com'
+                onSuccess={this.onGoogleLoginSuccess}
+                onFailure={this.onGoogleLoginFailure}
+                cookiePolicy={'single_host_origin'}
+                buttonText={this.props.intl.formatMessage({
+                    id: 'auth.login.googleBtnText',
+                })}
+            />
         );
     }
 }
