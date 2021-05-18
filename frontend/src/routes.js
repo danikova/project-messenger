@@ -10,6 +10,7 @@ export const FRONTEND_SETTINGS_URL = `/settings`;
 export const API_AUTH_ROOT_URL = `/auth`;
 export const API_LOGIN_URL = `${API_AUTH_ROOT_URL}/login`;
 export const API_GOOGLE_LOGIN_URL = `${API_AUTH_ROOT_URL}/google-login`;
+export const API_FACEBOOK_LOGIN_URL = `${API_AUTH_ROOT_URL}/facebook-login`;
 export const API_REGISTER_URL = `${API_AUTH_ROOT_URL}/register`;
 
 export const API_ROOT_URL = `/api`;

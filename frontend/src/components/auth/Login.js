@@ -7,6 +7,7 @@ import { Anchor, Divider } from 'react95';
 import styled from 'styled-components';
 import DefaultLogin from './LoginMethodes/DefaultLogin';
 import GoogleLogin from './LoginMethodes/GoogleLogin';
+import FacebookLogin from './LoginMethodes/FacebookLogin';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { Helmet } from 'react-helmet';
 import { FRONTEND_REGISTER_URL } from '../../routes';
@@ -54,6 +55,7 @@ export class Login extends React.Component {
                 <DefaultLogin onLoginSuccess={this.onLoginSuccess} />
                 <DividerWrapper />
                 <GoogleLogin onLoginSuccess={this.onLoginSuccess} />
+                <FacebookLogin onLoginSuccess={this.onLoginSuccess} />
             </Dialog>
         );
     }
