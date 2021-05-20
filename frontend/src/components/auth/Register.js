@@ -79,25 +79,14 @@ export class Register extends React.Component {
                                 password: this.state.password,
                             },
                         });
-                        request.then(
-                            () => {
-                                this.setState({ registerSuccess: true });
-                                this.props.enqueueSnackbar(
-                                    this.props.intl.formatMessage({
-                                        id: 'auth.register.snackbar.successful',
-                                    }),
-                                );
-                            },
-                            (error) => {
-                                this.props.enqueueSnackbar(
-                                    error.response.data.error ||
-                                        error.response.data.message ||
-                                        JSON.stringify(
-                                            error.response.data.error,
-                                        ),
-                                );
-                            },
-                        );
+                        request.then(() => {
+                            this.setState({ registerSuccess: true });
+                            this.props.enqueueSnackbar(
+                                this.props.intl.formatMessage({
+                                    id: 'auth.register.snackbar.successful',
+                                }),
+                            );
+                        });
                     }}
                     style={{ marginLeft: '2px' }}
                     disabled={!this.state.username || !this.state.password}

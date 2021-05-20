@@ -29,7 +29,7 @@ export class FacebookLogin extends React.Component {
                     );
                     this.props.onLoginSuccess();
                 },
-                (error) => {
+                () => {
                     this.onGoogleLoginFailure();
                 },
             );

@@ -11,13 +11,20 @@ const {
 exports.register = wrap(async (req, res) => {
     try {
         await validateUser(req.body);
-    } catch (error) {
-        return res.status(400).json({ error: error.details[0].message });
+    } catch (err) {
+        return res.status(400).json({
+            error: {
+                templateName: 'api.error.auth.register.userDataInvalid',
+                consoleLog: err.toString(),
+            },
+        });
     }
     let user = await User.findOne({ username: req.body.username });
     if (user)
         return res.status(400).json({
-            error: 'User already registered.',
+            error: {
+                templateName: 'api.error.auth.register.userAlreadyRegistered',
+            },
         });
 
     try {
@@ -25,9 +32,12 @@ exports.register = wrap(async (req, res) => {
             username: req.body.username,
             password: req.body.password,
         });
-    } catch (e) {
+    } catch (err) {
         return res.status(400).json({
-            error: String(e),
+            error: {
+                templateName: 'api.error.auth.register',
+                consoleLog: err.toString(),
+            },
         });
     }
 
@@ -35,19 +45,30 @@ exports.register = wrap(async (req, res) => {
 });
 
 exports.login = wrap(async (req, res) => {
-    let user = await User.findOne({ username: req.body.username }).select(
-        '+password',
-    );
-    const passwordMatch = bcrypt.compareSync(
-        req.body.password,
-        (user && user.password) || '',
-    );
-    if (!passwordMatch)
-        return res.status(401).json({
-            error: 'User not exists with these provided credentials.',
-        });
+    try {
+        let user = await User.findOne({ username: req.body.username }).select(
+            '+password',
+        );
+        const passwordMatch = bcrypt.compareSync(
+            req.body.password,
+            (user && user.password) || '',
+        );
+        if (!passwordMatch)
+            return res.status(401).json({
+                error: {
+                    templateName: 'api.error.auth.login.userNotExist',
+                },
+            });
 
-    res.status(200).json(user.selfJson());
+        res.status(200).json(user.selfJson());
+    } catch (err) {
+        res.status(400).json({
+            error: {
+                templateName: 'api.error.auth.login',
+                consoleLog: err.toString(),
+            },
+        });
+    }
 });
 
 exports.googleLogin = wrap(async (req, res) => {
@@ -60,9 +81,12 @@ exports.googleLogin = wrap(async (req, res) => {
             payload.picture,
         );
         res.status(200).json(user.selfJson());
-    } catch (e) {
+    } catch (err) {
         return res.status(401).json({
-            error: 'User not exists with these provided credentials.',
+            error: {
+                templateName: 'api.error.auth.googleLogin',
+                consoleLog: err.toString(),
+            },
         });
     }
 });
@@ -78,9 +102,12 @@ exports.facebookLogin = wrap(async (req, res) => {
         );
 
         res.status(200).json(user.selfJson());
-    } catch (e) {
+    } catch (err) {
         return res.status(401).json({
-            error: 'User not exists with these provided credentials.',
+            error: {
+                templateName: 'api.error.auth.facebookLogin',
+                consoleLog: err.toString(),
+            },
         });
     }
 });

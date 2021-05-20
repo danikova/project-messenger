@@ -39,7 +39,7 @@ RoomSchema.methods = {
             this.activeUsers.push(user);
             await this.pushMessage({
                 serviceMessage: {
-                    templateName: `chatrooms.serviceMessage.userJoining`,
+                    templateName: `api.rooms.serviceMessage.userJoining`,
                     templateVariables: {
                         username: user.username,
                     },
@@ -58,7 +58,7 @@ RoomSchema.methods = {
             } else {
                 await this.pushMessage({
                     serviceMessage: {
-                        templateName: `chatrooms.serviceMessage.userLeaving`,
+                        templateName: `api.rooms.serviceMessage.userLeaving`,
                         templateVariables: {
                             username: user.username,
                         },

@@ -18,7 +18,7 @@ export class GoogleLogin extends React.Component {
                 );
                 this.props.onLoginSuccess();
             },
-            (error) => {
+            () => {
                 this.onGoogleLoginFailure();
             },
         );

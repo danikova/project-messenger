@@ -6,7 +6,9 @@ module.exports = async (req, res, next) => {
     const token = req.headers['x-access-token'] || req.headers['authorization'];
     if (!token)
         return res.status(401).json({
-            error: 'Access denied. No token provided.',
+            error: {
+                templateName: 'api.error.auth.tokenNotProvided',
+            },
         });
 
     try {
@@ -19,9 +21,12 @@ module.exports = async (req, res, next) => {
         if (!user) throw Error();
         req.user = user;
         next();
-    } catch (ex) {
+    } catch (err) {
         res.status(401).json({
-            error: 'Invalid token.',
+            error: {
+                templateName: 'api.error.auth.invalidToken',
+                consoleLog: err.toString(),
+            },
         });
     }
 };

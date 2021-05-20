@@ -14,7 +14,12 @@ exports.createRoom = wrap(async (req, res) => {
         room.save();
         return res.status(201).json((room && room.toJSON()) || {});
     } catch (err) {
-        return res.status(400).json({ error: err });
+        return res.status(400).json({
+            error: {
+                templateName: 'api.error.rooms.createRoom',
+                consoleLog: err.toString(),
+            },
+        });
     }
 });
 
@@ -29,7 +34,12 @@ exports.getRooms = wrap(async (req, res) => {
             .exec();
         return res.status(200).json(rooms || []);
     } catch (err) {
-        return res.status(400).json({ error: err });
+        return res.status(400).json({
+            error: {
+                templateName: 'api.error.rooms.getRooms',
+                consoleLog: err.toString(),
+            },
+        });
     }
 });
 
@@ -42,7 +52,12 @@ exports.getRoom = wrap(async (req, res) => {
             .slice('messages', -roomMessageCount);
         return res.status(200).json((room && room.toJSON()) || {});
     } catch (err) {
-        return res.status(400).json({ error: err });
+        return res.status(400).json({
+            error: {
+                templateName: 'api.error.rooms.getRoom',
+                consoleLog: err.toString(),
+            },
+        });
     }
 });
 
@@ -69,7 +84,12 @@ exports.messagesFrom = wrap(async (req, res) => {
         const room = rooms[0] || null;
         return res.status(200).json(room || {});
     } catch (err) {
-        return res.status(400).json({ error: err });
+        return res.status(400).json({
+            error: {
+                templateName: 'api.error.rooms.messageFrom',
+                consoleLog: err.toString(),
+            },
+        });
     }
 });
 
@@ -91,10 +111,17 @@ exports.addUserToRoom = wrap(async (req, res) => {
             }
         }
     } catch (err) {
-        return res.status(400).json({ error: err });
+        return res.status(400).json({
+            error: {
+                templateName: 'api.error.rooms.addUserToRoom',
+                consoleLog: err.toString(),
+            },
+        });
     }
     return res.status(400).json({
-        error: `add user(${req.body.userId}) to room(${req.params.id}) was not success`,
+        error: {
+            templateName: 'api.error.rooms.addUserToRoom.noUserFound',
+        },
     });
 });
 
@@ -113,10 +140,17 @@ const removeUserFromRoom = wrap(async (req, res) => {
             }
         }
     } catch (err) {
-        return res.status(400).json({ error: err });
+        return res.status(400).json({
+            error: {
+                templateName: 'api.error.rooms.removeUserFromRoom',
+                consoleLog: err.toString(),
+            },
+        });
     }
     return res.status(400).json({
-        error: `remove user(${req.body.userId}) from room(${req.params.id}) was not success`,
+        error: {
+            templateName: 'api.error.rooms.removeUserFromRoom.noUserFound',
+        },
     });
 });
 
