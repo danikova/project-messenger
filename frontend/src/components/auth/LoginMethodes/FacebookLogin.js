@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { loginUser } from '../../../store/actions/user.action';
 import ReactFacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { API_FACEBOOK_LOGIN_URL } from '../../../routes';
 import { enqueueSnackbar } from '../../../store/actions/notifications.action';
 
@@ -22,11 +22,9 @@ export class FacebookLogin extends React.Component {
                 { accessToken: res.accessToken },
                 API_FACEBOOK_LOGIN_URL,
                 () => {
-                    enqueueSnackbar(
-                        this.props.intl.formatMessage({
-                            id: 'auth.login.snackbar.successful',
-                        }),
-                    );
+                    enqueueSnackbar({
+                        templateName: 'auth.login.snackbar.successful',
+                    });
                     this.props.onLoginSuccess();
                 },
                 () => {
@@ -34,11 +32,9 @@ export class FacebookLogin extends React.Component {
                 },
             );
         else
-            enqueueSnackbar(
-                this.props.intl.formatMessage({
-                    id: 'auth.login.snackbar.oAuthFailure',
-                }),
-            );
+            enqueueSnackbar({
+                templateName: 'auth.login.snackbar.failure',
+            });
     };
 
     render() {
@@ -57,4 +53,4 @@ export class FacebookLogin extends React.Component {
     }
 }
 
-export default injectIntl(FacebookLogin);
+export default FacebookLogin;

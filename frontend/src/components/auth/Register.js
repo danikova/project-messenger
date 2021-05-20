@@ -81,11 +81,10 @@ export class Register extends React.Component {
                         });
                         request.then(() => {
                             this.setState({ registerSuccess: true });
-                            enqueueSnackbar(
-                                this.props.intl.formatMessage({
-                                    id: 'auth.register.snackbar.successful',
-                                }),
-                            );
+                            enqueueSnackbar({
+                                templateName:
+                                    'auth.register.snackbar.successful',
+                            });
                         });
                     }}
                     style={{ marginLeft: '2px' }}

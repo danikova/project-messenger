@@ -36,6 +36,14 @@ const Notifier = () => {
 
                 if (displayed.includes(key)) return;
 
+                if (templateName)
+                    try {
+                        message = intl.formatMessage(
+                            { id: templateName },
+                            templateVariables,
+                        );
+                    } catch {}
+
                 enqueueSnackbar(message, {
                     key,
                     ...options,
@@ -52,7 +60,7 @@ const Notifier = () => {
                 storeDisplayed(key);
             },
         );
-    }, [notifications, closeSnackbar, enqueueSnackbar]);
+    }, [notifications, closeSnackbar, enqueueSnackbar, intl]);
 
     return null;
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { List, ListItem, Divider } from 'react95';
 import {
     FRONTEND_CHATROOMS_FOCUSED_URL,
@@ -15,7 +15,6 @@ import { enqueueSnackbar } from '../../../store/actions/notifications.action';
 export function AppbarList(props) {
     const rooms = useSelector((state) => state.rooms);
     const { activeRoom } = rooms;
-    const intl = useIntl();
 
     return (
         <List
@@ -52,11 +51,7 @@ export function AppbarList(props) {
             <ListItem
                 onClick={() => {
                     logoutUser();
-                    enqueueSnackbar(
-                        intl.formatMessage({
-                            id: '',
-                        }),
-                    );
+                    enqueueSnackbar({ templateName: 'auth.logout' });
                 }}
             >
                 <span role='img' aria-label='🔙'>

@@ -5,7 +5,6 @@ import { TOKEN_COOKIE } from '../../store/constants/user.constant';
 import { getCookie } from '../../shared/cookie.service';
 import { LoadingDialog } from '../shared/LoadingDialog';
 import { API_COMMUNICATION_SOCKET_URL } from '../../routes';
-import { injectIntl } from 'react-intl';
 
 const SocketContext = React.createContext();
 
@@ -68,7 +67,7 @@ export class SocketWrapper extends React.Component {
     }
 }
 
-export default injectIntl(SocketWrapper);
+export default SocketWrapper;
 
 export function useSocket() {
     const context = useContext(SocketContext);

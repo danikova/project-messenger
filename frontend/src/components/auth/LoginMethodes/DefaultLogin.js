@@ -25,19 +25,15 @@ export class DefaultLogin extends React.Component {
             },
             API_LOGIN_URL,
             () => {
-                enqueueSnackbar(
-                    this.props.intl.formatMessage({
-                        id: 'auth.login.snackbar.successful',
-                    }),
-                );
+                enqueueSnackbar({
+                    templateName: 'auth.login.snackbar.successful',
+                });
                 this.props.onLoginSuccess();
             },
             () => {
-                enqueueSnackbar(
-                    this.props.intl.formatMessage({
-                        id: 'auth.login.snackbar.failure',
-                    }),
-                );
+                enqueueSnackbar({
+                    templateName: 'auth.login.snackbar.failure',
+                });
             },
         );
     };

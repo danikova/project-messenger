@@ -11,11 +11,9 @@ export class GoogleLogin extends React.Component {
             { idToken: res.tokenId },
             API_GOOGLE_LOGIN_URL,
             () => {
-                enqueueSnackbar(
-                    this.props.intl.formatMessage({
-                        id: 'auth.login.snackbar.successful',
-                    }),
-                );
+                enqueueSnackbar({
+                    templateName: 'auth.login.snackbar.successful',
+                });
                 this.props.onLoginSuccess();
             },
             () => {
@@ -25,11 +23,9 @@ export class GoogleLogin extends React.Component {
     };
 
     onGoogleLoginFailure = (res) => {
-        enqueueSnackbar(
-            this.props.intl.formatMessage({
-                id: 'auth.login.snackbar.oAuthFailure',
-            }),
-        );
+        enqueueSnackbar({
+            templateName: 'auth.login.snackbar.failure',
+        });
     };
 
     render() {

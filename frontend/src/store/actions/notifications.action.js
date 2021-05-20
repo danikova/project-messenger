@@ -6,8 +6,6 @@ import {
 } from '../constants/notifications.constant';
 
 export const enqueueSnackbar = (notification) => {
-    if (typeof notification === 'string')
-        notification = { message: notification };
     const key = notification.options && notification.options.key;
 
     store.dispatch({
