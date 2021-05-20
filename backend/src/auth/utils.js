@@ -4,7 +4,7 @@ const User = require('../api/users/model');
 const config = require('config');
 const { OAuth2Client } = require('google-auth-library');
 
-exports.makeRandomString = (length) => {
+const makeRandomString = (length) => {
     var result = [];
     var characters =
         'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -16,6 +16,8 @@ exports.makeRandomString = (length) => {
     }
     return result.join('');
 };
+
+exports.makeRandomString = makeRandomString;
 
 exports.validateUser = async (user) => {
     const schema = Joi.object({
