@@ -44,6 +44,8 @@ const Notifier = () => {
                         );
                     } catch {}
 
+                if (!message) return;
+
                 enqueueSnackbar(message, {
                     key,
                     ...options,
