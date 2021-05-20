@@ -25,9 +25,6 @@
     "appbar.startBtn.List.logout": "Kijelentkezés",
     "appbar.searchPlaceholder": "keresés...",
 
-    "chatrooms.serviceMessage.userLeaving": "{username} elhagyta a szobát",
-    "chatrooms.serviceMessage.userJoining": "{username} csatlakozott a szobához",
-
     "chatrooms.roomList.createNewRoom.btnText": "Új szoba létrehozása",
     "chatrooms.roomList.createNewRoom.dialog.TextField.placeholder": "új szoba neve",
     "chatrooms.roomList.createNewRoom.dialog.btnText": "ok",
@@ -69,5 +66,31 @@
     "profile.settings.fieldsets.scanLineLabel": "Retró csíkozódás",
     "profile.settings.fieldsets.scanLine.intensityLabel": "Villogás intenzitása",
     "profile.settings.fieldsets.scanLine.intensity.min": "min",
-    "profile.settings.fieldsets.scanLine.intensity.max": "max"
+    "profile.settings.fieldsets.scanLine.intensity.max": "max",
+
+    "api.rooms.serviceMessage.userLeaving": "{username} elhagyta a szobát",
+    "api.rooms.serviceMessage.userJoining": "{username} csatlakozott a szobához",
+    
+    "api.error.404": "",
+    "api.error.500": "",
+    "api.error.rooms.createRoom": "",
+    "api.error.rooms.getRooms": "",
+    "api.error.rooms.getRoom": "",
+    "api.error.rooms.messageFrom": "",
+    "api.error.rooms.addUserToRoom": "",
+    "api.error.rooms.addUserToRoom.noUserFound": "",
+    "api.error.rooms.removeUserFromRoom": "",
+    "api.error.rooms.removeUserFromRoom.noUserFound": "",
+    "api.error.users.getSelf": "",
+    "api.error.users.getUser": "",
+    "api.error.users.updateSelf": "",
+    "api.error.auth.register": "",
+    "api.error.auth.register.userDataInvalid": "",
+    "api.error.auth.register.userAlreadyRegistered": "",
+    "api.error.auth.login": "",
+    "api.error.auth.login.userNotExist": "",
+    "api.error.auth.googleLogin": "",
+    "api.error.auth.facebookLogin": "",
+    "api.error.auth.tokenNotProvided": "",
+    "api.error.auth.invalidToken": ""
 }

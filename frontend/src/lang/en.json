@@ -25,9 +25,6 @@
     "appbar.startBtn.List.logout": "Logout",
     "appbar.searchPlaceholder": "search...",
 
-    "chatrooms.serviceMessage.userLeaving": "{username} is leaved the room",
-    "chatrooms.serviceMessage.userJoining": "{username} is joined the room",
-
     "chatrooms.roomList.createNewRoom.btnText": "Create new room",
     "chatrooms.roomList.createNewRoom.dialog.TextField.placeholder": "new room name",
     "chatrooms.roomList.createNewRoom.dialog.btnText": "create",
@@ -69,5 +66,31 @@
     "profile.settings.fieldsets.scanLineLabel": "Scan lines",
     "profile.settings.fieldsets.scanLine.intensityLabel": "Flickering intensity",
     "profile.settings.fieldsets.scanLine.intensity.min": "min",
-    "profile.settings.fieldsets.scanLine.intensity.max": "max"
+    "profile.settings.fieldsets.scanLine.intensity.max": "max",
+
+    "api.rooms.serviceMessage.userLeaving": "{username} is leaved the room",
+    "api.rooms.serviceMessage.userJoining": "{username} is joined the room",
+
+    "api.error.404": "",
+    "api.error.500": "",
+    "api.error.rooms.createRoom": "",
+    "api.error.rooms.getRooms": "",
+    "api.error.rooms.getRoom": "",
+    "api.error.rooms.messageFrom": "",
+    "api.error.rooms.addUserToRoom": "",
+    "api.error.rooms.addUserToRoom.noUserFound": "",
+    "api.error.rooms.removeUserFromRoom": "",
+    "api.error.rooms.removeUserFromRoom.noUserFound": "",
+    "api.error.users.getSelf": "",
+    "api.error.users.getUser": "",
+    "api.error.users.updateSelf": "",
+    "api.error.auth.register": "",
+    "api.error.auth.register.userDataInvalid": "",
+    "api.error.auth.register.userAlreadyRegistered": "",
+    "api.error.auth.login": "",
+    "api.error.auth.login.userNotExist": "",
+    "api.error.auth.googleLogin": "",
+    "api.error.auth.facebookLogin": "",
+    "api.error.auth.tokenNotProvided": "",
+    "api.error.auth.invalidToken": ""
 }
