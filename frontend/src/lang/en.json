@@ -56,9 +56,6 @@
     "profile.userInfo.tabText": "User info",
     "profile.userInfo.labelFor.username": "Username",
     "profile.userInfo.labelFor.email": "E-mail address",
-    "profile.userInfo.resetFormLabel": "Revert changes",
-    "profile.userInfo.updateProfileLabel": "Update profile",
-    "profile.userInfo.update.failure.DuplicateKey": "Update failure, must be unique: {duplicateKey}",
 
     "profile.settings.tabText": "Settings",
     "profile.settings.fieldsets.themeLabel": "Theme",

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Window, WindowContent } from 'react95';
 import styled from 'styled-components';
-import { useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { AvatarHolder } from './AvatarHolder';
 import { useSelector } from 'react-redux';
 import { getUserInfo } from '../../store/actions/user.action';
@@ -32,7 +32,6 @@ const NoWrapGrid = styled.div`
 `;
 
 export function ProfileInfo({ userId, Toolbar, ...props }) {
-    const intl = useIntl();
     const users = useSelector((state) => state.users);
 
     let user = {};
@@ -52,13 +51,19 @@ export function ProfileInfo({ userId, Toolbar, ...props }) {
                     <NoWrapGrid>
                         {user.username && (
                             <p>
-                                <span className='data-abel'>username:</span>{' '}
+                                <span className='data-abel'>
+                                    <FormattedMessage id='profile.userInfo.labelFor.username' />
+                                    {': '}
+                                </span>
                                 {user.username}
                             </p>
                         )}
                         {user.email && (
                             <p>
-                                <span className='data-abel'>email:</span>{' '}
+                                <span className='data-abel'>
+                                    <FormattedMessage id='profile.userInfo.labelFor.email' />
+                                    {': '}
+                                </span>
                                 {user.email}
                             </p>
                         )}
