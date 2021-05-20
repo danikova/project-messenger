@@ -3,12 +3,11 @@ import {
     Button,
     Window
 } from 'react95';
-import { useSnackbar } from 'notistack';
+import { closeSnackbar } from '../../store/actions/notifications.action';
 import { DialogWindowHeader, MarginRightSpan, DialogCloseSpan } from './styled-components';
 
 
 export function CustomSnackbar(props) {
-    const { closeSnackbar } = useSnackbar();
     return (
         <Window>
             <DialogWindowHeader>

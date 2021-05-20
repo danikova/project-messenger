@@ -6,10 +6,10 @@ import { Redirect } from 'react-router-dom';
 import { TextField, Button, Anchor } from 'react95';
 import styled from 'styled-components';
 import Axios from 'axios';
-import { withSnackbar } from 'notistack';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { Helmet } from 'react-helmet';
 import { API_REGISTER_URL, FRONTEND_LOGIN_URL } from '../../routes';
+import { enqueueSnackbar } from '../../store/actions/notifications.action';
 
 const FullWidthTextField = styled(TextField)`
     width: 100%;
@@ -81,7 +81,7 @@ export class Register extends React.Component {
                         });
                         request.then(() => {
                             this.setState({ registerSuccess: true });
-                            this.props.enqueueSnackbar(
+                            enqueueSnackbar(
                                 this.props.intl.formatMessage({
                                     id: 'auth.register.snackbar.successful',
                                 }),
@@ -98,4 +98,4 @@ export class Register extends React.Component {
     }
 }
 
-export default injectIntl(withSnackbar(Register));
+export default injectIntl(Register);

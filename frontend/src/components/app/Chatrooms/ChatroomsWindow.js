@@ -10,7 +10,6 @@ import {
 } from '../../shared/styled-components';
 import { Dialog } from '../../shared/Dialog';
 import { createNewRow } from '../../../store/actions/room.action';
-import { withSnackbar } from 'notistack';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 const FullHeghtCutout = styled(Cutout)`
@@ -123,4 +122,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default withSnackbar(connect(mapStateToProps)(ChatroomsWindow));
+export default connect(mapStateToProps)(ChatroomsWindow);

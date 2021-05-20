@@ -15,6 +15,7 @@ import olive from 'react95/dist/themes/olive';
 import tokyoDark from 'react95/dist/themes/tokyoDark';
 import { GlobalStyle } from './shared/GlobalStyle';
 import { FRONTEND_LOGIN_URL } from '../routes';
+import Notifier from './shared/Notifier';
 
 const themes = {
     original,
@@ -62,6 +63,7 @@ function AppRouter(props) {
                         );
                     }}
                 >
+                    <Notifier />
                     <Router history={history}>
                         <Switch>
                             <Route path={FRONTEND_LOGIN_URL}>

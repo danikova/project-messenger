@@ -1,9 +1,9 @@
 import React from 'react';
 import { loginUser } from '../../../store/actions/user.action';
 import { GoogleLogin as ReactGoogleLogin } from 'react-google-login';
-import { withSnackbar } from 'notistack';
 import { injectIntl } from 'react-intl';
 import { API_GOOGLE_LOGIN_URL } from '../../../routes';
+import { enqueueSnackbar } from '../../../store/actions/notifications.action';
 
 export class GoogleLogin extends React.Component {
     onGoogleLoginSuccess = (res) => {
@@ -11,7 +11,7 @@ export class GoogleLogin extends React.Component {
             { idToken: res.tokenId },
             API_GOOGLE_LOGIN_URL,
             () => {
-                this.props.enqueueSnackbar(
+                enqueueSnackbar(
                     this.props.intl.formatMessage({
                         id: 'auth.login.snackbar.successful',
                     }),
@@ -25,7 +25,7 @@ export class GoogleLogin extends React.Component {
     };
 
     onGoogleLoginFailure = (res) => {
-        this.props.enqueueSnackbar(
+        enqueueSnackbar(
             this.props.intl.formatMessage({
                 id: 'auth.login.snackbar.oAuthFailure',
             }),
@@ -47,4 +47,4 @@ export class GoogleLogin extends React.Component {
     }
 }
 
-export default injectIntl(withSnackbar(GoogleLogin));
+export default injectIntl(GoogleLogin);

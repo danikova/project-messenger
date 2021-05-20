@@ -1,4 +1,3 @@
-import { useSnackbar } from 'notistack';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { List, ListItem, Divider } from 'react95';
@@ -11,11 +10,11 @@ import { historyPush } from '../../../shared/history.service';
 import { logoutUser } from '../../../store/actions/user.action';
 import UrlTemplate from 'url-template';
 import { useSelector } from 'react-redux';
+import { enqueueSnackbar } from '../../../store/actions/notifications.action';
 
 export function AppbarList(props) {
     const rooms = useSelector((state) => state.rooms);
     const { activeRoom } = rooms;
-    const { enqueueSnackbar } = useSnackbar();
     const intl = useIntl();
 
     return (
@@ -55,7 +54,7 @@ export function AppbarList(props) {
                     logoutUser();
                     enqueueSnackbar(
                         intl.formatMessage({
-                            id: 'auth.logout',
+                            id: '',
                         }),
                     );
                 }}

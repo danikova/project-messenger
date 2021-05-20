@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { Button, TextField } from 'react95';
 import { loginUser } from '../../../store/actions/user.action';
-import { withSnackbar } from 'notistack';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { API_LOGIN_URL } from '../../../routes';
+import { enqueueSnackbar } from '../../../store/actions/notifications.action';
 
 const FullWidthTextField = styled(TextField)`
     width: 100%;
@@ -25,7 +25,7 @@ export class DefaultLogin extends React.Component {
             },
             API_LOGIN_URL,
             () => {
-                this.props.enqueueSnackbar(
+                enqueueSnackbar(
                     this.props.intl.formatMessage({
                         id: 'auth.login.snackbar.successful',
                     }),
@@ -33,7 +33,7 @@ export class DefaultLogin extends React.Component {
                 this.props.onLoginSuccess();
             },
             () => {
-                this.props.enqueueSnackbar(
+                enqueueSnackbar(
                     this.props.intl.formatMessage({
                         id: 'auth.login.snackbar.failure',
                     }),
@@ -77,4 +77,4 @@ export class DefaultLogin extends React.Component {
     }
 }
 
-export default injectIntl(withSnackbar(DefaultLogin));
+export default injectIntl(DefaultLogin);
