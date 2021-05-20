@@ -94,12 +94,13 @@ exports.messagesFrom = wrap(async (req, res) => {
 });
 
 exports.addUserToRoom = wrap(async (req, res) => {
+    const username = (req.body && req.body.username) || '';
     try {
         const room = await Rooms.findOne({ _id: req.params.id })
             .where('activeUsers')
             .in(req.user);
         if (room) {
-            const user = await User.getByName(req.body.username);
+            const user = await User.getByName(username);
             if (user) {
                 await room.addUser(user);
                 room.save();
@@ -114,6 +115,7 @@ exports.addUserToRoom = wrap(async (req, res) => {
         return res.status(400).json({
             error: {
                 templateName: 'api.error.rooms.addUserToRoom',
+                templateVariables: { username },
                 consoleLog: err.toString(),
             },
         });
@@ -121,17 +123,19 @@ exports.addUserToRoom = wrap(async (req, res) => {
     return res.status(400).json({
         error: {
             templateName: 'api.error.rooms.addUserToRoom.noUserFound',
+            templateVariables: { username },
         },
     });
 });
 
 const removeUserFromRoom = wrap(async (req, res) => {
+    const username = (req.body && req.body.username) || '';
     try {
         const room = await Rooms.findOne({ _id: req.params.id })
             .where('activeUsers')
             .in(req.user);
         if (room) {
-            const user = await User.getById(req.body.userId);
+            const user = await User.getByName(username);
             if (user) {
                 if (await room.removeUser(user)) room.save();
                 if (user.id in SocketGlobals.activeUsers)
@@ -143,6 +147,7 @@ const removeUserFromRoom = wrap(async (req, res) => {
         return res.status(400).json({
             error: {
                 templateName: 'api.error.rooms.removeUserFromRoom',
+                templateVariables: { username },
                 consoleLog: err.toString(),
             },
         });
@@ -150,12 +155,13 @@ const removeUserFromRoom = wrap(async (req, res) => {
     return res.status(400).json({
         error: {
             templateName: 'api.error.rooms.removeUserFromRoom.noUserFound',
+            templateVariables: { username },
         },
     });
 });
 
 exports.removeUserFromRoom = removeUserFromRoom;
 exports.removeSelfFromRoom = wrap(async (req, res) => {
-    req.body.userId = req.user.id;
+    req.body.username = req.user.username;
     return await removeUserFromRoom(req, res);
 });
