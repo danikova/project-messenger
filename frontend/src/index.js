@@ -2,21 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import { store, persistor } from './store';
-import { PersistGate } from 'redux-persist/es/integration/react';
-import { Provider } from 'react-redux';
 import './shared/axios.config';
 import AppRouter from './components';
 import LocaleWrapper from './lang/LocaleWrapper';
+import { StoreProvider } from './store';
 
 ReactDOM.render(
-    <Provider store={store}>
-        <PersistGate persistor={persistor}>
-            <LocaleWrapper>
-                <AppRouter />
-            </LocaleWrapper>
-        </PersistGate>
-    </Provider>,
+    <StoreProvider>
+        <LocaleWrapper>
+            <AppRouter />
+        </LocaleWrapper>
+    </StoreProvider>,
     document.getElementById('root'),
 );
 

@@ -1,3 +1,7 @@
+import React from 'react';
+import { PersistGate } from 'redux-persist/es/integration/react';
+import { Provider } from 'react-redux';
+
 import { createStore, applyMiddleware } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -22,3 +26,11 @@ const store = createStore(pReducer, middleware);
 const persistor = persistStore(store);
 
 export { store, persistor };
+
+export const StoreProvider = (props) => {
+    return (
+        <Provider store={store}>
+            <PersistGate persistor={persistor}>{props.children}</PersistGate>
+        </Provider>
+    );
+};
