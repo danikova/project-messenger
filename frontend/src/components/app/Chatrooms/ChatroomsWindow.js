@@ -34,6 +34,7 @@ const CreateNewRoomDialog = (props) => {
         <Dialog title={'createNewRoom.exe'} onCloseClick={props.closeDialog}>
             <Toolbar>
                 <TextField
+                    autoFocus
                     onKeyPress={(e) => {
                         if (e.key === 'Enter')
                             createNewRow(value, () => {

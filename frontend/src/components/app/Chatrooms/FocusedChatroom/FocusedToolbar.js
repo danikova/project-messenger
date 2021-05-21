@@ -41,6 +41,7 @@ export const FocusedToolbar = (props) => {
                 >
                     <Toolbar>
                         <TextField
+                            autoFocus
                             value={value}
                             onKeyPress={(e) => {
                                 if (e.key === 'Enter')

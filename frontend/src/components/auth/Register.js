@@ -37,6 +37,7 @@ function RegisterForm(props) {
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <FullWidthTextField
+                autoFocus
                 placeholder={intl.formatMessage({
                     id: 'auth.username',
                 })}

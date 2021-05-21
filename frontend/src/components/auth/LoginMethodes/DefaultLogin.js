@@ -29,7 +29,7 @@ export class DefaultLogin extends React.Component {
                     templateName: 'auth.login.snackbar.successful',
                 });
                 this.props.onLoginSuccess();
-            }
+            },
         );
     };
 
@@ -37,6 +37,7 @@ export class DefaultLogin extends React.Component {
         return (
             <div>
                 <FullWidthTextField
+                    autoFocus
                     placeholder={this.props.intl.formatMessage({
                         id: 'auth.username',
                     })}
