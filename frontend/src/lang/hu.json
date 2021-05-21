@@ -5,7 +5,6 @@
     "auth.login.googleBtnText": "Bejelentkezés Google profilal",
     "auth.login.facebookBtnText": "Bejelentkezés Facebook profilal",
     "auth.login.snackbar.successful": "Sikeres bejelentkezés",
-    "auth.login.snackbar.failure": "A megadott felhasználónév vagy jelszó helytelen. Kérlek regisztrálj ha nincs működő profilod.",
     "auth.login.snackbar.oAuthFailure": "Váratlan hiba történt. Kérlek próbálj más módon bejelentkezni.",
 
     "auth.register.goToLoginText": "Ha van működő profilod ",
@@ -88,7 +87,7 @@
     "api.error.auth.register.userDataInvalid": "Sikertelen regisztráció, helytelen adatok",
     "api.error.auth.register.userAlreadyRegistered": "Sikertelen regisztráció, ilyen felhasználó már létezik",
     "api.error.auth.login": "Bejelentkezés nem sikerült",
-    "api.error.auth.login.userNotExist": "Bejelentkezés nem sikerült, felhasználó nem létezik",
+    "api.error.auth.login.invalidCredentials": "Bejelentkezés nem sikerült, érvénytelen hitelesítő adatokat adtál meg",
     "api.error.auth.googleLogin": "Bejelentkezés nem sikerült Google-n keresztül",
     "api.error.auth.facebookLogin": "Bejelentkezés nem sikerült Facebook-n keresztül",
     "api.error.auth.tokenNotProvided": "",

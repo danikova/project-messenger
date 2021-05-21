@@ -56,7 +56,7 @@ exports.login = wrap(async (req, res) => {
         if (!passwordMatch)
             return res.status(401).json({
                 error: {
-                    templateName: 'api.error.auth.login.userNotExist',
+                    templateName: 'api.error.auth.login.invalidCredentials',
                 },
             });
 

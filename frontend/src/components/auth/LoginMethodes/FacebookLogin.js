@@ -26,15 +26,8 @@ export class FacebookLogin extends React.Component {
                         templateName: 'auth.login.snackbar.successful',
                     });
                     this.props.onLoginSuccess();
-                },
-                () => {
-                    this.onGoogleLoginFailure();
-                },
+                }
             );
-        else
-            enqueueSnackbar({
-                templateName: 'auth.login.snackbar.failure',
-            });
     };
 
     render() {

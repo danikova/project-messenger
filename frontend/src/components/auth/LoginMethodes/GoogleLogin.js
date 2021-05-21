@@ -15,17 +15,8 @@ export class GoogleLogin extends React.Component {
                     templateName: 'auth.login.snackbar.successful',
                 });
                 this.props.onLoginSuccess();
-            },
-            () => {
-                this.onGoogleLoginFailure();
-            },
+            }
         );
-    };
-
-    onGoogleLoginFailure = (res) => {
-        enqueueSnackbar({
-            templateName: 'auth.login.snackbar.failure',
-        });
     };
 
     render() {
@@ -33,7 +24,6 @@ export class GoogleLogin extends React.Component {
             <ReactGoogleLogin
                 clientId='890308939368-2o9ige6ektotc4csofkt5liusl22rdep.apps.googleusercontent.com'
                 onSuccess={this.onGoogleLoginSuccess}
-                onFailure={this.onGoogleLoginFailure}
                 cookiePolicy={'single_host_origin'}
                 buttonText={this.props.intl.formatMessage({
                     id: 'auth.login.googleBtnText',

@@ -5,7 +5,6 @@
     "auth.login.googleBtnText": "Sign in with Google",
     "auth.login.facebookBtnText": "Sign in with Facebook",
     "auth.login.snackbar.successful": "Successful login",
-    "auth.login.snackbar.failure": "Username or password is invalid. Please register if you dont have a valid account",
     "auth.login.snackbar.oAuthFailure": "Something happend. Please try other login methode.",
 
     "auth.register.goToLoginText": "If you have a valid account ",
@@ -88,7 +87,7 @@
     "api.error.auth.register.userDataInvalid": "Register failed, user data invalid",
     "api.error.auth.register.userAlreadyRegistered": "Register failed, user already registered",
     "api.error.auth.login": "Login failed",
-    "api.error.auth.login.userNotExist": "Login failed, user not exist",
+    "api.error.auth.login.invalidCredentials": "Login failed, invalid credentials",
     "api.error.auth.googleLogin": "Login via Google failed",
     "api.error.auth.facebookLogin": "Login via Facebook failed",
     "api.error.auth.tokenNotProvided": "",

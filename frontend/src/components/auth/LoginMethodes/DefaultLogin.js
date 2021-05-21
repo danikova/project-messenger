@@ -29,12 +29,7 @@ export class DefaultLogin extends React.Component {
                     templateName: 'auth.login.snackbar.successful',
                 });
                 this.props.onLoginSuccess();
-            },
-            () => {
-                enqueueSnackbar({
-                    templateName: 'auth.login.snackbar.failure',
-                });
-            },
+            }
         );
     };
 
