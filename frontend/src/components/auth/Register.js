@@ -6,10 +6,11 @@ import { Redirect } from 'react-router-dom';
 import { TextField, Button, Anchor } from 'react95';
 import styled from 'styled-components';
 import Axios from 'axios';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage, injectIntl, useIntl } from 'react-intl';
 import { Helmet } from 'react-helmet';
 import { API_REGISTER_URL, FRONTEND_LOGIN_URL } from '../../routes';
 import { enqueueSnackbar } from '../../store/actions/notifications.action';
+import { useForm } from 'react-hook-form';
 
 const FullWidthTextField = styled(TextField)`
     width: 100%;
@@ -21,11 +22,43 @@ const AnchorWrapper = styled.h1`
     margin-top: -5px;
 `;
 
+function RegisterForm(props) {
+    const { register, handleSubmit } = useForm();
+    const intl = useIntl();
+    const onSubmit = (data) => {
+        const request = Axios({
+            method: 'post',
+            url: API_REGISTER_URL,
+            data,
+        });
+        request.then(props.onSuccess);
+    };
+
+    return (
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <FullWidthTextField
+                placeholder={intl.formatMessage({
+                    id: 'auth.username',
+                })}
+                {...register('username')}
+            />
+            <FullWidthTextField
+                placeholder={intl.formatMessage({
+                    id: 'auth.password',
+                })}
+                type='password'
+                {...register('password')}
+            />
+            <Button fullWidth type='submit' style={{ marginLeft: '2px' }}>
+                <FormattedMessage id='auth.register.btnText' />
+            </Button>
+        </form>
+    );
+}
+
 export class Register extends React.Component {
     state = {
         registerSuccess: false,
-        username: '',
-        password: '',
     };
 
     render() {
@@ -49,49 +82,14 @@ export class Register extends React.Component {
                         <FormattedMessage id='auth.register.loginLink' />
                     </Anchor>
                 </AnchorWrapper>
-                <FullWidthTextField
-                    placeholder={this.props.intl.formatMessage({
-                        id: 'auth.username',
-                    })}
-                    value={this.state.username}
-                    onChange={(e) =>
-                        this.setState({ username: e.target.value })
-                    }
-                />
-                <FullWidthTextField
-                    placeholder={this.props.intl.formatMessage({
-                        id: 'auth.password',
-                    })}
-                    value={this.state.password}
-                    onChange={(e) =>
-                        this.setState({ password: e.target.value })
-                    }
-                    type='password'
-                />
-                <Button
-                    fullWidth
-                    onClick={() => {
-                        const request = Axios({
-                            method: 'post',
-                            url: API_REGISTER_URL,
-                            data: {
-                                username: this.state.username,
-                                password: this.state.password,
-                            },
-                        });
-                        request.then(() => {
-                            this.setState({ registerSuccess: true });
-                            enqueueSnackbar({
-                                templateName:
-                                    'auth.register.snackbar.successful',
-                            });
+                <RegisterForm
+                    onSuccess={() => {
+                        this.setState({ registerSuccess: true });
+                        enqueueSnackbar({
+                            templateName: 'auth.register.snackbar.successful',
                         });
                     }}
-                    style={{ marginLeft: '2px' }}
-                    disabled={!this.state.username || !this.state.password}
-                >
-                    <FormattedMessage id='auth.register.btnText' />
-                </Button>
+                />
             </Dialog>
         );
     }
