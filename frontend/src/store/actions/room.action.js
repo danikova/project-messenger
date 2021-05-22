@@ -108,7 +108,7 @@ export function loadOlderMessages(roomId, number, cb, errCb) {
         });
         const request = Axios({
             method: 'post',
-            url: UrlTemplate.parse(API_ROOM_DETAIL_MESSAGE_FROM_URL).expand({
+            url: UrlTemplate.parse(API_ROOM_DETAIL_MESSAGES_FROM_URL).expand({
                 roomId,
             }),
             headers: {
