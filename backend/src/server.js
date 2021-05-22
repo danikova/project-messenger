@@ -1,7 +1,6 @@
 const config = require('config');
 const express = require('express');
 const http = require('http');
-const listEndpoints = require('express-list-endpoints');
 const morgan = require('morgan');
 
 const databaseSetup = require('./services/database.setup');
@@ -28,6 +27,7 @@ for (const key of ['privatekey', 'googleClientId']) {
 //    Initial setup
 //
 // -----------------------------------------
+const NODE_ENV = process.env.NODE_ENV;
 const app = express();
 const server = http.createServer(app);
 
@@ -36,7 +36,16 @@ const server = http.createServer(app);
 //    Middlewares
 //
 // -----------------------------------------
-app.use(morgan('dev'));
+if (NODE_ENV === 'dev') {
+    app.use(morgan('dev'));
+    app.use(express.static('public'));
+} else {
+    app.use(
+        morgan(
+            '[:date[clf]] :status :method :url :res[content-length] - :response-time ms',
+        ),
+    );
+}
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -45,7 +54,6 @@ app.use(express.urlencoded({ extended: true }));
 //    Views
 //
 // -----------------------------------------
-app.get('/api/', (req, res) => res.status(200).json(listEndpoints(app)));
 app.use('/api/', setApiRoutes());
 app.use('/auth/', setAuthRoutes());
 
