@@ -4,8 +4,8 @@
   "description": "node js backend for messenger",
   "main": "src/server.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=dev nodemon src/server.js",
-    "test": "cross-env NODE_ENV=test jest --testTimeout=10000"
+    "start": "NODE_ENV=development && nodemon src/server.js",
+    "test": "NODE_ENV=test && jest --testTimeout=10000"
   },
   "author": "Daniel Kovacs",
   "license": "ISC",
@@ -26,7 +26,6 @@
     "socket.io": "^2.3.0"
   },
   "devDependencies": {
-    "cross-env": "^7.0.2",
     "jest": "^26.0.1",
     "mongodb-memory-server": "^6.6.1",
     "nodemon": "^2.0.7",
