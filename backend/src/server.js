@@ -47,7 +47,15 @@ if (NODE_ENV === 'development') {
         ),
     );
 }
-app.use(fileUpload());
+app.use(
+    fileUpload({
+        createParentPath: true,
+        limits: { fileSize: 50 * 1024 * 1024 },
+        uploadTimeout: 0,
+        useTempFiles: true,
+        tempFileDir: '/tmp/',
+    }),
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
