@@ -1,6 +1,6 @@
 const Joi = require('@hapi/joi');
 const axios = require('axios');
-const User = require('../api/users/model');
+const User = require('../users/model');
 const config = require('config');
 const { OAuth2Client } = require('google-auth-library');
 

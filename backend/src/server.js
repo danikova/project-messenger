@@ -8,7 +8,7 @@ const startSocketIO = require('./socket');
 const { info, error, fatal } = require('./services/colored.logger');
 
 const setApiRoutes = require('./api/routes');
-const setAuthRoutes = require('./auth/routes');
+const setAuthRoutes = require('./api/auth/routes');
 
 // -----------------------------------------
 //
@@ -36,7 +36,7 @@ const server = http.createServer(app);
 //    Middlewares
 //
 // -----------------------------------------
-if (NODE_ENV === 'dev') {
+if (NODE_ENV === 'development') {
     app.use(morgan('dev'));
     app.use(express.static('public'));
 } else {

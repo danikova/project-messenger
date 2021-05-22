@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
-const User = require('../api/users/model');
-const wrap = require('../services/async.view.wrapper');
+const User = require('../users/model');
+const wrap = require('../../services/async.view.wrapper');
 const {
     validateUser,
     findOrCreateOAuthUser,
