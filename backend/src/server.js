@@ -2,6 +2,7 @@ const config = require('config');
 const express = require('express');
 const http = require('http');
 const morgan = require('morgan');
+const fileUpload = require('express-fileupload');
 
 const databaseSetup = require('./services/database.setup');
 const startSocketIO = require('./socket');
@@ -46,6 +47,7 @@ if (NODE_ENV === 'development') {
         ),
     );
 }
+app.use(fileUpload());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
