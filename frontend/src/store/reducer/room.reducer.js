@@ -2,7 +2,7 @@ import {
     ROOM_READ_SUCCESS,
     ROOM_READ_FAILURE,
     ROOM_DETAILS_SUCCESS,
-    PUSH_NEW_MESSAGE,
+    PUSH_NEW_MESSAGE_SUCCESS,
     ROOM_MORE_MESSAGE_SUCCESS,
 } from '../constants/room.constant';
 
@@ -44,7 +44,7 @@ export function rooms(
                     },
                 };
             return { ...state };
-        case PUSH_NEW_MESSAGE:
+        case PUSH_NEW_MESSAGE_SUCCESS:
             state = { ...state };
             if (state.activeRoom && state.activeRoom._id === action.roomId)
                 state.activeRoom.messages.push({

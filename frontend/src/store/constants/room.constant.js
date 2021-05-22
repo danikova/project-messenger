@@ -10,7 +10,9 @@ export const ROOM_MORE_MESSAGE_REQUEST = 'api/room.more.message.request';
 export const ROOM_MORE_MESSAGE_SUCCESS = 'api/room.more.message.success';
 export const ROOM_MORE_MESSAGE_FAILURE = 'api/room.more.message.failure';
 
-export const PUSH_NEW_MESSAGE = 'api/room.push.new.message';
+export const PUSH_NEW_MESSAGE_REQUEST = 'api/room.push.new.message.request';
+export const PUSH_NEW_MESSAGE_SUCCESS = 'api/room.push.new.message.success';
+export const PUSH_NEW_MESSAGE_FAILURE = 'api/room.push.new.message.failure';
 
 export const CREATE_NEW_ROOM_REQUEST = 'api/create.new.room.request';
 export const LEAVE_ROOM_REQUEST = 'api/leave.room.request';

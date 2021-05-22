@@ -7,13 +7,15 @@ import {
     ROOM_DETAILS_REQUEST,
     ROOM_DETAILS_SUCCESS,
     ROOM_DETAILS_FAILURE,
-    PUSH_NEW_MESSAGE,
+    PUSH_NEW_MESSAGE_SUCCESS,
     CREATE_NEW_ROOM_REQUEST,
     LEAVE_ROOM_REQUEST,
     ADD_USER_TO_ROOM_REQUEST,
     ROOM_MORE_MESSAGE_REQUEST,
     ROOM_MORE_MESSAGE_SUCCESS,
     ROOM_MORE_MESSAGE_FAILURE,
+    PUSH_NEW_MESSAGE_REQUEST,
+    PUSH_NEW_MESSAGE_FAILURE,
 } from '../constants/room.constant';
 import { TOKEN_COOKIE } from '../constants/user.constant';
 import { getCookie } from '../../shared/cookie.service';
@@ -23,8 +25,9 @@ import {
     API_ROOMS_URL,
     API_ROOM_DETAIL_URL,
     API_ROOM_DETAIL_ADD_USER_URL,
-    API_ROOM_DETAIL_MESSAGE_FROM_URL,
+    API_ROOM_DETAIL_MESSAGES_FROM_URL,
     API_ROOM_DETAIL_REMOVE_SELF_URL,
+    API_ROOM_DETAIL_PUSH_MESSAGE_URL,
 } from '../../routes';
 import UrlTemplate from 'url-template';
 
@@ -94,7 +97,7 @@ export function getRoomDetail(roomId, cb, errCb) {
 export function pushMessage(id, message) {
     store.dispatch((dispatch) => {
         dispatch({
-            type: PUSH_NEW_MESSAGE,
+            type: PUSH_NEW_MESSAGE_SUCCESS,
             roomId: id,
             message,
         });
@@ -137,23 +140,48 @@ export function loadOlderMessages(roomId, number, cb, errCb) {
     });
 }
 
-export function pushActiveMessage(messageString) {
+export function pushActiveMessage(messageString, cb, errCb) {
     store.dispatch((dispatch, getState) => {
         const { user, rooms } = getState();
-        const { activeRoom } = rooms;
-        if (activeRoom) {
-            const message = {
-                userId: user.data._id,
+        const roomId = rooms && rooms.activeRoom && rooms.activeRoom._id;
+        dispatch({
+            type: PUSH_NEW_MESSAGE_REQUEST,
+        });
+        const request = Axios({
+            method: 'post',
+            url: UrlTemplate.parse(API_ROOM_DETAIL_PUSH_MESSAGE_URL).expand({
+                roomId,
+            }),
+            headers: {
+                'x-access-token': getCookie(TOKEN_COOKIE),
+            },
+            data: {
                 message: messageString,
-                sent: new Date().toISOString(),
-                _id: `temp-${uuid()}`,
-            };
-            dispatch({
-                type: PUSH_NEW_MESSAGE,
-                roomId: activeRoom._id,
-                message,
-            });
-        }
+            },
+        });
+        request.then(
+            (response) => {
+                const message = {
+                    userId: user.data._id,
+                    message: messageString,
+                    sent: new Date().toISOString(),
+                    _id: `temp-${uuid()}`,
+                };
+                dispatch({
+                    type: PUSH_NEW_MESSAGE_SUCCESS,
+                    roomId,
+                    message,
+                });
+                cb && cb(response);
+            },
+            (error) => {
+                dispatch({
+                    type: PUSH_NEW_MESSAGE_FAILURE,
+                    error: { ...error },
+                });
+                errCb && errCb(error);
+            },
+        );
     });
 }
 

@@ -16,7 +16,6 @@ import {
     pushActiveMessage,
 } from '../../../../store/actions/room.action';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { withSocket } from '../../SocketWrapper';
 import { Helmet } from 'react-helmet';
 
 const ContentWrapper = styled.div`
@@ -53,19 +52,8 @@ export class FocusedChatroomWindow extends React.Component {
 
     state = { value: '', processing: false };
 
-    onPushMessageSuccess = () => {
-        pushActiveMessage(this.state.value);
-        this.setState({ value: '', processing: false });
-        this.textArea.focus();
-    };
-
     componentDidMount() {
         getRoomDetail(this.props.focusedRoomId);
-        this.props.socket.on('pushMessageSuccess', this.onPushMessageSuccess);
-    }
-
-    componentWillUnmount() {
-        this.props.socket.off('pushMessageSuccess', this.onPushMessageSuccess);
     }
 
     onTextAreaChange = (e) => {
@@ -83,9 +71,9 @@ export class FocusedChatroomWindow extends React.Component {
     onSendButtonClick = () => {
         const { activeRoom } = this.props.rooms || {};
         if (activeRoom && !this.state.processing && this.state.value.trim()) {
-            this.props.socket.emit('pushMessage', {
-                roomId: activeRoom._id,
-                message: this.state.value,
+            pushActiveMessage(this.state.value, () => {
+                this.setState({ value: '', processing: false });
+                this.textArea.focus();
             });
             this.setState({ processing: true });
         }
@@ -171,6 +159,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default withSocket(
-    injectIntl(connect(mapStateToProps)(FocusedChatroomWindow)),
-);
+export default injectIntl(connect(mapStateToProps)(FocusedChatroomWindow));
