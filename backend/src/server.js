@@ -66,6 +66,7 @@ app.use(function (req, res, next) {
     res.status(404).send({
         error: {
             templateName: 'api.error.404',
+            status: 404,
         },
     });
 });
@@ -84,6 +85,7 @@ app.use(function (err, req, res, next) {
         error: {
             templateName: 'api.error.500',
             consoleLog: err.toString(),
+            status: 500,
         },
     });
 });

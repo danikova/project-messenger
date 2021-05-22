@@ -8,6 +8,7 @@ module.exports = async (req, res, next) => {
         return res.status(401).json({
             error: {
                 templateName: 'api.error.auth.tokenNotProvided',
+                status: 401,
             },
         });
 
@@ -26,6 +27,7 @@ module.exports = async (req, res, next) => {
             error: {
                 templateName: 'api.error.auth.invalidToken',
                 consoleLog: err.toString(),
+                status: 401,
             },
         });
     }

@@ -19,6 +19,7 @@ exports.createRoom = wrap(async (req, res) => {
             error: {
                 templateName: 'api.error.rooms.createRoom',
                 consoleLog: err.toString(),
+                status: 400,
             },
         });
     }
@@ -39,6 +40,7 @@ exports.getRooms = wrap(async (req, res) => {
             error: {
                 templateName: 'api.error.rooms.getRooms',
                 consoleLog: err.toString(),
+                status: 400,
             },
         });
     }
@@ -57,6 +59,7 @@ exports.getRoom = wrap(async (req, res) => {
             error: {
                 templateName: 'api.error.rooms.getRoom',
                 consoleLog: err.toString(),
+                status: 400,
             },
         });
     }
@@ -89,6 +92,7 @@ exports.messagesFrom = wrap(async (req, res) => {
             error: {
                 templateName: 'api.error.rooms.messageFrom',
                 consoleLog: err.toString(),
+                status: 400,
             },
         });
     }
@@ -118,6 +122,7 @@ exports.addUserToRoom = wrap(async (req, res) => {
                 templateName: 'api.error.rooms.addUserToRoom',
                 templateVariables: { username },
                 consoleLog: err.toString(),
+                status: 400,
             },
         });
     }
@@ -125,6 +130,7 @@ exports.addUserToRoom = wrap(async (req, res) => {
         error: {
             templateName: 'api.error.rooms.addUserToRoom.noUserFound',
             templateVariables: { username },
+            status: 400,
         },
     });
 });
@@ -150,6 +156,7 @@ const removeUserFromRoom = wrap(async (req, res) => {
                 templateName: 'api.error.rooms.removeUserFromRoom',
                 templateVariables: { username },
                 consoleLog: err.toString(),
+                status: 400,
             },
         });
     }
@@ -157,6 +164,7 @@ const removeUserFromRoom = wrap(async (req, res) => {
         error: {
             templateName: 'api.error.rooms.removeUserFromRoom.noUserFound',
             templateVariables: { username },
+            status: 400,
         },
     });
 });

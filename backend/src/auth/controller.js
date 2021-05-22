@@ -16,6 +16,7 @@ exports.register = wrap(async (req, res) => {
             error: {
                 templateName: 'api.error.auth.register.userDataInvalid',
                 consoleLog: err.toString(),
+                status: 400,
             },
         });
     }
@@ -24,6 +25,7 @@ exports.register = wrap(async (req, res) => {
         return res.status(400).json({
             error: {
                 templateName: 'api.error.auth.register.userAlreadyRegistered',
+                status: 400,
             },
         });
 
@@ -37,6 +39,7 @@ exports.register = wrap(async (req, res) => {
             error: {
                 templateName: 'api.error.auth.register',
                 consoleLog: err.toString(),
+                status: 400,
             },
         });
     }
@@ -57,15 +60,17 @@ exports.login = wrap(async (req, res) => {
             return res.status(401).json({
                 error: {
                     templateName: 'api.error.auth.login.invalidCredentials',
+                    status: 401,
                 },
             });
 
         res.status(200).json(user.selfJson());
     } catch (err) {
-        res.status(400).json({
+        res.status(401).json({
             error: {
                 templateName: 'api.error.auth.login',
                 consoleLog: err.toString(),
+                status: 401,
             },
         });
     }
@@ -86,6 +91,7 @@ exports.googleLogin = wrap(async (req, res) => {
             error: {
                 templateName: 'api.error.auth.googleLogin',
                 consoleLog: err.toString(),
+                status: 401,
             },
         });
     }
@@ -107,6 +113,7 @@ exports.facebookLogin = wrap(async (req, res) => {
             error: {
                 templateName: 'api.error.auth.facebookLogin',
                 consoleLog: err.toString(),
+                status: 401,
             },
         });
     }

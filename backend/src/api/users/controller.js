@@ -10,6 +10,7 @@ exports.getSelf = wrap(async (req, res) => {
             error: {
                 templateName: 'api.error.users.getSelf',
                 consoleLog: err.toString(),
+                status: 400,
             },
         });
     }
@@ -27,6 +28,7 @@ exports.getUser = wrap(async (req, res) => {
             error: {
                 templateName: 'api.error.users.getUser',
                 consoleLog: err.toString(),
+                status: 400,
             },
         });
     }
@@ -53,6 +55,7 @@ exports.updateSelf = wrap(async (req, res) => {
             error: {
                 templateName: 'api.error.users.updateSelf',
                 consoleLog: err.toString(),
+                status: 400,
             },
         });
     }
