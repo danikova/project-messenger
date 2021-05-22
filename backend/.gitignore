@@ -119,3 +119,5 @@ dist
 config
 !config/test.json
 !config/__template__.json
+
+media
