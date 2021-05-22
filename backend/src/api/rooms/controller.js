@@ -10,8 +10,7 @@ const roomMessageCount = config.get('api.room.messageCount') || 50;
 exports.createRoom = wrap(async (req, res) => {
     try {
         const room = await Rooms.create({ name: req.body.name });
-        const users = req.body.users || [req.user.username];
-        await room.addUser(users);
+        await room.addUser(req.user);
         room.save();
         return res.status(201).json((room && room.toJSON()) || {});
     } catch (err) {
