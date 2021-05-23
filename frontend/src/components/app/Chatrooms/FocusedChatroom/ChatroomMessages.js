@@ -8,8 +8,6 @@ import { loadOlderMessages } from '../../../../store/actions/room.action';
 import { FormattedMessage } from 'react-intl';
 
 const MessageCutout = styled(Cutout)`
-    flex: 1 0;
-    max-height: calc(100% - 78px);
     margin-bottom: 20px;
     position: relative;
 `;
@@ -102,6 +100,7 @@ export class ChatroomMessages extends React.Component {
         const messages = activeRoom ? activeRoom.messages : [];
         return (
             <MessageCutout
+                className={this.props.className}
                 ref={(el) => (this.container = el ? el.firstChild : el)}
             >
                 {this.activeRoomHasOlderMessages() && (

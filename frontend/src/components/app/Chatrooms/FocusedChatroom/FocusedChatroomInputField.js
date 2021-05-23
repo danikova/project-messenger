@@ -7,6 +7,7 @@ import { FormattedMessage } from 'react-intl';
 import { useDropzone } from 'react-dropzone';
 import { FaFileUpload, FaPaperPlane } from 'react-icons/fa';
 import ContentEditable from 'react-contenteditable';
+import { pushActiveMessage } from '../../../../store/actions/room.action';
 
 const CustomTextarea = styled(({ className, value, ...props }) => {
     return (
@@ -22,17 +23,17 @@ const CustomTextarea = styled(({ className, value, ...props }) => {
     );
 })`
     background: white;
+    cursor: text;
 
     & > div {
-        min-height: 70px;
+        min-height: 62px;
     }
 
     .textarea {
         background: white;
         display: block;
         width: calc(100% + 12px);
-        line-height: 20px;
-        min-height: 74px;
+        min-height: 54px;
         height: 100%;
         max-height: 140px;
         resize: none;
@@ -60,6 +61,11 @@ const InputField = styled.div`
         width: 100%;
     }
 
+    .btn-group {
+        height: 70px;
+        max-height: 70px;
+    }
+
     .half-height {
         height: 50%;
     }
@@ -69,17 +75,22 @@ const InputField = styled.div`
     }
 `;
 
-export function FocusedChatroomInputField({ disabled, onFlushMessage }) {
+const ContentGrid = styled(MaxHeightGrid)`
+    align-items: flex-end;
+`;
+
+export function FocusedChatroomInputField({ disabled, focusedRoomId }) {
     const message = useRef('');
     const [files, setFiles] = useState([]);
-    const [sendDisabled, setSendDisabled] = useState(disabled);
+    const [processing, setProcessing] = useState(false);
+    const [sendDisabled, setSendDisabled] = useState(processing);
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop: (droppedFiles) => {
             const newFiles = [...files, ...droppedFiles];
             setFiles(newFiles);
             setSendDisabled(
-                disabled || (!message.current && newFiles.length === 0),
+                processing || (!message.current && newFiles.length === 0),
             );
         },
     });
@@ -87,22 +98,32 @@ export function FocusedChatroomInputField({ disabled, onFlushMessage }) {
     const { onClick: openFileBrowser, ...rootProps } = getRootProps();
 
     const flushMessage = () => {
-        onFlushMessage && onFlushMessage(message.current, files);
+        const m = message.current.trim();
+        const f = files;
+        if (focusedRoomId && (m || f.length !== 0)) {
+            pushActiveMessage(m, f, () => {
+                message.current = '';
+                setFiles([]);
+                setSendDisabled(true);
+                setProcessing(false);
+            });
+            setProcessing(true);
+        }
     };
 
     useEffect(() => {
-        setSendDisabled(disabled || (!message.current && files.length === 0));
-    });
+        setSendDisabled(processing || (!message.current && files.length === 0));
+    }, [processing, message, files, setSendDisabled]);
 
     return (
         <InputField {...rootProps}>
             <input {...getInputProps()} />
-            <MaxHeightGrid container>
+            <ContentGrid container>
                 <Grid item xs={10} md={10}>
                     <CustomTextarea
                         autoFocus
                         rows={2}
-                        disabled={disabled}
+                        disabled={processing}
                         value={isDragActive ? '' : message.current}
                         onChange={(e) => {
                             const newMessage = e.currentTarget.innerText.trim()
@@ -110,16 +131,12 @@ export function FocusedChatroomInputField({ disabled, onFlushMessage }) {
                                 : '';
                             message.current = newMessage;
                             setSendDisabled(
-                                disabled ||
+                                processing ||
                                     (!message.current && files.length === 0),
                             );
                         }}
                         onKeyPress={(e) => {
-                            if (
-                                !e.shiftKey &&
-                                e.key === 'Enter' &&
-                                !sendDisabled
-                            ) {
+                            if (!e.shiftKey && e.key === 'Enter') {
                                 flushMessage();
                                 e.preventDefault();
                             }
@@ -132,7 +149,7 @@ export function FocusedChatroomInputField({ disabled, onFlushMessage }) {
                     />
                 </Grid>
                 <Grid item xs={2} md={2}>
-                    <Grid className='full-height' container direction='column'>
+                    <Grid className='full-height btn-group' container direction='column'>
                         <Grid className='half-height' item>
                             <Button
                                 className='full-height full-width'
@@ -146,7 +163,7 @@ export function FocusedChatroomInputField({ disabled, onFlushMessage }) {
                         <Grid className='half-height' item>
                             <Button
                                 className='full-height full-width'
-                                disabled={disabled}
+                                disabled={processing}
                                 onClick={openFileBrowser}
                             >
                                 <FaFileUpload />
@@ -154,7 +171,7 @@ export function FocusedChatroomInputField({ disabled, onFlushMessage }) {
                         </Grid>
                     </Grid>
                 </Grid>
-            </MaxHeightGrid>
+            </ContentGrid>
         </InputField>
     );
 }
