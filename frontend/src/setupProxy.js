@@ -15,6 +15,13 @@ module.exports = function (app) {
         }),
     );
     app.use(
+        '/media',
+        createProxyMiddleware({
+            target: 'http://localhost:8000',
+            changeOrigin: true,
+        }),
+    );
+    app.use(
         '/comm/socket',
         createProxyMiddleware({
             target: 'http://localhost:8000',
