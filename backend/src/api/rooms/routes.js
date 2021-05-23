@@ -8,6 +8,7 @@ module.exports = function (router) {
     roomRouter.get('/', Room.getRooms);
     roomRouter.post('/', Room.createRoom);
     roomRouter.get('/:id', Room.getRoom);
+    roomRouter.post('/:id/push-message', Room.pushMessage);
     roomRouter.post('/:id/messages-from', Room.messagesFrom);
     roomRouter.post('/:id/add-user', Room.addUser);
     // roomRouter.post('/:id/remove-user', Room.removeUserFromRoom);

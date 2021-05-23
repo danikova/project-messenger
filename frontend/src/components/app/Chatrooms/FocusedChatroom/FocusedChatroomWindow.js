@@ -71,7 +71,7 @@ export class FocusedChatroomWindow extends React.Component {
     onSendButtonClick = () => {
         const { activeRoom } = this.props.rooms || {};
         if (activeRoom && !this.state.processing && this.state.value.trim()) {
-            pushActiveMessage(this.state.value, () => {
+            pushActiveMessage(this.state.value, [], () => {
                 this.setState({ value: '', processing: false });
                 this.textArea.focus();
             });

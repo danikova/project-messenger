@@ -19,7 +19,6 @@ import {
 } from '../constants/room.constant';
 import { TOKEN_COOKIE } from '../constants/user.constant';
 import { getCookie } from '../../shared/cookie.service';
-import { v4 as uuid } from 'uuid';
 import { updateSelf } from './user.action';
 import {
     API_ROOMS_URL,
@@ -140,37 +139,33 @@ export function loadOlderMessages(roomId, number, cb, errCb) {
     });
 }
 
-export function pushActiveMessage(messageString, cb, errCb) {
+export function pushActiveMessage(messageString, files, cb, errCb) {
     store.dispatch((dispatch, getState) => {
-        const { user, rooms } = getState();
+        const { rooms } = getState();
         const roomId = rooms && rooms.activeRoom && rooms.activeRoom._id;
         dispatch({
             type: PUSH_NEW_MESSAGE_REQUEST,
         });
+        var formData = new FormData();
+        files.map((file, i) => formData.append(`file_${i}`, file[i]));
+        formData.append('message', messageString);
         const request = Axios({
             method: 'post',
             url: UrlTemplate.parse(API_ROOM_DETAIL_PUSH_MESSAGE_URL).expand({
                 roomId,
             }),
             headers: {
+                'Content-Type': 'multipart/form-data',
                 'x-access-token': getCookie(TOKEN_COOKIE),
             },
-            data: {
-                message: messageString,
-            },
+            data: formData,
         });
         request.then(
             (response) => {
-                const message = {
-                    userId: user.data._id,
-                    message: messageString,
-                    sent: new Date().toISOString(),
-                    _id: `temp-${uuid()}`,
-                };
                 dispatch({
                     type: PUSH_NEW_MESSAGE_SUCCESS,
                     roomId,
-                    message,
+                    message: response.data || {},
                 });
                 cb && cb(response);
             },

@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const User = require('../users/model');
 const wrap = require('../../services/async.view.wrapper');
 const SocketGlobals = require('../../socket/SocketGlobals');
+const { saveFilesToRoom } = require('./utils');
 
 const roomMessageCount = config.get('api.room.messageCount') || 50;
 
@@ -62,6 +63,58 @@ exports.getRoom = wrap(async (req, res) => {
             },
         });
     }
+});
+
+exports.pushMessage = wrap(async (req, res) => {
+    try {
+        const room = await Rooms.findOne({ _id: req.params.id })
+            .where('activeUsers')
+            .in(req.user);
+        if (!room)
+            return res.status(400).json({
+                error: {
+                    templateName: 'api.error.rooms.pushMessage.noRoomFound',
+                    status: 400,
+                },
+            });
+
+        let messageString = '';
+        if (req.files && Object.keys(req.files).length !== 0) {
+            const files = saveFilesToRoom(room._id, req.files);
+            for (const file of files)
+                messageString += `${
+                    file.mimetype.startsWith('image/') ? '!' : ''
+                }[${file.name}](${file.uri})\n`;
+        }
+
+        messageString += `\n${req.body.message || ''}`;
+        if (messageString) {
+            const sc = SocketGlobals.activeUsers[req.user._id] || null;
+            const message = await room.pushMessage(
+                {
+                    userId: req.user._id,
+                    message: messageString,
+                },
+                sc.socket,
+            );
+            room.save();
+            return res.status(200).json((message && message.toJSON()) || {});
+        }
+    } catch (err) {
+        return res.status(400).json({
+            error: {
+                templateName: 'api.error.rooms.pushMessage',
+                consoleLog: err.toString(),
+                status: 400,
+            },
+        });
+    }
+    return res.status(400).json({
+        error: {
+            templateName: 'api.error.rooms.pushMessage',
+            status: 400,
+        },
+    });
 });
 
 exports.messagesFrom = wrap(async (req, res) => {

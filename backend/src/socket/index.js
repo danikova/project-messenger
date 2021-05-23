@@ -2,7 +2,6 @@ const socketIO = require('socket.io');
 const tokenAuthSocket = require('../middlewares/token.auth.socket');
 const SocketConnection = require('./SocketConnection');
 
-const onPushMessage = require('./on.push.message');
 const onDisconnect = require('./on.disconnect');
 const { info, warning } = require('../services/colored.logger');
 
@@ -25,7 +24,6 @@ async function acceptAuthorizedSocket(socket) {
         socket.user.openChatroom && socket.user.openChatroom._id,
     );
     await sc.joinAllRoom();
-    socket.on('pushMessage', onPushMessage(sc));
     socket.on('disconnect', onDisconnect(sc));
 }
 
