@@ -11,6 +11,7 @@ import {
 } from '../../../shared/styled-components';
 import { ProfileInfo } from '../../../shared/ProfileInfo';
 import { useLocale } from '../../../../lang/LocaleWrapper';
+import ReactHtmlParser from 'react-html-parser';
 
 const ServerLineWrapper = styled.div`
     padding: 10px 0 0 5px;
@@ -99,7 +100,7 @@ export function ChatLines(props) {
                             ((users[userId] && users[userId].username) || '...')
                         }
                     >
-                        {message.message}
+                        {ReactHtmlParser(message.message)}
                     </LineContent>
                 </RetroTooltip>
             </ChatLineWrapper>

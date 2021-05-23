@@ -7,6 +7,7 @@ import { FRONTEND_CHATROOMS_FOCUSED_URL } from '../../../routes';
 import { NameHolder } from '../../shared/NameHolder';
 import UrlTemplate from 'url-template';
 import { historyPush } from '../../../shared/history.service';
+import ReactHtmlParser from 'react-html-parser';
 
 const ChatroomButton = styled(Button)`
     justify-content: start !important;
@@ -83,6 +84,7 @@ export class Chatroom extends React.Component {
         const { messages: m, currentUser: cu } = this.props;
         if (m.length !== 0) {
             const lastM = m[0];
+            const isFile = false;
             if (!lastM.userId && lastM.serviceMessage)
                 return (
                     <FormattedMessage
@@ -91,13 +93,27 @@ export class Chatroom extends React.Component {
                     />
                 );
             else if (cu && cu._id === lastM.userId)
-                return `You: ${lastM.message}`;
+                return (
+                    <div>
+                        <FormattedMessage id='chatrooms.roomList.selfUser' />
+                        {': '}
+                        {isFile ? (
+                            <FormattedMessage id='chatrooms.roomList.selfUser.isFileMessage' />
+                        ) : (
+                            ReactHtmlParser(lastM.message)
+                        )}
+                    </div>
+                );
 
             return (
                 <div>
                     <NameHolder userId={lastM.userId} />
                     {': '}
-                    {lastM.message}
+                    {isFile ? (
+                        <FormattedMessage id='chatrooms.roomList.otherUser.isFileMessage' />
+                    ) : (
+                        ReactHtmlParser(lastM.message)
+                    )}
                 </div>
             );
         }
