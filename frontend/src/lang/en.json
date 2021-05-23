@@ -24,6 +24,10 @@
     "appbar.startBtn.List.logout": "Logout",
     "appbar.searchPlaceholder": "search...",
 
+    "chatrooms.roomList.selfUser": "You",
+    "chatrooms.roomList.selfUser.isFileMessage": "uploaded a file",
+    "chatrooms.roomList.otherUser.isFileMessage": "uploaded a file",
+
     "chatrooms.roomList.createNewRoom.btnText": "Create new room",
     "chatrooms.roomList.createNewRoom.dialog.TextField.placeholder": "new room name",
     "chatrooms.roomList.createNewRoom.dialog.btnText": "create",

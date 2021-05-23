@@ -24,6 +24,10 @@
     "appbar.startBtn.List.logout": "Kijelentkezés",
     "appbar.searchPlaceholder": "keresés...",
 
+    "chatrooms.roomList.selfUser": "Te",
+    "chatrooms.roomList.selfUser.isFileMessage": "Feltöltöttél egy fájlt",
+    "chatrooms.roomList.otherUser.isFileMessage": "Feltöltött egy fájlt",
+
     "chatrooms.roomList.createNewRoom.btnText": "Új szoba létrehozása",
     "chatrooms.roomList.createNewRoom.dialog.TextField.placeholder": "új szoba neve",
     "chatrooms.roomList.createNewRoom.dialog.btnText": "ok",
