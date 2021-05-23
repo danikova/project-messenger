@@ -9,7 +9,7 @@ module.exports = function (router) {
     roomRouter.post('/', Room.createRoom);
     roomRouter.get('/:id', Room.getRoom);
     roomRouter.post('/:id/messages-from', Room.messagesFrom);
-    roomRouter.post('/:id/add-user', Room.addUserToRoom);
+    roomRouter.post('/:id/add-user', Room.addUser);
     // roomRouter.post('/:id/remove-user', Room.removeUserFromRoom);
     roomRouter.post('/:id/remove-self', Room.removeSelfFromRoom);
 };

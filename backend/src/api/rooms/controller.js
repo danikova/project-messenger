@@ -97,7 +97,7 @@ exports.messagesFrom = wrap(async (req, res) => {
     }
 });
 
-exports.addUserToRoom = wrap(async (req, res) => {
+exports.addUser = wrap(async (req, res) => {
     const username = (req.body && req.body.username) || '';
     try {
         const room = await Rooms.findOne({ _id: req.params.id })
