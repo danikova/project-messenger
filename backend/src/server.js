@@ -39,7 +39,7 @@ const server = http.createServer(app);
 // -----------------------------------------
 if (NODE_ENV === 'development') {
     app.use(morgan('dev'));
-    app.use(express.static('public'));
+    app.use(express.static(__dirname));
 } else {
     app.use(
         morgan(
