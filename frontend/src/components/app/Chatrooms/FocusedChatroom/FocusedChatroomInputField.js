@@ -6,22 +6,10 @@ import { MaxHeightGrid } from '../../../shared/styled-components';
 import { FormattedMessage } from 'react-intl';
 import { useDropzone } from 'react-dropzone';
 import { FaFileUpload, FaPaperPlane } from 'react-icons/fa';
-import ContentEditable from 'react-contenteditable';
 import { pushActiveMessage } from '../../../../store/actions/room.action';
+import { Editor, EditorState } from 'draft-js';
 
-const CustomTextarea = styled(({ className, value, ...props }) => {
-    return (
-        <Cutout className={className}>
-            <ContentEditable
-                className='textarea'
-                {...props}
-                role='textbox'
-                html={value}
-                tagName='span'
-            ></ContentEditable>
-        </Cutout>
-    );
-})`
+const CustomCutout = styled(Cutout)`
     background: white;
     cursor: text;
 
@@ -29,23 +17,21 @@ const CustomTextarea = styled(({ className, value, ...props }) => {
         min-height: 62px;
     }
 
-    .textarea {
+    .DraftEditor-root {
         background: white;
         display: block;
-        width: calc(100% + 12px);
+        width: 100%;
         min-height: 54px;
-        height: 100%;
         max-height: 140px;
         resize: none;
         outline: none;
         overflow: visible;
-        margin: -8px;
-        padding: 12px;
         box-sizing: border-box;
+        padding: 0 0 0 4px;
 
-        &:empty::before {
-            content: '${({ placeholder }) => placeholder}';
+        .public-DraftEditorPlaceholder-root {
             color: gray;
+            position: fixed;
         }
     }
 `;
@@ -79,77 +65,74 @@ const ContentGrid = styled(MaxHeightGrid)`
     align-items: flex-end;
 `;
 
-export function FocusedChatroomInputField({ disabled, focusedRoomId }) {
-    const message = useRef('');
+export function FocusedChatroomInputField({ focusedRoomId }) {
+    const [editorState, setEditorState] = useState(EditorState.createEmpty());
     const [files, setFiles] = useState([]);
     const [processing, setProcessing] = useState(false);
-    const [sendDisabled, setSendDisabled] = useState(processing);
+    const domEditor = useRef();
+
+    const focus = () => domEditor.current && domEditor.current.focus();
+    const onDrop = (droppedFiles) => setFiles([...files, ...droppedFiles]);
+    const getMessage = () =>
+        editorState.getCurrentContent().getPlainText('<br>').trim();
+    const getFiles = () => files;
+    const sendDisabled =
+        processing || (!getMessage() && getFiles().length === 0);
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
-        onDrop: (droppedFiles) => {
-            const newFiles = [...files, ...droppedFiles];
-            setFiles(newFiles);
-            setSendDisabled(
-                processing || (!message.current && newFiles.length === 0),
-            );
-        },
+        onDrop,
     });
 
     const { onClick: openFileBrowser, ...rootProps } = getRootProps();
 
     const flushMessage = () => {
-        const m = message.current.trim();
-        const f = files;
-        if (focusedRoomId && (m || f.length !== 0)) {
-            pushActiveMessage(m, f, () => {
-                message.current = '';
+        if (focusedRoomId && !sendDisabled) {
+            pushActiveMessage(getMessage(), getFiles(), () => {
                 setFiles([]);
-                setSendDisabled(true);
+                setEditorState(EditorState.createEmpty());
                 setProcessing(false);
+                focus();
             });
             setProcessing(true);
         }
     };
 
     useEffect(() => {
-        setSendDisabled(processing || (!message.current && files.length === 0));
-    }, [processing, message, files, setSendDisabled]);
+        focus();
+    }, []);
 
     return (
-        <InputField {...rootProps}>
-            <input {...getInputProps()} />
+        <InputField {...rootProps} tabIndex={-1} onClick={focus}>
+            <input {...getInputProps()} tabIndex={-1} />
             <ContentGrid container>
                 <Grid item xs={10} md={10}>
-                    <CustomTextarea
-                        autoFocus
-                        rows={2}
-                        disabled={processing}
-                        value={isDragActive ? '' : message.current}
-                        onChange={(e) => {
-                            const newMessage = e.currentTarget.innerText.trim()
-                                ? e.target.value
-                                : '';
-                            message.current = newMessage;
-                            setSendDisabled(
-                                processing ||
-                                    (!message.current && files.length === 0),
-                            );
-                        }}
-                        onKeyPress={(e) => {
-                            if (!e.shiftKey && e.key === 'Enter') {
-                                flushMessage();
-                                e.preventDefault();
+                    <CustomCutout>
+                        <Editor
+                            editorState={editorState}
+                            onChange={setEditorState}
+                            placeholder={
+                                isDragActive
+                                    ? 'Drop the files here ...'
+                                    : 'Type something or drag n drop files ...'
                             }
-                        }}
-                        placeholder={
-                            isDragActive
-                                ? 'Drop the files here ...'
-                                : 'Type something or drag n drop files ...'
-                        }
-                    />
+                            keyBindingFn={(e) => {
+                                if (!e.shiftKey && e.key === 'Enter') {
+                                    flushMessage();
+                                    e.preventDefault();
+                                }
+                            }}
+                            readOnly={processing}
+                            spellCheck
+                            ref={domEditor}
+                        />
+                    </CustomCutout>
                 </Grid>
                 <Grid item xs={2} md={2}>
-                    <Grid className='full-height btn-group' container direction='column'>
+                    <Grid
+                        className='full-height btn-group'
+                        container
+                        direction='column'
+                    >
                         <Grid className='half-height' item>
                             <Button
                                 className='full-height full-width'
