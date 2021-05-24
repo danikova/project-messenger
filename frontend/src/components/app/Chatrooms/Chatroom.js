@@ -85,6 +85,10 @@ export class Chatroom extends React.Component {
         if (m.length !== 0) {
             const lastM = m[0];
             const isFile = false;
+            const messageString = (lastM.message || '').replace(
+                /<br>/gm,
+                '&nbsp;&nbsp;',
+            );
             if (!lastM.userId && lastM.serviceMessage)
                 return (
                     <FormattedMessage
@@ -100,7 +104,7 @@ export class Chatroom extends React.Component {
                         {isFile ? (
                             <FormattedMessage id='chatrooms.roomList.selfUser.isFileMessage' />
                         ) : (
-                            ReactHtmlParser(lastM.message)
+                            ReactHtmlParser(messageString)
                         )}
                     </div>
                 );
@@ -112,7 +116,7 @@ export class Chatroom extends React.Component {
                     {isFile ? (
                         <FormattedMessage id='chatrooms.roomList.otherUser.isFileMessage' />
                     ) : (
-                        ReactHtmlParser(lastM.message)
+                        ReactHtmlParser(messageString)
                     )}
                 </div>
             );
