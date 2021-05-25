@@ -7,7 +7,7 @@ import { FormattedMessage } from 'react-intl';
 import { useDropzone } from 'react-dropzone';
 import { FaFileUpload, FaPaperPlane } from 'react-icons/fa';
 import { pushActiveMessage } from '../../../../store/actions/room.action';
-import { Editor, EditorState } from 'draft-js';
+import { Editor, EditorState, getDefaultKeyBinding } from 'draft-js';
 
 const CustomCutout = styled(Cutout)`
     background: white;
@@ -74,7 +74,11 @@ export function FocusedChatroomInputField({ focusedRoomId }) {
     const focus = () => domEditor.current && domEditor.current.focus();
     const onDrop = (droppedFiles) => setFiles([...files, ...droppedFiles]);
     const getMessage = () =>
-        editorState.getCurrentContent().getPlainText('<br>').trim();
+        editorState
+            .getCurrentContent()
+            .getPlainText()
+            .trim()
+            .replace(/(\r\n|\r|\n)/gm, '<br>');
     const getFiles = () => files;
     const sendDisabled =
         processing || (!getMessage() && getFiles().length === 0);
@@ -116,10 +120,16 @@ export function FocusedChatroomInputField({ focusedRoomId }) {
                                     : 'Type something or drag n drop files ...'
                             }
                             keyBindingFn={(e) => {
-                                if (!e.shiftKey && e.key === 'Enter') {
+                                if (!e.shiftKey && e.key === 'Enter')
+                                    return 'flush-messages';
+                                return getDefaultKeyBinding(e);
+                            }}
+                            handleKeyCommand={(command) => {
+                                if (command === 'flush-messages') {
                                     flushMessage();
-                                    e.preventDefault();
+                                    return 'handled';
                                 }
+                                return 'not-handled';
                             }}
                             readOnly={processing}
                             spellCheck
