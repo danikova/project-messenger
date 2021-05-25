@@ -111,6 +111,21 @@ export function FocusedChatroomInputField({ focusedRoomId }) {
             <ContentGrid container>
                 <Grid item xs={10} md={10}>
                     <CustomCutout>
+                        <FileCarousel
+                            files={getFiles()}
+                            getSrc={(file, setSrc) => {
+                                if (file.type.startsWith('image'))
+                                    fileToBase64(file).then(setSrc);
+                            }}
+                            getType={(file) =>
+                                file.type.startsWith('image') ? 'image' : 'file'
+                            }
+                            onDeleteClick={(index) => {
+                                setFiles([
+                                    ...files.filter((item, i) => i !== index),
+                                ]);
+                            }}
+                        />
                         <Editor
                             editorState={editorState}
                             onChange={setEditorState}
