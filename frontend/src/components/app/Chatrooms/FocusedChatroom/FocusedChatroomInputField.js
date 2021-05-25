@@ -8,6 +8,12 @@ import { useDropzone } from 'react-dropzone';
 import { FaFileUpload, FaPaperPlane } from 'react-icons/fa';
 import { pushActiveMessage } from '../../../../store/actions/room.action';
 import { Editor, EditorState, getDefaultKeyBinding } from 'draft-js';
+import { FileCarousel } from './FileCarousel';
+import { fileToBase64 } from '../../../../shared/utils';
+
+const oneMb = 1000000;
+const maxFileSize = 15 * oneMb;
+const maxFileCount = 9;
 
 const CustomCutout = styled(Cutout)`
     background: white;
@@ -72,7 +78,12 @@ export function FocusedChatroomInputField({ focusedRoomId }) {
     const domEditor = useRef();
 
     const focus = () => domEditor.current && domEditor.current.focus();
-    const onDrop = (droppedFiles) => setFiles([...files, ...droppedFiles]);
+    const onDrop = (droppedFiles) =>
+        setFiles(
+            [...files, ...droppedFiles]
+                .filter((file) => file.size < maxFileSize)
+                .slice(0, maxFileCount),
+        );
     const getMessage = () =>
         editorState
             .getCurrentContent()
@@ -171,7 +182,10 @@ export function FocusedChatroomInputField({ focusedRoomId }) {
                         <Grid className='half-height' item>
                             <Button
                                 className='full-height full-width'
-                                disabled={processing}
+                                disabled={
+                                    processing ||
+                                    getFiles().length >= maxFileCount
+                                }
                                 onClick={openFileBrowser}
                             >
                                 <FaFileUpload />
