@@ -77,26 +77,17 @@ exports.pushMessage = wrap(async (req, res) => {
                     status: 400,
                 },
             });
+        const messageObj = {
+            userId: req.user._id,
+            message: req.body.message,
+        };
 
-        let messageString = '';
-        if (req.files && Object.keys(req.files).length !== 0) {
-            const files = saveFilesToRoom(room._id, req.files);
-            for (const file of files)
-                messageString += `${
-                    file.mimetype.startsWith('image/') ? '!' : ''
-                }[${file.name}](${file.uri})\n`;
-        }
+        if (req.files && Object.keys(req.files).length !== 0)
+            messageObj.files = saveFilesToRoom(room._id, req.files);
 
-        messageString += `\n${req.body.message || ''}`;
-        if (messageString) {
+        if (messageObj.message || messageObj.files.length !== 0) {
             const sc = SocketGlobals.activeUsers[req.user._id] || null;
-            const message = await room.pushMessage(
-                {
-                    userId: req.user._id,
-                    message: messageString,
-                },
-                sc.socket,
-            );
+            const message = await room.pushMessage(messageObj, sc.socket);
             room.save();
             return res.status(200).json((message && message.toJSON()) || {});
         }

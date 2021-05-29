@@ -6,10 +6,17 @@ const serviceMessage = new Schema({
     templateVariables: { type: Object },
 });
 
+const uploadedFiles = new Schema({
+    uri: { type: String },
+    name: { type: String },
+    mimetype: { type: String },
+});
+
 const MessageSchema = new Schema({
     userId: { type: Schema.Types.ObjectId, default: null },
     message: { type: String },
     serviceMessage: serviceMessage,
+    files: [uploadedFiles],
     sent: { type: Date, default: Date.now },
     number: { type: Number },
 });

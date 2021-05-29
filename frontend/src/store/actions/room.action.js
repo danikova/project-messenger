@@ -147,7 +147,7 @@ export function pushActiveMessage(messageString, files, cb, errCb) {
             type: PUSH_NEW_MESSAGE_REQUEST,
         });
         var formData = new FormData();
-        files.map((file, i) => formData.append(`file_${i}`, file[i]));
+        files.map((file, i) => formData.append(`file_${i}`, file));
         formData.append('message', messageString);
         const request = Axios({
             method: 'post',
