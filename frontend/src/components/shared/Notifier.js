@@ -44,7 +44,7 @@ const Notifier = () => {
                         );
                     } catch {}
 
-                if (!message) return;
+                if (!message || message === templateName) return;
 
                 enqueueSnackbar(message, {
                     key,
