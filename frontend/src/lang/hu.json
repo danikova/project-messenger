@@ -44,7 +44,8 @@
     "chatrooms.focusedChatroom.loadOlderMessage.btnText": "Régebbi üzenetek betöltése",
     "chatrooms.focusedChatroom.scrollToBottom.btnText": "Görgetés az aljára",
 
-    "chatrooms.focusedChatroom.newMessage.TextField.placeholder": "kezdj el gépelni...",
+    "chatrooms.focusedChatroom.newMessage.TextField.placeholder": "kezdj el gépelni vagy dobj ide fájlokat a feltöltéshez...",
+    "chatrooms.focusedChatroom.newMessage.TextField.dndActive.placeholder": "Feltöltéshez dobd ide a fájlokat...",
     "chatrooms.focusedChatroom.newMessage.btnText": "küldés",
 
     "helmet.login.title": "Bejelentkezés",

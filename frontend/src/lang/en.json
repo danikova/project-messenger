@@ -44,7 +44,8 @@
     "chatrooms.focusedChatroom.loadOlderMessage.btnText": "Load older messages",
     "chatrooms.focusedChatroom.scrollToBottom.btnText": "Scroll to Bottom",
 
-    "chatrooms.focusedChatroom.newMessage.TextField.placeholder": "type in here...",
+    "chatrooms.focusedChatroom.newMessage.TextField.placeholder": "type something or drag n drop files...",
+    "chatrooms.focusedChatroom.newMessage.TextField.dndActive.placeholder": "Drop files here to upload...",
     "chatrooms.focusedChatroom.newMessage.btnText": "send",
 
     "helmet.login.title": "Login",

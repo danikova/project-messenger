@@ -3,7 +3,7 @@ import { Cutout, Button } from 'react95';
 import styled from 'styled-components';
 import { Grid } from '@material-ui/core';
 import { MaxHeightGrid } from '../../../shared/styled-components';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useDropzone } from 'react-dropzone';
 import { FaFileUpload, FaPaperPlane } from 'react-icons/fa';
 import { pushActiveMessage } from '../../../../store/actions/room.action';
@@ -76,6 +76,7 @@ export function FocusedChatroomInputField({ focusedRoomId }) {
     const [files, setFiles] = useState([]);
     const [processing, setProcessing] = useState(false);
     const domEditor = useRef();
+    const intl = useIntl();
 
     const focus = () => domEditor.current && domEditor.current.focus();
     const onDrop = (droppedFiles) =>
@@ -140,11 +141,11 @@ export function FocusedChatroomInputField({ focusedRoomId }) {
                         <Editor
                             editorState={editorState}
                             onChange={setEditorState}
-                            placeholder={
-                                isDragActive
-                                    ? 'Drop the files here ...'
-                                    : 'Type something or drag n drop files ...'
-                            }
+                            placeholder={intl.formatMessage({
+                                id: isDragActive
+                                    ? 'chatrooms.focusedChatroom.newMessage.TextField.dndActive.placeholder'
+                                    : 'chatrooms.focusedChatroom.newMessage.TextField.placeholder',
+                            })}
                             keyBindingFn={(e) => {
                                 if (!e.shiftKey && e.key === 'Enter')
                                     return 'flush-messages';
