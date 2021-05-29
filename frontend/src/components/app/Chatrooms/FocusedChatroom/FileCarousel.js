@@ -39,6 +39,7 @@ const CarouselBackground = styled(DialogBackground)`
         cursor: pointer;
         top: 20px;
         right: 20px;
+        z-index: 1;
     }
 
     .full-center {
