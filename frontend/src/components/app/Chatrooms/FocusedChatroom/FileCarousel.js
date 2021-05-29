@@ -6,6 +6,7 @@ import {
     DialogCloseSpan,
 } from '../../../shared/styled-components';
 import Carousel from 'react-material-ui-carousel';
+import { Magnifier } from 'react-image-magnifiers';
 
 const PreviewWrapper = styled.div`
     display: flex;
@@ -74,7 +75,11 @@ function FullviewPicture({ file, getSrc, getType, ...props }) {
 
     return (
         <div className='grid-carousel-item full-center'>
-            <img alt={file.name} src={src} {...props} />
+            {src && src.startsWith('data:') ? (
+                <img alt={file.name} src={src} {...props} />
+            ) : (
+                <Magnifier imageSrc={src} imageAlt={file.name} />
+            )}
         </div>
     );
 }
@@ -95,12 +100,12 @@ function PreviewPicture({ file, getSrc, getType, onDeleteClick, ...props }) {
     return (
         <div className='preview-avatar'>
             {onDeleteClick && (
-            <Button
-                onClick={onDeleteClick}
-                className='preview-avatar-close-btn'
-            >
-                <DialogCloseSpan>x</DialogCloseSpan>
-            </Button>
+                <Button
+                    onClick={onDeleteClick}
+                    className='preview-avatar-close-btn'
+                >
+                    <DialogCloseSpan>x</DialogCloseSpan>
+                </Button>
             )}
             <Avatar square size={50} alt={file.name} src={src} {...props}>
                 {file.name || 'File'}
