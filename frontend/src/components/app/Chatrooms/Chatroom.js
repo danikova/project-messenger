@@ -84,7 +84,7 @@ export class Chatroom extends React.Component {
         const { messages: m, currentUser: cu } = this.props;
         if (m.length !== 0) {
             const lastM = m[0];
-            const isFile = false;
+            const isFile = (lastM.files || []).length >= 1;
             const messageString = (lastM.message || '').replace(
                 /<br>/gm,
                 '&nbsp;&nbsp;',
