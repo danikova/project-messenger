@@ -12,6 +12,10 @@ import {
 import { ProfileInfo } from '../../../shared/ProfileInfo';
 import { useLocale } from '../../../../lang/LocaleWrapper';
 import ReactHtmlParser from 'react-html-parser';
+import { FileCarousel } from './FileCarousel';
+
+const getFileType = (file) =>
+    file.mimetype.startsWith('image') ? 'image' : 'file';
 
 const ServerLineWrapper = styled.div`
     padding: 10px 0 0 5px;
@@ -86,23 +90,42 @@ export function ChatLines(props) {
                         </ProfileTooltip>
                     )}
                 </ChatAvatarWrapper>
-                <RetroTooltip
-                    title={
-                        <h1>{moment(message.sent).locale(locale).fromNow()}</h1>
+                <LineContent
+                    label={
+                        userChange &&
+                        ((users[userId] && users[userId].username) || '...')
                     }
-                    placement={reverseLine ? 'left' : 'right'}
-                    enterDelay={1000}
-                    enterNextDelay={200}
                 >
-                    <LineContent
-                        label={
-                            userChange &&
-                            ((users[userId] && users[userId].username) || '...')
+                    <FileCarousel
+                        files={message.files || []}
+                        getSrc={(file, setSrc) => {
+                            if (getFileType(file) === 'image') setSrc(file.uri);
+                        }}
+                        getType={getFileType}
+                        onItemClick={(file) => {
+                            if (getFileType(file) === 'file') {
+                                const link = document.createElement('a');
+                                link.download = file.name;
+                                link.href = file.uri;
+                                document.body.appendChild(link);
+                                link.click();
+                                document.body.removeChild(link);
+                            }
+                        }}
+                    />
+                    <RetroTooltip
+                        title={
+                            <h1>
+                                {moment(message.sent).locale(locale).fromNow()}
+                            </h1>
                         }
+                        placement={reverseLine ? 'left' : 'right'}
+                        enterDelay={1000}
+                        enterNextDelay={200}
                     >
-                        {ReactHtmlParser(message.message)}
-                    </LineContent>
-                </RetroTooltip>
+                        <div>{ReactHtmlParser(message.message)}</div>
+                    </RetroTooltip>
+                </LineContent>
             </ChatLineWrapper>
         );
     });

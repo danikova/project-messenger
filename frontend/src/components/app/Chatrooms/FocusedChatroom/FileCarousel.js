@@ -9,6 +9,7 @@ import Carousel from 'react-material-ui-carousel';
 
 const PreviewWrapper = styled.div`
     display: flex;
+    flex-flow: row wrap;
 
     .preview-avatar {
         margin: 2px;
@@ -50,11 +51,13 @@ const CarouselBackground = styled(DialogBackground)`
         width: 100%;
 
         .grid-carousel-item {
-            width: 90vw;
-            height: 100vh;
+            width: 95vw;
+            height: 85vh;
 
             & > img {
-                max-height: 100%;
+                height: 90%;
+                width: 100%;
+                max-height: 90%;
                 max-width: 100%;
             }
         }
@@ -83,16 +86,24 @@ function PreviewPicture({ file, getSrc, getType, onDeleteClick, ...props }) {
         getSrc(file, setSrc);
     }, [getSrc, setSrc, file]);
 
+    if (getType(file) === 'file')
+        props.style = {
+            width: 'auto',
+            padding: '10px',
+        };
+
     return (
         <div className='preview-avatar'>
+            {onDeleteClick && (
             <Button
                 onClick={onDeleteClick}
                 className='preview-avatar-close-btn'
             >
                 <DialogCloseSpan>x</DialogCloseSpan>
             </Button>
+            )}
             <Avatar square size={50} alt={file.name} src={src} {...props}>
-                File
+                {file.name || 'File'}
             </Avatar>
         </div>
     );
@@ -164,18 +175,20 @@ export class FileCarousel extends React.Component {
     }
 
     render() {
-        console.log(this.props.files);
         if (this.props.files.length === 0) return null;
         return (
             <PreviewWrapper>
                 {this.props.files.map((file, i) => (
                     <PreviewPicture
                         key={`${i}_${file.name}_${file.size}_${file.lastModified}`}
-                        onDeleteClick={() =>
-                            this.props.onDeleteClick &&
-                            this.props.onDeleteClick(i)
+                        onDeleteClick={
+                            this.props.onDeleteClick
+                                ? () => this.props.onDeleteClick(i)
+                                : null
                         }
                         onClick={() => {
+                            this.props.onItemClick &&
+                                this.props.onItemClick(file, i);
                             const carouselIndex =
                                 this.state.carouselFilesMap[i];
                             if (carouselIndex >= 0)
