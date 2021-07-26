@@ -4,8 +4,7 @@
   "description": "node js backend for project-messenger",
   "main": "backend/src/server.js",
   "scripts": {
-    "start": "NODE_ENV=production && nodemon backend/src/server.js",
-    "start_dev": "NODE_ENV=development && nodemon backend/src/server.js",
+    "start": "NODE_ENV=production && node backend/src/server.js",
     "build": "cd frontend && npm install && npm run build"
   },
   "author": "Daniel Kovacs",
