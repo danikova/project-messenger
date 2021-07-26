@@ -22,6 +22,7 @@ export function Settings() {
         backgroundColor,
     } = useSelector((state) => state.settings);
     const handleChangeWrapper = (action) => (e) => action(e.target.value);
+    let colorChangeTimeout = null;
     return (
         <div>
             <Fieldset
@@ -32,7 +33,12 @@ export function Settings() {
                 <Pad>
                     <ColorInput
                         defaultValue={backgroundColor}
-                        onChange={handleChangeWrapper(setBackgroundColor)}
+                        onChange={(e) => {
+                            clearTimeout(colorChangeTimeout);
+                            colorChangeTimeout = setTimeout(() => {
+                                handleChangeWrapper(setBackgroundColor)(e);
+                            }, 500);
+                        }}
                     />
                 </Pad>
             </Fieldset>
