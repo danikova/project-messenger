@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const http = require('http');
 const morgan = require('morgan');
@@ -15,7 +17,6 @@ const setAuthRoutes = require('./api/auth/routes');
 //    Initial setup
 //
 // -----------------------------------------
-require('dotenv').config();
 
 const NODE_ENV = process.env.NODE_ENV;
 const PORT = process.env.PORT || 8000;
