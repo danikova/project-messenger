@@ -1,14 +1,18 @@
 {
-  "name": "messenger",
-  "version": "1.0.0",
-  "description": "node js backend for messenger",
-  "main": "src/server.js",
+  "name": "messenger-backend",
+  "version": "0.9.0",
+  "description": "node js backend for project-messenger",
+  "main": "backend/src/server.js",
   "scripts": {
-    "start": "NODE_ENV=development && nodemon src/server.js",
-    "test": "NODE_ENV=test && jest --testTimeout=10000"
+    "start": "NODE_ENV=production && nodemon backend/src/server.js",
+    "start_dev": "NODE_ENV=development && nodemon backend/src/server.js",
+    "build": "cd frontend && npm install && npm run build"
   },
   "author": "Daniel Kovacs",
   "license": "ISC",
+  "engines": {
+    "node": "14.16.1"
+  },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
     "app-root-path": "^3.0.0",
@@ -16,8 +20,8 @@
     "bcryptjs": "^2.4.3",
     "chalk": "^4.1.0",
     "color-scheme": "^1.0.1",
-    "config": "^3.3.1",
     "cookie-session": "^1.4.0",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-fileupload": "^1.2.1",
     "express-list-endpoints": "^4.0.1",

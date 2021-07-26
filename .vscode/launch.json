@@ -6,7 +6,7 @@
             "request": "launch",
             "name": "Run Server",
             "skipFiles": ["<node_internals>/**"],
-            "program": "${workspaceFolder}/src/server.js",
+            "program": "${workspaceFolder}/backend/src/server.js",
             "resolveSourceMapLocations": [
                 "${workspaceFolder}/**",
                 "!**/node_modules/**"

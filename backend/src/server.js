@@ -100,6 +100,13 @@ app.use(function (err, req, res, next) {
     });
 });
 
+if (NODE_ENV !== 'development')
+    app.get('*', (req, res) => {
+        res.sendFile(
+            path.resolve(__dirname, '../frontend/build', 'index.html'),
+        );
+    });
+
 // -----------------------------------------
 //
 //    Start server
