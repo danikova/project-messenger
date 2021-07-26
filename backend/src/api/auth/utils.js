@@ -1,8 +1,9 @@
 const Joi = require('@hapi/joi');
 const axios = require('axios');
 const User = require('../users/model');
-const config = require('config');
 const { OAuth2Client } = require('google-auth-library');
+
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 
 const makeRandomString = (length) => {
     var result = [];
@@ -55,7 +56,7 @@ exports.findOrCreateOAuthUser = async (
 };
 
 exports.fetchGoogleCredentials = async (token) => {
-    const googleClientId = config.get('authentication.googleClientId');
+    const googleClientId = GOOGLE_CLIENT_ID;
     const client = new OAuth2Client(googleClientId);
     const ticket = await client.verifyIdToken({
         idToken: token,

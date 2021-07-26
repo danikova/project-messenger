@@ -1,4 +1,3 @@
-const config = require('config');
 const express = require('express');
 const http = require('http');
 const morgan = require('morgan');
@@ -13,22 +12,13 @@ const setAuthRoutes = require('./api/auth/routes');
 
 // -----------------------------------------
 //
-//    Checking config file
-//
-// -----------------------------------------
-for (const key of ['privatekey', 'googleClientId']) {
-    if (!config.has(`authentication.${key}`)) {
-        fatal(`FATAL ERROR: ${key} is not defined.`);
-        process.exit(1);
-    }
-}
-
-// -----------------------------------------
-//
 //    Initial setup
 //
 // -----------------------------------------
+require('dotenv').config();
+
 const NODE_ENV = process.env.NODE_ENV;
+const PORT = process.env.PORT || 8000;
 const app = express();
 const server = http.createServer(app);
 
@@ -112,18 +102,10 @@ if (NODE_ENV !== 'development')
 //    Start server
 //
 // -----------------------------------------
-server.listen(config.get('server.port'), config.get('server.host'), () => {
-    info(
-        `Server is running on ${config.get('server.host')}:${config.get(
-            'server.port',
-        )}`,
-    );
+server.listen(PORT, () => {
+    info(`Server is running on ${PORT}`);
     startSocketIO(server, '/comm/socket', () => {
-        info(
-            `SocketIO is listening on ${config.get('server.host')}:${config.get(
-                'server.port',
-            )}/comm/socket`,
-        );
+        info(`SocketIO is listening on ${PORT}/comm/socket`);
     });
     databaseSetup();
 });

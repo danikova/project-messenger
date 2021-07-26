@@ -1,4 +1,3 @@
-const config = require('config');
 const Rooms = require('./model');
 const mongoose = require('mongoose');
 const User = require('../users/model');
@@ -6,7 +5,7 @@ const wrap = require('../../services/async.view.wrapper');
 const SocketGlobals = require('../../socket/SocketGlobals');
 const { saveFilesToRoom } = require('./utils');
 
-const roomMessageCount = config.get('api.room.messageCount') || 50;
+const roomMessageCount = 50;
 
 exports.createRoom = wrap(async (req, res) => {
     try {

@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
-const config = require('config');
 const User = require('../api/users/model');
+
+const PRIVATE_KEY = process.env.PRIVATE_KEY;
 
 module.exports = async (req, res, next) => {
     const token = req.headers['x-access-token'] || req.headers['authorization'];
@@ -15,7 +16,7 @@ module.exports = async (req, res, next) => {
     try {
         const decoded = jwt.verify(
             token,
-            config.get('authentication.privatekey'),
+            PRIVATE_KEY,
         );
         const { _id } = decoded;
         const user = await User.findOne({ _id: _id });

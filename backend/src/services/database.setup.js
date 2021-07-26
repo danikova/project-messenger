@@ -1,20 +1,21 @@
 const mongoose = require('mongoose');
-const config = require('config');
 const { info, warning, error, fatal } = require('./colored.logger');
 
+const MONGODB_URL = process.env.MONGODB_URL;
+const MONGODB_NAME = process.env.MONGODB_NAME;
+const MONGODB_URI =
+    process.env.MONGODB_URI || `mongodb://${MONGODB_URL}/${MONGODB_NAME}`;
+
 module.exports = function () {
-    mongoose.connect(
-        `mongodb://${config.get('db.url')}/${config.get('db.name')}`,
-        {
-            useCreateIndex: true,
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useFindAndModify: false,
-        },
-    );
+    mongoose.connect(MONGODB_URI, {
+        useCreateIndex: true,
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useFindAndModify: false,
+    });
 
     mongoose.connection.on('connected', function () {
-        info(`Mongoose is connected on ${config.get('db.url')}`);
+        info(`Mongoose is connected on ${MONGODB_URI}`);
     });
 
     mongoose.connection.on('error', function (err) {

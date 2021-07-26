@@ -1,4 +1,3 @@
-const config = require('config');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
@@ -7,6 +6,7 @@ const { generateColors } = require('../utils');
 const { removeAccents, createNamingSuggestions } = require('./utils');
 
 const usernameMaxLength = 8;
+const PRIVATE_KEY = process.env.PRIVATE_KEY;
 
 UserSchema.statics = {
     create: async function (data) {
@@ -72,7 +72,7 @@ UserSchema.statics = {
 UserSchema.methods.generateAuthToken = function () {
     const token = jwt.sign(
         { _id: this._id },
-        config.get('authentication.privatekey'),
+        PRIVATE_KEY,
     );
     return token;
 };
