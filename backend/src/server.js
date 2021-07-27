@@ -64,6 +64,13 @@ app.use('/auth/', setAuthRoutes());
 //
 // -----------------------------------------
 
+if (NODE_ENV !== 'production')
+    app.get('*', (req, res) => {
+        res.sendFile(
+            path.resolve(__dirname, '../frontend/build', 'index.html'),
+        );
+    });
+
 // app.use(function (req, res, next) {
 //     res.status(404).send({
 //         error: {
@@ -92,13 +99,6 @@ app.use(function (err, req, res, next) {
         },
     });
 });
-
-if (NODE_ENV !== 'development')
-    app.get('*', (req, res) => {
-        res.sendFile(
-            path.resolve(__dirname, '../frontend/build', 'index.html'),
-        );
-    });
 
 // -----------------------------------------
 //
