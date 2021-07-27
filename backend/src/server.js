@@ -63,14 +63,16 @@ app.use('/auth/', setAuthRoutes());
 //    Error handling view
 //
 // -----------------------------------------
-app.use(function (req, res, next) {
-    res.status(404).send({
-        error: {
-            templateName: 'api.error.404',
-            status: 404,
-        },
-    });
-});
+
+// app.use(function (req, res, next) {
+//     res.status(404).send({
+//         error: {
+//             templateName: 'api.error.404',
+//             status: 404,
+//         },
+//     });
+// });
+
 app.use(function (err, req, res, next) {
     error(
         `// -----------------------------------------
