@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const path = require('path');
 const http = require('http');
 const morgan = require('morgan');
 const fileUpload = require('express-fileupload');
@@ -50,6 +51,9 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// if (process.env.NODE_ENV === 'production')
+app.use(express.static(path.resolve(__dirname, '../../frontend/build')));
+
 // -----------------------------------------
 //
 //    Views
@@ -64,10 +68,10 @@ app.use('/auth/', setAuthRoutes());
 //
 // -----------------------------------------
 
-if (NODE_ENV !== 'production')
+if (process.env.NODE_ENV === 'production')
     app.get('*', (req, res) => {
         res.sendFile(
-            path.resolve(__dirname, '../frontend/build', 'index.html'),
+            path.resolve(__dirname, '../../frontend/build', 'index.html'),
         );
     });
 
@@ -80,25 +84,25 @@ if (NODE_ENV !== 'production')
 //     });
 // });
 
-app.use(function (err, req, res, next) {
-    error(
-        `// -----------------------------------------
-        //
-        //    Server error
-        //
-        // -----------------------------------------
-        `,
-        err.stack,
-        '// -----------------------------------------',
-    );
-    res.status(500).send({
-        error: {
-            templateName: 'api.error.500',
-            consoleLog: err.toString(),
-            status: 500,
-        },
-    });
-});
+// app.use(function (err, req, res, next) {
+//     error(
+//         `// -----------------------------------------
+//         //
+//         //    Server error
+//         //
+//         // -----------------------------------------
+//         `,
+//         err.stack,
+//         '// -----------------------------------------',
+//     );
+//     res.status(500).send({
+//         error: {
+//             templateName: 'api.error.500',
+//             consoleLog: err.toString(),
+//             status: 500,
+//         },
+//     });
+// });
 
 // -----------------------------------------
 //
