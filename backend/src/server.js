@@ -24,6 +24,9 @@ const PORT = process.env.PORT || 8000;
 const app = express();
 const server = http.createServer(app);
 
+const MEDIA_PATH = path.resolve(__dirname, 'media');
+const FRONTEND_PATH = path.resolve(__dirname, '../../frontend/build');
+
 // -----------------------------------------
 //
 //    Middlewares
@@ -31,7 +34,6 @@ const server = http.createServer(app);
 // -----------------------------------------
 if (NODE_ENV === 'development') {
     app.use(morgan('dev'));
-    app.use(express.static(__dirname));
 } else {
     app.use(
         morgan(
@@ -51,9 +53,6 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// if (process.env.NODE_ENV === 'production')
-app.use(express.static(path.resolve(__dirname, '../../frontend/build')));
-
 // -----------------------------------------
 //
 //    Views
@@ -62,47 +61,12 @@ app.use(express.static(path.resolve(__dirname, '../../frontend/build')));
 app.use('/api/', setApiRoutes());
 app.use('/auth/', setAuthRoutes());
 
-// -----------------------------------------
-//
-//    Error handling view
-//
-// -----------------------------------------
+app.use('/media/', express.static(MEDIA_PATH));
+app.use(express.static(FRONTEND_PATH));
 
-if (process.env.NODE_ENV === 'production')
-    app.get('*', (req, res) => {
-        res.sendFile(
-            path.resolve(__dirname, '../../frontend/build', 'index.html'),
-        );
-    });
-
-// app.use(function (req, res, next) {
-//     res.status(404).send({
-//         error: {
-//             templateName: 'api.error.404',
-//             status: 404,
-//         },
-//     });
-// });
-
-// app.use(function (err, req, res, next) {
-//     error(
-//         `// -----------------------------------------
-//         //
-//         //    Server error
-//         //
-//         // -----------------------------------------
-//         `,
-//         err.stack,
-//         '// -----------------------------------------',
-//     );
-//     res.status(500).send({
-//         error: {
-//             templateName: 'api.error.500',
-//             consoleLog: err.toString(),
-//             status: 500,
-//         },
-//     });
-// });
+app.get('*', (req, res) => {
+    res.sendFile(path.join(FRONTEND_PATH, 'index.html'));
+});
 
 // -----------------------------------------
 //
