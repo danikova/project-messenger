@@ -23,10 +23,12 @@ const PreviewWrapper = styled.div`
 
         .preview-avatar-close-btn {
             display: none;
-            position: fixed;
+            position: absolute;
             margin: 2px;
             cursor: pointer;
-            transform: translate(15px, -15px);
+            top: -10px;
+            right: -10px;
+            z-index: 1000;
         }
     }
 `;
