@@ -81,7 +81,7 @@ export class FocusedChatroomWindow extends React.Component {
                     <ChatroomMessages className='chatroom-messages-wrapper' />
                     <div className='input-field-wrapper'>
                         <FocusedChatroomInputField
-                            focusedRoomId={this.props.focusedRoomId}
+                            focusedRoomId={_id}
                         />
                     </div>
                 </FlexWindowContentWithoutTopPadding>

@@ -74,7 +74,7 @@ const ContentGrid = styled(MaxHeightGrid)`
 export function FocusedChatroomInputField({ focusedRoomId }) {
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
     const [files, setFiles] = useState([]);
-    const [processing, setProcessing] = useState(false);
+    const [processing, setProcessing] = useState(!focusedRoomId ? true : false);
     const domEditor = useRef();
     const intl = useIntl();
 
