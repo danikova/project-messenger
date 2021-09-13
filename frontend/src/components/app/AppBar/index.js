@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import React from 'react';
 
-import { AppBar as OriginalAppBar, Toolbar, TextField, Button } from 'react95';
+import { AppBar as OriginalAppBar, Toolbar, Button } from 'react95';
 import { AppbarList } from './AppbarList';
 import { AvatarHolder } from '../../shared/AvatarHolder';
 import { LocaleSelector } from '../../shared/LocaleSelector';
@@ -82,12 +82,12 @@ export class AppBar extends React.Component {
                     </ToolbarContentWrapper>
                     <ToolbarContentWrapper>
                         <LocaleSelector />
-                        <TextField
+                        {/* <TextField
                             placeholder={this.props.intl.formatMessage({
                                 id: 'appbar.searchPlaceholder',
                             })}
                             width={300}
-                        />
+                        /> */}
                     </ToolbarContentWrapper>
                 </CustomToolbar>
             </CustomAppBar>
