@@ -79,9 +79,9 @@ function FullviewPicture({ file, getSrc, getType, ...props }) {
     return (
         <div className='grid-carousel-item full-center'>
             {src && src.startsWith('data:') ? (
-                <Magnifier imageSrc={src} imageAlt={file.name} />
+                <img alt={file.name} src={src} {...props} />
             ) : (
-                <img alt={file.name} {...props} />
+                <Magnifier imageSrc={src} imageAlt={file.name} />
             )}
         </div>
     );
