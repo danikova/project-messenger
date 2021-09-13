@@ -25,12 +25,6 @@ export function AppbarList(props) {
             }}
             onClick={props.toolbarClose}
         >
-            <ListItem onClick={() => historyPush(FRONTEND_SETTINGS_URL)}>
-                <span role='img' aria-label='👨‍💻'>
-                    ⚙️
-                </span>
-                <FormattedMessage id='appbar.startBtn.List.settings' />
-            </ListItem>
             <ListItem
                 onClick={() => {
                     if (activeRoom && activeRoom._id)
@@ -48,6 +42,12 @@ export function AppbarList(props) {
                 <FormattedMessage id='appbar.startBtn.List.chatrooms' />
             </ListItem>
             <Divider />
+            <ListItem onClick={() => historyPush(FRONTEND_SETTINGS_URL)}>
+                <span role='img' aria-label='👨‍💻'>
+                    ⚙️
+                </span>
+                <FormattedMessage id='appbar.startBtn.List.settings' />
+            </ListItem>
             <ListItem
                 onClick={() => {
                     logoutUser();
