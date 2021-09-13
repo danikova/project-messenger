@@ -82,7 +82,7 @@ exports.pushMessage = wrap(async (req, res) => {
         };
 
         if (req.files && Object.keys(req.files).length !== 0)
-            messageObj.files = saveFilesToRoom(room._id, req.files);
+            messageObj.files = await saveFilesToRoom(room._id, req.files);
 
         if (messageObj.message || messageObj.files.length !== 0) {
             const sc = SocketGlobals.activeUsers[req.user._id] || null;
