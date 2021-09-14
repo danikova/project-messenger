@@ -1,6 +1,7 @@
 const { v4: uuid } = require('uuid');
 const path = require('path');
-const appRoot = require('app-root-path');
+const { DEFAULT_STORAGE } = require('../../services/variables');
+const { error } = require('../../services/colored.logger');
 
 exports.saveFilesToRoom = async (roomId, files) => {
     const result = [];
@@ -9,15 +10,14 @@ exports.saveFilesToRoom = async (roomId, files) => {
             const file = files[fileKey];
             const ext = file.name.split('.').pop();
             const newFileName = `${Date.now()}.${uuid()}.${ext}`;
-            const uri = ['', 'media', roomId, newFileName].join('/');
-            const absPath = path.join(appRoot.path, 'backend', 'src', uri);
-            await file.mv(absPath);
-            result.push({
-                name: file.name,
-                mimetype: file.mimetype,
-                uri,
-            });
-        } catch {}
+            const data = await DEFAULT_STORAGE.save(
+                file,
+                path.join(roomId.toString(), newFileName),
+            );
+            result.push(data);
+        } catch (err) {
+            error(err);
+        }
     }
     return result;
 };

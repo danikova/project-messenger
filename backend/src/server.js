@@ -8,10 +8,11 @@ const fileUpload = require('express-fileupload');
 
 const databaseSetup = require('./services/database.setup');
 const startSocketIO = require('./socket');
-const { info, error, fatal } = require('./services/colored.logger');
+const { info } = require('./services/colored.logger');
 
 const setApiRoutes = require('./api/routes');
 const setAuthRoutes = require('./api/auth/routes');
+const { MEDIA_PATH, FRONTEND_PATH } = require('./services/variables');
 
 // -----------------------------------------
 //
@@ -24,17 +25,16 @@ const PORT = process.env.PORT || 8000;
 const app = express();
 const server = http.createServer(app);
 
-const MEDIA_PATH = path.resolve(__dirname, 'media');
-const FRONTEND_PATH = path.resolve(__dirname, '../../frontend/build');
-
 // -----------------------------------------
 //
 //    Middlewares
 //
 // -----------------------------------------
 if (NODE_ENV === 'development') {
+    app.use('/media/', express.static(MEDIA_PATH));
     app.use(morgan('dev'));
 } else {
+    app.use(express.static(FRONTEND_PATH));
     app.use(
         morgan(
             '[:date[clf]] :status :method :url :res[content-length] - :response-time ms',
@@ -43,9 +43,9 @@ if (NODE_ENV === 'development') {
 }
 app.use(
     fileUpload({
-        createParentPath: true,
         limits: { fileSize: 50 * 1024 * 1024 },
         uploadTimeout: 0,
+        createParentPath: true,
         useTempFiles: true,
         tempFileDir: '/tmp/',
     }),
@@ -60,9 +60,6 @@ app.use(express.urlencoded({ extended: true }));
 // -----------------------------------------
 app.use('/api/', setApiRoutes());
 app.use('/auth/', setAuthRoutes());
-
-app.use('/media/', express.static(MEDIA_PATH));
-app.use(express.static(FRONTEND_PATH));
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(FRONTEND_PATH, 'index.html'));
