@@ -12,7 +12,7 @@ import { FileCarousel } from './FileCarousel';
 import { fileToBase64 } from '../../../../shared/utils';
 
 const oneMb = 1000000;
-const maxFileSize = 15 * oneMb;
+const maxFileSize = 5 * oneMb;
 const maxFileCount = 9;
 
 const CustomCutout = styled(Cutout)`
