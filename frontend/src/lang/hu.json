@@ -1,52 +1,52 @@
 {
-    "auth.login.goToRegisterText": "Ha nincs működő profilod ",
+    "auth.login.goToRegisterText": "Ha még nincs működő profilod ",
     "auth.login.registerLink": "-> Regisztrálj (kattints)",
     "auth.login.btnText": "Bejelentkezés",
-    "auth.login.googleBtnText": "Bejelentkezés Google profilal",
-    "auth.login.facebookBtnText": "Bejelentkezés Facebook profilal",
+    "auth.login.googleBtnText": "Bejelentkezés Google profillal",
+    "auth.login.facebookBtnText": "Bejelentkezés Facebook profillal",
     "auth.login.snackbar.successful": "Sikeres bejelentkezés",
     "auth.login.snackbar.oAuthFailure": "Váratlan hiba történt. Kérlek próbálj más módon bejelentkezni.",
 
-    "auth.register.goToLoginText": "Ha van működő profilod ",
-    "auth.register.loginLink": "-> Jelenetkezz be (kattints)",
+    "auth.register.goToLoginText": "Ha már van működő profilod ",
+    "auth.register.loginLink": "-> Jelentkezz be (kattints)",
     "auth.register.btnText": "Fiók létrehozása",
     "auth.register.snackbar.successful": "Sikeresen regisztráltál. Kérlek jelentkezz be az új adataiddal.",
 
     "auth.logout": "Sikeres kijelentkezés",
 
-    "auth.username": "felhasználónév",
-    "auth.password": "jelszó",
+    "auth.username": "Felhasználónév",
+    "auth.password": "Jelszó",
 
     "appbar.websocket.waitingForConnection.msg": "Csatlakozás...",
 
     "appbar.startBtn.List.settings": "Beállítások",
     "appbar.startBtn.List.chatrooms": "Chatszobák",
     "appbar.startBtn.List.logout": "Kijelentkezés",
-    "appbar.searchPlaceholder": "keresés...",
+    "appbar.searchPlaceholder": "Keresés...",
 
     "chatrooms.roomList.selfUser": "Te",
     "chatrooms.roomList.selfUser.isFileMessage": "Feltöltöttél egy fájlt",
     "chatrooms.roomList.otherUser.isFileMessage": "Feltöltött egy fájlt",
 
     "chatrooms.roomList.createNewRoom.btnText": "Új szoba létrehozása",
-    "chatrooms.roomList.createNewRoom.dialog.TextField.placeholder": "új szoba neve",
-    "chatrooms.roomList.createNewRoom.dialog.btnText": "ok",
+    "chatrooms.roomList.createNewRoom.dialog.TextField.placeholder": "Új szoba neve",
+    "chatrooms.roomList.createNewRoom.dialog.btnText": "Ok",
 
-    "chatrooms.focusedChatroom.addUser.btnText": "felhasználó hozzáadása",
-    "chatrooms.focusedChatroom.addUser.dialog.TextField.placeholder": "felhasználónév vagy email",
-    "chatrooms.focusedChatroom.addUser.dialog.btnText": "ok",
+    "chatrooms.focusedChatroom.addUser.btnText": "Felhasználó hozzáadása",
+    "chatrooms.focusedChatroom.addUser.dialog.TextField.placeholder": "Felhasználónév vagy email",
+    "chatrooms.focusedChatroom.addUser.dialog.btnText": "Ok",
 
-    "chatrooms.focusedChatroom.leaveRoom.btnText": "szoba elhagyása",
-    "chatrooms.focusedChatroom.leaveRoom.dialog.description": "Biztos el akarod hagyni ezt a szobát?",
-    "chatrooms.focusedChatroom.leaveRoom.dialog.yes.BtnText": "igen",
-    "chatrooms.focusedChatroom.leaveRoom.dialog.no.BtnText": "nem",
+    "chatrooms.focusedChatroom.leaveRoom.btnText": "Szoba elhagyása",
+    "chatrooms.focusedChatroom.leaveRoom.dialog.description": "Biztosan el szeretnéd hagyni ezt a szobát?",
+    "chatrooms.focusedChatroom.leaveRoom.dialog.yes.BtnText": "Igen",
+    "chatrooms.focusedChatroom.leaveRoom.dialog.no.BtnText": "Nem",
 
     "chatrooms.focusedChatroom.loadOlderMessage.btnText": "Régebbi üzenetek betöltése",
     "chatrooms.focusedChatroom.scrollToBottom.btnText": "Görgetés az aljára",
 
-    "chatrooms.focusedChatroom.newMessage.TextField.placeholder": "kezdj el gépelni vagy dobj ide fájlokat a feltöltéshez...",
-    "chatrooms.focusedChatroom.newMessage.TextField.dndActive.placeholder": "Feltöltéshez dobd ide a fájlokat...",
-    "chatrooms.focusedChatroom.newMessage.btnText": "küldés",
+    "chatrooms.focusedChatroom.newMessage.TextField.placeholder": "Kezdj el gépelni vagy húzz ide fájlokat a feltöltéshez...",
+    "chatrooms.focusedChatroom.newMessage.TextField.dndActive.placeholder": "Feltöltéshez húzd ide a fájlokat...",
+    "chatrooms.focusedChatroom.newMessage.btnText": "Küldés",
 
     "helmet.login.title": "Bejelentkezés",
     "helmet.register.title": "Regisztráció",
@@ -69,8 +69,8 @@
     "profile.settings.fieldsets.font.vintageFontLabel": "Retró betűtípus",
     "profile.settings.fieldsets.scanLineLabel": "Retró csíkozódás",
     "profile.settings.fieldsets.scanLine.intensityLabel": "Villogás intenzitása",
-    "profile.settings.fieldsets.scanLine.intensity.min": "min",
-    "profile.settings.fieldsets.scanLine.intensity.max": "max",
+    "profile.settings.fieldsets.scanLine.intensity.min": "Minimum",
+    "profile.settings.fieldsets.scanLine.intensity.max": "Maximum",
 
     "api.rooms.serviceMessage.userLeaving": "{username} elhagyta a szobát",
     "api.rooms.serviceMessage.userJoining": "{username} csatlakozott a szobához",

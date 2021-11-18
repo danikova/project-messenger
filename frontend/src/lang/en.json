@@ -14,39 +14,39 @@
 
     "auth.logout": "Successful logout",
 
-    "auth.username": "username",
-    "auth.password": "password",
+    "auth.username": "Username",
+    "auth.password": "Password",
 
     "appbar.websocket.waitingForConnection.msg": "Connectig...",
 
     "appbar.startBtn.List.settings": "Settings",
     "appbar.startBtn.List.chatrooms": "Chatrooms",
     "appbar.startBtn.List.logout": "Logout",
-    "appbar.searchPlaceholder": "search...",
+    "appbar.searchPlaceholder": "Search...",
 
     "chatrooms.roomList.selfUser": "You",
-    "chatrooms.roomList.selfUser.isFileMessage": "uploaded a file",
-    "chatrooms.roomList.otherUser.isFileMessage": "uploaded a file",
+    "chatrooms.roomList.selfUser.isFileMessage": "Uploaded a file",
+    "chatrooms.roomList.otherUser.isFileMessage": "Uploaded a file",
 
     "chatrooms.roomList.createNewRoom.btnText": "Create new room",
-    "chatrooms.roomList.createNewRoom.dialog.TextField.placeholder": "new room name",
-    "chatrooms.roomList.createNewRoom.dialog.btnText": "create",
+    "chatrooms.roomList.createNewRoom.dialog.TextField.placeholder": "New room name",
+    "chatrooms.roomList.createNewRoom.dialog.btnText": "Create",
 
-    "chatrooms.focusedChatroom.addUser.btnText": "add user",
-    "chatrooms.focusedChatroom.addUser.dialog.TextField.placeholder": "username or email",
-    "chatrooms.focusedChatroom.addUser.dialog.btnText": "add",
+    "chatrooms.focusedChatroom.addUser.btnText": "Add user",
+    "chatrooms.focusedChatroom.addUser.dialog.TextField.placeholder": "Username or email",
+    "chatrooms.focusedChatroom.addUser.dialog.btnText": "Add",
 
-    "chatrooms.focusedChatroom.leaveRoom.btnText": "leave room",
+    "chatrooms.focusedChatroom.leaveRoom.btnText": "Leave room",
     "chatrooms.focusedChatroom.leaveRoom.dialog.description": "You are about to leave this chat room, are you sure?",
-    "chatrooms.focusedChatroom.leaveRoom.dialog.yes.BtnText": "yes",
-    "chatrooms.focusedChatroom.leaveRoom.dialog.no.BtnText": "no",
+    "chatrooms.focusedChatroom.leaveRoom.dialog.yes.BtnText": "Yes",
+    "chatrooms.focusedChatroom.leaveRoom.dialog.no.BtnText": "No",
 
     "chatrooms.focusedChatroom.loadOlderMessage.btnText": "Load older messages",
     "chatrooms.focusedChatroom.scrollToBottom.btnText": "Scroll to Bottom",
 
-    "chatrooms.focusedChatroom.newMessage.TextField.placeholder": "type something or drag n drop files...",
+    "chatrooms.focusedChatroom.newMessage.TextField.placeholder": "Type something or drag and drop files...",
     "chatrooms.focusedChatroom.newMessage.TextField.dndActive.placeholder": "Drop files here to upload...",
-    "chatrooms.focusedChatroom.newMessage.btnText": "send",
+    "chatrooms.focusedChatroom.newMessage.btnText": "Send",
 
     "helmet.login.title": "Login",
     "helmet.register.title": "Register",
@@ -69,11 +69,11 @@
     "profile.settings.fieldsets.font.vintageFontLabel": "Vintage font",
     "profile.settings.fieldsets.scanLineLabel": "Scan lines",
     "profile.settings.fieldsets.scanLine.intensityLabel": "Flickering intensity",
-    "profile.settings.fieldsets.scanLine.intensity.min": "min",
-    "profile.settings.fieldsets.scanLine.intensity.max": "max",
+    "profile.settings.fieldsets.scanLine.intensity.min": "Min",
+    "profile.settings.fieldsets.scanLine.intensity.max": "Max",
 
-    "api.rooms.serviceMessage.userLeaving": "{username} is leaved the room",
-    "api.rooms.serviceMessage.userJoining": "{username} is joined the room",
+    "api.rooms.serviceMessage.userLeaving": "{username} leaved the room",
+    "api.rooms.serviceMessage.userJoining": "{username} joined the room",
 
     "api.error.404": "",
     "api.error.500": "",
