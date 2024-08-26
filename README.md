@@ -1,5 +1,8 @@
 # Project Messenger
 
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![GitHub stars](https://img.shields.io/github/stars/danikova/project-messenger)](https://github.com/danikova/project-messenger/stargazers)
+
 **Project Messenger** is a messaging application developed as part of a Bachelor's thesis project. The application is designed to provide secure, efficient, and user-friendly communication through a real-time messaging platform. It is built with modern web technologies and offers various features for seamless user interaction.
 
 ## Table of Contents
@@ -9,8 +12,6 @@
 - [Technologies Used](#technologies-used)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Screenshots](#screenshots)
-- [Contributing](#contributing)
 - [License](#license)
 - [Acknowledgements](#acknowledgements)
 
@@ -71,21 +72,6 @@ To set up the project locally, follow these steps:
 - **Send Messages**: Type your message in the chat window and hit enter to send it.
 - **File Sharing**: Use the attachment button to share files in the chat.
 - **Group Management**: Add or remove users from group chats as needed.
-
-## Screenshots
-
-(Include screenshots of the application to give users a visual understanding of its features and interface.)
-
-## Contributing
-
-Contributions are welcome! If you'd like to contribute to the project, please follow these steps:
-
-1. Fork the repository.
-2. Create a new branch with a descriptive name (`git checkout -b feature-branch-name`).
-3. Make your changes.
-4. Commit your changes (`git commit -m 'Add some feature'`).
-5. Push to the branch (`git push origin feature-branch-name`).
-6. Create a pull request.
 
 ## License
 
